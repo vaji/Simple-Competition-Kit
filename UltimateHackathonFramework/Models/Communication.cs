@@ -7,7 +7,7 @@ using UltimateHackathonFramework.Interfaces;
 
 namespace UltimateHackathonFramework.Models
 {
-    class Communication : ICommunication
+    public class Communication : ICommunication
     {
 
 
