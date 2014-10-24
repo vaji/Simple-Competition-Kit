@@ -9,7 +9,7 @@ namespace UltimateHackathonFramework.Models
 {
     public class ClientManager : IClientManager
     {
-        private IList<IBot> clients;
+        private IList<IBot> clients=new List<IBot>();
 
         public IList<IBot> Clients
         {
@@ -25,12 +25,13 @@ namespace UltimateHackathonFramework.Models
                 string[] subFolders = System.IO.Directory.GetDirectories(currentDirName + @"\Bots");
                 foreach(string subFolder in subFolders)
                 {
-                    //string
-                    //string path=botName+@"\Main.exe";
-                    //if(System.IO.File.Exists(path))
-                    //{
-                    //    this.Clients.Add(new Bot(botName, path));
-                    //}
+                    string [] partPath = subFolder.Split('\\');
+                    string botName = partPath[partPath.Length - 1];
+                    string path=subFolder+@"\Main.exe";
+                    if(System.IO.File.Exists(path))
+                    {
+                        this.Clients.Add(new Bot(botName, path));
+                    }
                 }
             }
         }
