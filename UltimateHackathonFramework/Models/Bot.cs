@@ -7,7 +7,7 @@ using UltimateHackathonFramework.Interfaces;
 
 namespace UltimateHackathonFramework.Models
 {
-    class Bot : IBot
+    public class Bot : IBot
     {
         private string id;
         private string name;
