@@ -7,24 +7,23 @@ using UltimateHackathonFramework.Interfaces;
 
 namespace UltimateHackathonFramework.Models
 {
-    class ClientManager : IClientManager
+    public class ClientManager : IClientManager
     {
+        private IList<IBot> clients;
 
         public IList<IBot> Clients
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
+            get { return clients; }
+            set { clients = value; }
         }
 
         public void ScanForClients()
         {
-            throw new NotImplementedException();
+            string currentDirName = System.IO.Directory.GetCurrentDirectory();
+            //foreach (System.IO.DirectoryInfo d in dirInfos)
+            //{
+             //   Console.WriteLine(d.Name);
+            //}
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UltimateHackathonFramework.Interfaces
 {
-    interface IClientManager
+    public interface IClientManager
     {
         IList<IBot> Clients
         {
