@@ -71,6 +71,13 @@
     <Compile Include="Interfaces\IClientManager.cs" />
     <Compile Include="Interfaces\ICommunication.cs" />
     <Compile Include="IShell.cs" />
+    <Compile Include="Models\Bot.cs" />
+    <Compile Include="Models\ClientManager.cs" />
+    <Compile Include="Models\Communication.cs" />
+    <Compile Include="Models\Game.cs" />
+    <Compile Include="Models\Result.cs" />
+    <Compile Include="Models\Round.cs" />
+    <Compile Include="Models\RoundResult.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -110,9 +117,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
