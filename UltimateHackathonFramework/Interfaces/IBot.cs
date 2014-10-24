@@ -15,7 +15,7 @@ namespace UltimateHackathonFramework.Interfaces
 
         Dictionary<string,string> Communicate(Dictionary<string, string> data);
 
-        void RunBot();
+        void RunBot(ICommunication server);
         void KillBot();
     }
 }
