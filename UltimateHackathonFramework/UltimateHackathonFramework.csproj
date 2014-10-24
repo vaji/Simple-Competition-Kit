@@ -63,13 +63,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppBootstrapper.cs" />
-    <Compile Include="Interfaces\IBot.cs" />
-<<<<<<< HEAD
-    <Compile Include="Interfaces\IRound.cs" />
-    <Compile Include="Interfaces\IRoundResult.cs" />
-=======
-    <Compile Include="Interfaces\IClientManager.cs" />
->>>>>>> 74a55e8369bf44df28f6a81b7775b25dc206d592
+	<Compile Include="Interfaces\IBot.cs" />
+	<Compile Include="Interfaces\IClientManager.cs" />
     <Compile Include="IShell.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="App.xaml.cs">
