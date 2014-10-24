@@ -18,7 +18,9 @@ namespace UltimateHackathonFramework {
             container.Singleton<IEventAggregator, EventAggregator>();
             container.PerRequest<IShell, ShellViewModel>();
             container.Singleton<IClientManager, ClientManager>();
-            
+            container.Singleton<GameViewModel>();
+            container.Singleton<ResultsViewModel>();
+            container.Singleton<ClientsViewModel>();
         }
 
         protected override object GetInstance(Type service, string key) {

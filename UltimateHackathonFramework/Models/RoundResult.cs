@@ -10,5 +10,9 @@ namespace UltimateHackathonFramework.Models
     class RoundResult : IRoundResult
     {
 
+        public string Results
+        {
+            get { throw new NotImplementedException(); }
+        }
     }
 }

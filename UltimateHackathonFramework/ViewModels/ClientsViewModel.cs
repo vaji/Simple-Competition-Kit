@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UltimateHackathonFramework.Interfaces;
 namespace UltimateHackathonFramework {
     public class ClientsViewModel : Caliburn.Micro.PropertyChangedBase 
@@ -7,6 +8,11 @@ namespace UltimateHackathonFramework {
         {
             _clientManager = clientManager;
         }
+
+        public IList<IBot> Bots;
+        public IList<IBot> SelectedBots;
+
+
 
         
         
