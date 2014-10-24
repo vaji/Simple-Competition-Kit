@@ -64,6 +64,8 @@
     </ApplicationDefinition>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="Interfaces\IBot.cs" />
+    <Compile Include="Interfaces\IRound.cs" />
+    <Compile Include="Interfaces\IRoundResult.cs" />
     <Compile Include="IShell.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="App.xaml.cs">
