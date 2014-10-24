@@ -63,6 +63,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppBootstrapper.cs" />
+    <Compile Include="Interfaces\IBot.cs" />
+    <Compile Include="Interfaces\IClientManager.cs" />
     <Compile Include="Interfaces\ICommunication.cs" />
     <Compile Include="IShell.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
