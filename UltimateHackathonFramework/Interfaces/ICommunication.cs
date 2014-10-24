@@ -8,8 +8,8 @@ namespace UltimateHackathonFramework.Interfaces
 {
     public interface ICommunication
     {
-        void Connect(string IpAddress, int PortNumber);
-        void Disconnect();
+        void StartListening(string IpAddress, int PortNumber);
+        void StopListening();
 
         bool IsConnected
         {
