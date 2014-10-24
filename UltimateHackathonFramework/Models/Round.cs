@@ -10,7 +10,7 @@ namespace UltimateHackathonFramework.Models
     class Round : IRound
     {
 
-        public IRoundResult Go(IList<IBot> bots)
+        public IResult Go(IList<IBot> bots)
         {
             throw new NotImplementedException();
         }

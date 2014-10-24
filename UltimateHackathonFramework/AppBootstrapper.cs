@@ -21,6 +21,7 @@ namespace UltimateHackathonFramework {
             container.Singleton<GameViewModel>();
             container.Singleton<ResultsViewModel>();
             container.Singleton<ClientsViewModel>();
+            container.Singleton<IGame, Game>();
         }
 
         protected override object GetInstance(Type service, string key) {

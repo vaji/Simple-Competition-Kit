@@ -35,5 +35,7 @@ namespace UltimateHackathonFramework.Games
         {
             get { throw new NotImplementedException(); }
         }
+
+        public event Action ResultsAvailable;
     }
 }

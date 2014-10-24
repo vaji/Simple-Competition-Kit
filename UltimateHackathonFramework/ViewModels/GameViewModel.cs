@@ -10,6 +10,7 @@ namespace UltimateHackathonFramework {
             _clientsViewModel = clientsViewModel;
             _clientsViewModel.PropertyChanged += (obj, arg) => NotifyOfPropertyChange(() => CanStart);
             _game = game;
+            _game.ResultsAvailable += () => _resultsViewModel.RoundResults = _game.Result;
         }
 
         public void Start()

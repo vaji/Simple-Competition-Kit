@@ -8,7 +8,7 @@ namespace UltimateHackathonFramework.Interfaces
 {
     public interface IGame
     {
-        
+        event Action ResultsAvailable;
         IResult Result { get; }
 
         void StartAll();

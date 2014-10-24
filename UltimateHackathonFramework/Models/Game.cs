@@ -15,12 +15,12 @@ namespace UltimateHackathonFramework.Models
             get { throw new NotImplementedException(); }
         }
 
-        public void StartAll()
+        public virtual void StartAll()
         {
             throw new NotImplementedException();
         }
 
-        public void Start(IList<IBot> bots)
+        public virtual void Start(IList<IBot> bots)
         {
             throw new NotImplementedException();
         }
@@ -35,5 +35,7 @@ namespace UltimateHackathonFramework.Models
         {
             get { throw new NotImplementedException(); }
         }
+
+        public event Action ResultsAvailable;
     }
 }

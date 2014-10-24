@@ -3,9 +3,9 @@ using UltimateHackathonFramework.Interfaces;
 namespace UltimateHackathonFramework {
     public class ResultsViewModel : Caliburn.Micro.PropertyChangedBase 
     {
-        private IRoundResult _results;
+        private IResult _results;
 
-        public IRoundResult RoundResults
+        public IResult RoundResults
         {
             get { return _results; }
             set { _results = value; NotifyOfPropertyChange(() => RoundResults); }

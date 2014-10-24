@@ -7,12 +7,17 @@ using UltimateHackathonFramework.Interfaces;
 
 namespace UltimateHackathonFramework.Models
 {
-    class RoundResult : IRoundResult
+    class RoundResult : IResult
     {
-
+        private string _message;
         public string Results
         {
-            get { throw new NotImplementedException(); }
+            get { return _message; }
+        }
+
+        public RoundResult(string message)
+        {
+            _message = message;
         }
     }
 }

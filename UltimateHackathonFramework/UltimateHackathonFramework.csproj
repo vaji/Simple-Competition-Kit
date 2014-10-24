@@ -68,7 +68,6 @@
     <Compile Include="Interfaces\IBot.cs" />
     <Compile Include="Interfaces\IResult.cs" />
     <Compile Include="Interfaces\IRound.cs" />
-    <Compile Include="Interfaces\IRoundResult.cs" />
     <Compile Include="Interfaces\IClientManager.cs" />
     <Compile Include="Interfaces\ICommunication.cs" />
     <Compile Include="IShell.cs" />
@@ -88,6 +87,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Conventions.cs" />
+    <Page Include="Views\DataTemplates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ResultsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
