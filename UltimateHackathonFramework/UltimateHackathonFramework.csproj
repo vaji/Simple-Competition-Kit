@@ -68,6 +68,7 @@
     <Compile Include="Interfaces\IRound.cs" />
     <Compile Include="Interfaces\IRoundResult.cs" />
     <Compile Include="Interfaces\IClientManager.cs" />
+    <Compile Include="Interfaces\ICommunication.cs" />
     <Compile Include="IShell.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="App.xaml.cs">
