@@ -1,6 +1,8 @@
+
 using UltimateHackathonFramework.Interfaces;
-namespace UltimateHackathonFramework {
-    public class GameViewModel : Caliburn.Micro.PropertyChangedBase 
+namespace UltimateHackathonFramework
+{
+    public class GameViewModel : Caliburn.Micro.PropertyChangedBase
     {
         private ClientsViewModel _clientsViewModel;
         private ResultsViewModel _resultsViewModel;
@@ -17,11 +19,13 @@ namespace UltimateHackathonFramework {
         {
             _game.Start(_clientsViewModel.SelectedBots);
         }
-        public bool CanStart { 
-            get { 
-                    var botCount =_clientsViewModel.SelectedBots.Count;
-                    return  botCount >= _game.MinimumBots && botCount <= _game.MaximumBots; 
-            } 
+        public bool CanStart
+        {
+            get
+            {
+                var botCount = _clientsViewModel.SelectedBots.Count;
+                return botCount >= _game.MinimumBots && botCount <= _game.MaximumBots;
+            }
         }
     }
 }

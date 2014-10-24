@@ -1,6 +1,8 @@
+
 using UltimateHackathonFramework.Interfaces;
-namespace UltimateHackathonFramework {
-    public class ShellViewModel : Caliburn.Micro.PropertyChangedBase, IShell 
+namespace UltimateHackathonFramework
+{
+    public class ShellViewModel : Caliburn.Micro.PropertyChangedBase, IShell
     {
 
         public ClientsViewModel ClientsViewModel
@@ -16,7 +18,7 @@ namespace UltimateHackathonFramework {
             ResultsViewModel = resultsViewModel;
             GameViewModel = gameViewModel;
         }
-        
-        
+
+
     }
 }

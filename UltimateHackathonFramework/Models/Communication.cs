@@ -7,7 +7,7 @@ using UltimateHackathonFramework.Interfaces;
 
 namespace UltimateHackathonFramework.Models
 {
-    class Communication : ICommunication
+    public class Communication : ICommunication
     {
 
 
@@ -35,6 +35,16 @@ namespace UltimateHackathonFramework.Models
         }
 
         public Dictionary<string, string> Send(Dictionary<string, string> message)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void StartListening(string IpAddress, int PortNumber)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void StopListening()
         {
             throw new NotImplementedException();
         }
