@@ -8,15 +8,13 @@ namespace UltimateHackathonFramework.Interfaces
 {
     interface IClientManager
     {
-        private IList<IBot> clients;
-
-        public IList<IBot> Clients
+        IList<IBot> Clients
         {
-            get { return clients; }
-            set { clients = value; }
+            get;
+            set;
         }
         
-        public void ScanForClients();
+        void ScanForClients();
         
     }
 }
