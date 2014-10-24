@@ -8,10 +8,10 @@ namespace UltimateHackathonFramework.Interfaces
 {
     public interface IGame
     {
-        public IResult Result { get; }
+        IResult Result { get; }
 
-        public void StartAll();
-        public void Start(IList<IBot> bots);
+        void StartAll();
+        void Start(IList<IBot> bots);
 
 
     }

@@ -65,6 +65,7 @@
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="Interfaces\IGame.cs" />
     <Compile Include="Interfaces\IBot.cs" />
+    <Compile Include="Interfaces\IResult.cs" />
     <Compile Include="Interfaces\IRound.cs" />
     <Compile Include="Interfaces\IRoundResult.cs" />
     <Compile Include="Interfaces\IClientManager.cs" />
