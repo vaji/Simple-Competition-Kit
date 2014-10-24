@@ -10,6 +10,8 @@ namespace UltimateHackathonFramework.Models
     class Communication : ICommunication
     {
 
+
+
         public void Connect(string IpAddress, int PortNumber)
         {
             throw new NotImplementedException();
