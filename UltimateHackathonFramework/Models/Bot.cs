@@ -9,15 +9,24 @@ namespace UltimateHackathonFramework.Models
 {
     class Bot : IBot
     {
-
+        private string id;
+        private string name;
+        private string path;
+        public Bot() { }
+        public Bot(string name, string path)
+        {
+            this.id = name;
+            this.name = name;
+            this.path = path;
+        }
         public string ID
         {
-            get { throw new NotImplementedException(); }
+            get { return this.id; }
         }
 
         public string Name
         {
-            get { throw new NotImplementedException(); }
+            get { return this.name; }
         }
 
         public Dictionary<string, string> Communicate(Dictionary<string, string> data)
