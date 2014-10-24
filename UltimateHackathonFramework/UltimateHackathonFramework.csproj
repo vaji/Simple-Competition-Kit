@@ -79,6 +79,8 @@
     <Compile Include="Models\Result.cs" />
     <Compile Include="Models\Round.cs" />
     <Compile Include="Models\RoundResult.cs" />
+    <Compile Include="ViewModels\GameViewModel.cs" />
+    <Compile Include="ViewModels\ClientsViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
