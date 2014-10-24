@@ -9,6 +9,7 @@ namespace UltimateHackathonFramework.Interfaces
     public interface ICommunication
     {
         void StartListening(string IpAddress, int PortNumber);
+        System.Net.Sockets.TcpClient GetConnectedClient();
         void StopListening();
 
         bool IsConnected
@@ -16,8 +17,5 @@ namespace UltimateHackathonFramework.Interfaces
             get;
             set;
         }
-
-        Dictionary<string, string> Send(Dictionary<string, string> message);
-
     }
 }
