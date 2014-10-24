@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UltimateHackathonFramework.Interfaces
 {
-    interface ICommunication
+    public interface ICommunication
     {
         void Connect(string IpAddress, int PortNumber);
         void Disconnect();

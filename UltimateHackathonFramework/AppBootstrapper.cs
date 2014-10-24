@@ -2,7 +2,8 @@ namespace UltimateHackathonFramework {
     using System;
     using System.Collections.Generic;
     using Caliburn.Micro;
-
+    using UltimateHackathonFramework.Interfaces;
+    using UltimateHackathonFramework.Models;
     public class AppBootstrapper : BootstrapperBase {
         SimpleContainer container;
 
@@ -16,6 +17,8 @@ namespace UltimateHackathonFramework {
             container.Singleton<IWindowManager, WindowManager>();
             container.Singleton<IEventAggregator, EventAggregator>();
             container.PerRequest<IShell, ShellViewModel>();
+            container.Singleton<IClientManager, ClientManager>();
+            
         }
 
         protected override object GetInstance(Type service, string key) {
