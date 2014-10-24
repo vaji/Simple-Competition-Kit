@@ -38,5 +38,15 @@ namespace UltimateHackathonFramework.Models
         {
             throw new NotImplementedException();
         }
+
+        public void StartListening(string IpAddress, int PortNumber)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void StopListening()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
