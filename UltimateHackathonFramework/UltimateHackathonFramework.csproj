@@ -63,9 +63,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppBootstrapper.cs" />
-<<<<<<< HEAD
     <Compile Include="Interfaces\IGame.cs" />
-=======
     <Compile Include="Interfaces\IBot.cs" />
     <Compile Include="Interfaces\IRound.cs" />
     <Compile Include="Interfaces\IRoundResult.cs" />
