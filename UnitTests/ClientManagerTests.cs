@@ -19,15 +19,7 @@ namespace UnitTests
             clientManager.ScanForClients();
             Assert.AreEqual(1,clientManager.Clients.Count);
             Assert.AreEqual("Bot_testowy",clientManager.Clients[0].Name);
-            
- 
-
-
-
-
             Assert.Fail();
-            
-
         }
     }
 }
