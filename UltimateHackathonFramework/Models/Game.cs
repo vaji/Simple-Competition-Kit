@@ -10,5 +10,19 @@ namespace UltimateHackathonFramework.Models
     class Game : IGame
     {
 
+        public IResult Result
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public void StartAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Start(IList<IBot> bots)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

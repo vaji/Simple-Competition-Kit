@@ -10,5 +10,29 @@ namespace UltimateHackathonFramework.Models
     class Bot : IBot
     {
 
+        public string ID
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public string Name
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public Dictionary<string, string> Communicate(Dictionary<string, string> data)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RunBot()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void KillBot()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

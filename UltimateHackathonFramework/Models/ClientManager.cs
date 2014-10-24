@@ -10,5 +10,21 @@ namespace UltimateHackathonFramework.Models
     class ClientManager : IClientManager
     {
 
+        public IList<IBot> Clients
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public void ScanForClients()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
