@@ -16,7 +16,7 @@ namespace UltimateHackathonFramework.Interfaces
         void addPoints(double points);
         TcpClient CommunicationChannel { get; set; }
 
-        string CurrentStatus { get; set; } 
+        Enums.State CurrentState { get; set; } 
 
         Dictionary<string,string> Communicate(Dictionary<string, string> data);
 

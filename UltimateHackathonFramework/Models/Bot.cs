@@ -19,10 +19,10 @@ namespace UltimateHackathonFramework.Models
         private string _name;
         private string _path;
         private Process _process=null;
-        private string _currentStatus;
+        private Enums.State _currentStatus;
         private TcpClient _CommunicationChannel = null;
         private ICommunication _server;
-        public string CurrentSatus
+        public Enums.State CurrentSatus
         {
             get { return _currentStatus; }
             set { _currentStatus = value; }
@@ -100,7 +100,7 @@ namespace UltimateHackathonFramework.Models
                 }
                 catch (Exception e)
                 {
-
+                    throw
                 }
             }
             else
@@ -149,19 +149,6 @@ namespace UltimateHackathonFramework.Models
             }
         }
 
-
-        public string CurrentStatus
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
         private double _points;
 
         public double Points
@@ -173,6 +160,19 @@ namespace UltimateHackathonFramework.Models
         {
             _points += points;
         }
-        
+
+
+
+        public Enums.State CurrentState
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
     }
 }

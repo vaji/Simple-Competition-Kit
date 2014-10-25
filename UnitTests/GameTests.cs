@@ -97,6 +97,19 @@ namespace UnitTests
         {
             throw new NotImplementedException();
         }
+
+
+        public Enums.State CurrentState
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
     }
     public class GameTests
     {
