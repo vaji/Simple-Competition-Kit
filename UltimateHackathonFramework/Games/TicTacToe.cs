@@ -13,7 +13,6 @@ namespace UltimateHackathonFramework.Games
        public int numer;
        public bool taken;
        public string sign;
-   
     }
 
     class TicTacToe : Round
