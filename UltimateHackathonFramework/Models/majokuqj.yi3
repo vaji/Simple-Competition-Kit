@@ -1,0 +1,72 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using UltimateHackathonFramework.Interfaces;
+
+namespace UltimateHackathonFramework.Models
+{
+    public class Bot : IBot
+    {
+        private string _id;
+        private string _name;
+        private string _path;
+        private Process _process=null;
+
+        public Bot() { }
+        public Bot(string name, string path)
+        {
+            this._id = name;
+            this._name = name;
+            this._path = path;
+        }
+        public string ID
+        {
+            get { return this._id; }
+        }
+
+        public string Name
+        {
+            get { return this._name; }
+        }
+
+        public Dictionary<string, string> Communicate(Dictionary<string, string> data)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RunBot(ICommunication server)
+        {
+            if(File.Exists(_path))
+            {
+            //    _process = Process.Start(_path, server.IP + " " + server.Port);
+                _process = Process.Start(new ProcessStartInfo(_path, server.IP + " " + server.Port));
+            }
+            else
+            {
+                throw new FileNotFoundException(_path);
+            }
+        }
+
+        public void KillBot()
+        {
+            _process.Kill();
+        }
+
+
+        public System.Net.Sockets.TcpClient CommunicationChannel
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+    }
+}
