@@ -20,6 +20,7 @@ namespace UltimateHackathonFramework.Models
         private string _path;
         private Process _process=null;
         private string _currentStatus;
+        private TcpClient _CommunicationChannel = null;
 
         public string CurrentSatus
         {
@@ -133,6 +134,19 @@ namespace UltimateHackathonFramework.Models
             set
             {
                 _CommunicationChannel = value;
+            }
+        }
+
+
+        public string CurrentStatus
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
             }
         }
     }
