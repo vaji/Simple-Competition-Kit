@@ -9,6 +9,7 @@
                 <ResourceDictionary>
                     <local:AppBootstrapper x:Key="bootstrapper" />
                 </ResourceDictionary>
+                
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 
