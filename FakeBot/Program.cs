@@ -36,7 +36,9 @@ namespace FakeBot
             {
                 Console.WriteLine("Not connected");
             }
+            Console.WriteLine("dupa");
             communication.ServerWriteEvent += communication_ServerWriteEvent;
+            Console.WriteLine("po dupa");
             communication.ServerExceptionEvent += communication_ServerExceptionEvent;
             
 
