@@ -13,6 +13,8 @@ namespace ShipsBot
 
         int[,] table = new int[10, 10];
 
+        Tuple<int, int, int> target;
+
         internal void Init()
         {
             setupShips();
@@ -66,18 +68,74 @@ namespace ShipsBot
                 return buildShipsDictionary();
             }
 
-            if (dict.ContainsKey("aim"))
+            if (dict.ContainsKey("action") && dict["action"]=="aim")
             {
                 return aimAndShoot();
             }
 
+            if (dict.ContainsKey("action") && dict["action"] == "missed")
+            {
+                return missed();
+            }
+
+            if (dict.ContainsKey("action") && dict["action"] == "hitted")
+            {
+                return hitted();
+            }
+
+            if (dict.ContainsKey("action") && dict["action"] == "hittedAndSinked")
+            {
+                return hittedAndSinked();
+            }
+
+            return new Dictionary<string, string>();
+        }
+
+        private Dictionary<string, string> hittedAndSinked()
+        {
+            table[target.Item1, target.Item2] = 5;
+
+            return new Dictionary<string, string>();
+        }
+
+        private Dictionary<string, string> hitted()
+        {
+            table[target.Item1, target.Item2] = 1;
+
+            return new Dictionary<string, string>();
+        }
+
+        private Dictionary<string, string> missed()
+        {
+            table[target.Item1, target.Item2] = -1;
 
             return new Dictionary<string, string>();
         }
 
         private Dictionary<string, string> aimAndShoot()
         {
-            throw new NotImplementedException();
+            List<Tuple<int, int, int>> candidates = new List<Tuple<int, int, int>>();
+
+            for (int x = 0; x < 9; x++)
+            {
+                for (int y = 0; y < 9; y++)
+                {
+                    if(table[x, y]==0)
+                    {
+                        candidates.Add(new Tuple<int, int, int>(x, y, 1));
+                    }
+                }
+            }
+            Random r = new Random();
+            candidates = candidates.OrderByDescending(i => i.Item3).ToList();
+            if(candidates.Count!=0)
+            {
+                List<Tuple<int, int, int>> vipCandidates = candidates.Where(i => i.Item3 == candidates[0].Item3).ToList();
+                target = vipCandidates[r.Next(vipCandidates.Count)];
+                return new Dictionary<string, string>() { { "action", "shoot" }, { "x", target.Item1.ToString() }, { "y", target.Item2.ToString() } };
+            }
+
+            return new Dictionary<string, string>();
         }
 
         private Dictionary<string, string> buildShipsDictionary()
