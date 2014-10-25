@@ -7,6 +7,12 @@ namespace UltimateHackathonFramework.Interfaces
 {
     public interface IResult
     {
-        string Results { get;  }
+        string Log { get;  }
+
+        string getResultLog(int index);
+
+        void addResult(IResult result);
+        void addToLog(string log);
+
     }
 }
