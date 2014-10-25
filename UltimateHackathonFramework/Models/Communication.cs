@@ -10,24 +10,38 @@ using UltimateHackathonFramework.Interfaces;
 
 namespace UltimateHackathonFramework.Models
 {
+
     public class Communication : ICommunication
     {
         TcpListener listener=null;
 
+        Enums.ServerStateEnum _ServerState = Enums.ServerStateEnum.NotListening;
+
         private string _IpAddress;
         private int _PortNumber;
+
 
         public void StartListening(string IpAddress, int PortNumber)
         {
             _IpAddress = IpAddress;
             _PortNumber = PortNumber;
-            listener = new TcpListener(IPAddress.Parse(IpAddress), PortNumber);
-            listener.Start();
+            try
+            {
+                listener = new TcpListener(IPAddress.Parse(IpAddress), PortNumber);
+                listener.Start();
+                _ServerState = Enums.ServerStateEnum.Listening;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public void StopListening()
         {
             listener.Stop();
+            _ServerState = Enums.ServerStateEnum.NotListening;
         }
 
 
@@ -57,6 +71,19 @@ namespace UltimateHackathonFramework.Models
             set
             {
                 _PortNumber = Convert.ToInt32(value);
+            }
+        }
+
+
+        public Enums.ServerStateEnum ServerState
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
             }
         }
     }

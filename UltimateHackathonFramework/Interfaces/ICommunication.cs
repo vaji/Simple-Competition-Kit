@@ -12,6 +12,8 @@ namespace UltimateHackathonFramework.Interfaces
         System.Net.Sockets.TcpClient GetConnectedClient();
         void StopListening();
 
+        Enums.ServerStateEnum ServerState { get; set; }
+
         string IP { get; set; }
 
         string Port { get; set; }

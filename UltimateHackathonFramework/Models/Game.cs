@@ -29,7 +29,25 @@ namespace UltimateHackathonFramework.Models
         {
             if((_clientManager.Clients.Count>0) && (_round.Config.EachOfEach))
             {
-                //for(int i=0; i<Cl)
+                IList<List<IBot>> gameCouple = new List<List<IBot>>();
+                for (int i = 0; i < _clientManager.Clients.Count; i++ )
+                {
+
+                }
+                IList<IBot> tempBots = new List<IBot>();
+                int moveIndeks = 0;
+                for(int i=0; i<_clientManager.Clients.Count-1; i++)
+                {
+                    tempBots.Add(_clientManager.Clients[i]);
+                    for(int j=moveIndeks; j<_clientManager.Clients.Count;j++)
+                    {
+                        if((i!=j))
+                        {
+                            tempBots.Add(_clientManager.Clients[j]);
+                            
+                        }
+                    }
+                }
             }
         }
 
@@ -39,5 +57,10 @@ namespace UltimateHackathonFramework.Models
         }
 
         public event Action ResultsAvailable;
+
+        public ConfigRound getConfig()
+        {
+            return _round.Config;
+        }
     }
 }
