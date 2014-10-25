@@ -19,6 +19,7 @@ namespace UltimateHackathonFramework.Models
 
         public void ScanForClients()
         {
+            _clients.Clear();
             string currentDirName = System.IO.Directory.GetCurrentDirectory();
             if(System.IO.Directory.Exists(currentDirName+@"\Bots"))
             {
