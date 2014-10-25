@@ -20,7 +20,7 @@ namespace ShipsBot
 
         }
 
-        Tuple<int, int> getEndPoint()
+        public Tuple<int, int> getEndPoint()
         {
             int x2=0, y2=0;
             switch (_orientation)
@@ -76,7 +76,7 @@ namespace ShipsBot
             return false;
         }
 
-        private bool checkIfExceedsBoundaries(Tuple<int, int> p2)
+        public bool checkIfExceedsBoundaries(Tuple<int, int> p2)
         {
             
             if (p2.Item1 < 0 || p2.Item1 > 9 || p2.Item2 < 0 || p2.Item2 > 9)
