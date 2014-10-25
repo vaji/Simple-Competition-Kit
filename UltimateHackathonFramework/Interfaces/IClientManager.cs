@@ -14,7 +14,7 @@ namespace UltimateHackathonFramework.Interfaces
             set;
         }
         
-        void ScanForClients();
+        void ScanForClients(string name);
         
     }
 }

@@ -11,7 +11,7 @@ namespace UltimateHackathonFramework.Games
     public class Ships:Game
     {
         enum CellStateEnum { Miss, Ship, Sink, Shotted,ShottedShip};
-        public Ships() { }
+        public Ships() :base("Ships") { }
         class Ship
         {
             public int x;

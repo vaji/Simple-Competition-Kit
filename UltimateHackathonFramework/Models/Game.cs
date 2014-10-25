@@ -7,13 +7,14 @@ using UltimateHackathonFramework.Interfaces;
 
 namespace UltimateHackathonFramework.Models
 {
-    public class Game : IRound
+    public class Game : IGame
     {
         protected ConfigRound _config;
         protected IResult _result=new Result();
-        
-        public Game()
+        protected string _name;
+        public Game(string name)
         {
+            _name = name;
             Config = new ConfigRound() { maxNumberBots = 2, MinNumberBot = 2 };
         }
         public ConfigRound Config
@@ -51,6 +52,12 @@ namespace UltimateHackathonFramework.Models
         public ConfigRound getConfig()
         {
             return Config;
+        }
+
+        public string Name { get { return _name; } }
+        public override string ToString()
+        {
+            return _name;
         }
     }
 }
