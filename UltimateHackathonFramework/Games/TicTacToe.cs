@@ -90,7 +90,7 @@ namespace UltimateHackathonFramework.Games
                         pola[picked_field].taken = true;
                         pola[picked_field].sign = BotToSign[bots[current_index]];
                     }
-
+                    botOrderDict.Clear();
                     botOrderDict.Add(BotToSign[bots[current_index]],picked_field+"");
 
                     for (var i = 0; i < 2; i++)
