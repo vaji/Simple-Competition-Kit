@@ -85,15 +85,17 @@ namespace UltimateHackathonFramework.Models
 
                 }
             }
+            else
+            {
+                throw new Exception("Connection has not bee estabilished!");
+            }
         }
 
         public void RunBot(ICommunication server)
         {
             if(File.Exists(_path))
             {
-            //    _process = Process.Start(_path, server.IP + " " + server.Port);
-                MessageBox.Show(server.IP + " " + server.Port);
-                _process = Process.Start(new ProcessStartInfo(_path, server.IP + " " + server.Port));
+                _process = Process.Start(_path, server.IP + " " + server.Port);
             }
             else
             {
@@ -103,7 +105,15 @@ namespace UltimateHackathonFramework.Models
 
         public void KillBot()
         {
-            _process.Kill();
+            if(_process!=null)
+            {
+                _process.Kill();
+                _process = null;
+            }
+            else
+            {
+                throw new Exception("Process has not been started yet. Invoke RunBot(...) first!");
+            }
         }
 
 

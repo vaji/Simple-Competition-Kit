@@ -10,12 +10,18 @@ using UltimateHackathonFramework.Interfaces;
 
 namespace UltimateHackathonFramework.Models
 {
+
     public class Communication : ICommunication
     {
         TcpListener listener=null;
 
         private string _IpAddress;
         private int _PortNumber;
+
+        public static enum ServerStateEnum
+        {
+            Listening, NotListening
+        }
 
         public void StartListening(string IpAddress, int PortNumber)
         {
