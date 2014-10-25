@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace UltimateHackathonFramework.Interfaces
 {
-    public interface IRound
+    public interface IGame
     {
         UltimateHackathonFramework.Models.ConfigRound Config
         {
@@ -22,5 +22,7 @@ namespace UltimateHackathonFramework.Interfaces
 
 
         IResult Go(IEnumerable<IBot> bots);
+
+        string Name { get; }
     }
 }

@@ -43,7 +43,7 @@ namespace ShipsBot
                 ships[i]._orientation = r.Next(4);
                 ships[i]._X = r.Next(10);
                 ships[i]._Y = r.Next(10);
-
+                Console.WriteLine(i + " " + ships.Count);
 
                 }while(i!=0 && contains(ships[i], ships.GetRange(0, i-1)));
                 Console.WriteLine("03");

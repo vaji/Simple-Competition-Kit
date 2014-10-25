@@ -117,7 +117,7 @@ namespace UltimateHackathonFramework.Models
         {
             if(File.Exists(_path))
             {
-                var processInfo = new ProcessStartInfo(_path, _server.IP + " " + _server.Port) { WindowStyle = ProcessWindowStyle.Minimized };
+                var processInfo = new ProcessStartInfo(_path, _server.IP + " " + _server.Port);// { WindowStyle = ProcessWindowStyle.Minimized };
                 _process = Process.Start(processInfo);
             }
             else
@@ -173,11 +173,11 @@ namespace UltimateHackathonFramework.Models
         {
             get
             {
-                throw new NotImplementedException();
+                return _currentStatus;
             }
             set
             {
-                throw new NotImplementedException();
+                _currentStatus=value;
             }
         }
 

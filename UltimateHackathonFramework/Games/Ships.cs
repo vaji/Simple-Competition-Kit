@@ -11,7 +11,7 @@ namespace UltimateHackathonFramework.Games
     public class Ships:Game
     {
         enum CellStateEnum { Miss, Ship, Sink, Shotted,ShottedShip};
-        public Ships() { }
+        public Ships() :base("Ships") { }
         class Ship
         {
             public int i;
@@ -161,7 +161,7 @@ namespace UltimateHackathonFramework.Games
             _shipManager.Clear();
             _shipManager.Add(new ShipManager());
             _shipManager.Add(new ShipManager());
-            for(int i=0; i<2; i++)
+            for( int i=0; i<2; i++)
             {
                 for (int x = 0; x < 10; x++)
                 {
@@ -173,7 +173,7 @@ namespace UltimateHackathonFramework.Games
                 _ships[i]=20;
             }
             
-            for(int i=0; i<0; i++)
+            for(int i=0; i<2; i++)
             {
                 if (!initShips(botsList[i].Communicate(new Dictionary<string, string>() { { "getShips", "" } }), i))
                 {

@@ -8,9 +8,11 @@ namespace UltimateHackathonFramework
     public class ClientsViewModel : Caliburn.Micro.PropertyChangedBase
     {
         private IClientManager _clientManager;
-        public ClientsViewModel(IClientManager clientManager)
+        private IGameManager _gameManager;
+        public ClientsViewModel(IClientManager clientManager, IGameManager gameManager)
         {
             _clientManager = clientManager;
+            _gameManager = gameManager;
             Bots = new BindableCollection<IBot>();
             Bots.AddRange(clientManager.Clients);
             SelectedBots = new BindableCollection<IBot>();
@@ -61,7 +63,7 @@ namespace UltimateHackathonFramework
 
         public void ScanForClients()
         {
-            _clientManager.ScanForClients();
+            _clientManager.ScanForClients(_gameManager.Game.Name);
             Bots.Clear();
             Bots.AddRange(_clientManager.Clients);
             SelectedBots.Clear();

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace UltimateHackathonFramework.Interfaces
 {
-    public interface IGame
+    public interface IGameManager
     {
         event Action ResultsAvailable;
         event EventHandler<ProgressChangedEventArgs> ProgressChanged;
@@ -19,5 +19,10 @@ namespace UltimateHackathonFramework.Interfaces
         Mode Mode { set; }
 
         UltimateHackathonFramework.Models.ConfigRound getConfig();
+
+        List<IGame> Games { get; }
+        IGame Game { get; set; }
+
+        
     }
 }
