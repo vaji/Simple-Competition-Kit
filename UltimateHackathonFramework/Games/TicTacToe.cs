@@ -47,8 +47,8 @@ namespace UltimateHackathonFramework.Games
             win_lanes[3, 0] = 0; win_lanes[3, 1] = 3; win_lanes[3, 2] = 6;
             win_lanes[4, 0] = 1; win_lanes[4, 1] = 4; win_lanes[4, 2] = 7;
             win_lanes[5, 0] = 2; win_lanes[5, 1] = 5; win_lanes[5, 2] = 8;
-            win_lanes[6, 0] = 0; win_lanes[5, 1] = 4; win_lanes[5, 2] = 8;
-            win_lanes[7, 0] = 2; win_lanes[5, 1] = 4; win_lanes[5, 2] = 6;
+            win_lanes[6, 0] = 0; win_lanes[6, 1] = 4; win_lanes[6, 2] = 8;
+            win_lanes[7, 0] = 2; win_lanes[7, 1] = 4; win_lanes[7, 2] = 6;
 
 
             var botsLength = bots.Count;
@@ -81,8 +81,6 @@ namespace UltimateHackathonFramework.Games
                 while (!game_finished)
                 {
                     botMoveDict = bots[current_index].Communicate(giveMeMoveDict);
-                    _result.addToLog("Send", giveMeMoveDict);
-                    _result.addToLog("Receive", botMoveDict);
                     if (botMoveDict.ContainsKey("move"))
                     {
 
@@ -90,14 +88,12 @@ namespace UltimateHackathonFramework.Games
                         pola[picked_field].taken = true;
                         pola[picked_field].sign = BotToSign[bots[current_index]];
                     }
-                    botOrderDict.Clear();
+                    botOrderDict.Clear(); 
                     botOrderDict.Add(BotToSign[bots[current_index]],picked_field+"");
 
                     for (var i = 0; i < 2; i++)
                     {
                         bots[i].Communicate(botOrderDict);
-                        _result.addToLog("Receive", botOrderDict);
-
                     }
                     if (CheckConditions()) break;
                     else
@@ -145,7 +141,9 @@ namespace UltimateHackathonFramework.Games
         {
 
             var temp_znak = "";
-            bool condition_ok = true; 
+            bool condition_ok = true;
+            bool exit_loop = false;
+
                 for (var i = 0; i < 8; i++)
                 {
                     for (var s = 0; s < 3; s++)
@@ -153,11 +151,12 @@ namespace UltimateHackathonFramework.Games
                         if (s == 0) temp_znak = pola[win_lanes[i, s]].sign;
                         else
                         {
-                            if (pola[win_lanes[i, s]].sign != temp_znak)  { condition_ok = false; break; }
+                            if (pola[win_lanes[i, s]].sign != temp_znak) { condition_ok = false; exit_loop = true; break; }
                         }
 
-                        if (s == 2 && condition_ok == true) break;
+                        if (s == 2 && condition_ok == true) { exit_loop = true; break; } 
                     }
+                    if (exit_loop) break;
                 }
                 if (condition_ok)
                 { victory_sign = temp_znak;
