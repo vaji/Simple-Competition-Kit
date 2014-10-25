@@ -49,7 +49,7 @@ namespace FakeBot
                     while (!picked_field)
                     {
                         int p = rnd.Next(0, 9);
-                        if (!pola[p].taken) { field_picked = 1; break; }
+                        if (!pola[p].taken) { field_picked = p; break; }
                     }
                     data["move"] = field_picked + "";
                     return data;

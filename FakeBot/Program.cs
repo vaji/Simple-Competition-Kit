@@ -28,14 +28,7 @@ namespace FakeBot
                bot = new TTTBot();
 
                 bot.Init();
-                while (!bot.game_finished)
-                {
-
-                   
-                    
-            }
-               
-
+                
 
             }
             else
