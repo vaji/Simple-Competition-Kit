@@ -44,7 +44,7 @@ namespace ShipsBot
                 ships[i]._X = r.Next(10);
                 ships[i]._Y = r.Next(10);
                 Console.WriteLine(i + " " + ships.Count);
-                Console.WriteLine(i + ":   x: " + ships[i]._X + "   y: " + ships[i]._Y + "   dir: " + ships[i]._orientation);
+                Console.WriteLine(i.ToString() + ":   x: " + ships[i]._X.ToString() + "   y: " + ships[i]._Y.ToString() + "   dir: " + ships[i]._orientation.ToString());
                 } while ((ships[i].checkIfExceedsBoundaries(ships[i].getEndPoint())) || (i != 0 && contains(ships[i], ships.GetRange(0, i - 1))));
                 Console.WriteLine("03");
             }
