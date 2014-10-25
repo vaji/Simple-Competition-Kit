@@ -154,8 +154,9 @@ namespace UltimateHackathonFramework.Games
         private Cell[,,] _botSea;
         private int[] _ships=new int[2];
         private IList<ShipManager> _shipManager=new List<ShipManager>();
-        protected override IResult DoRound(IList<IBot> bots)
+        protected override IResult DoRound(IEnumerable<IBot> bots)
         {
+            IList<IBot> botsList=bots.ToList();
             _botSea = new Cell[2,10, 10]; 
             _shipManager.Clear();
             _shipManager.Add(new ShipManager());
@@ -174,12 +175,12 @@ namespace UltimateHackathonFramework.Games
             
             for(int i=0; i<0; i++)
             {
-                if(!initShips(bots[i].Communicate(new Dictionary<string, string>() { { "getShips", "" } }),i))
+                if (!initShips(botsList[i].Communicate(new Dictionary<string, string>() { { "getShips", "" } }), i))
                 {
-                    bots[i].CurrentState=Enums.State.Failed;
+                    botsList[i].CurrentState = State.Failed;
                 }
             }
-            if(!((bots[0].CurrentState!=Enums.State.Failed)&&(bots[1].CurrentState!=Enums.State.Failed)))
+            if (!((botsList[0].CurrentState != State.Failed) && (botsList[1].CurrentState != State.Failed)))
             {
                 //wywalic exception
             }
@@ -189,7 +190,7 @@ namespace UltimateHackathonFramework.Games
             int botNow=0;
             while(!isEnd())
             {
-                Dictionary<string, string> response=bots[botNow].Communicate(new Dictionary<string, string>() { { "shot", "" } });
+                Dictionary<string, string> response = botsList[botNow].Communicate(new Dictionary<string, string>() { { "shot", "" } });
                 if (response.ContainsKey("action") && response["action"] =="shot")
                 {
                     
