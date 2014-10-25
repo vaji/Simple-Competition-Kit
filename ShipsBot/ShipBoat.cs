@@ -50,6 +50,7 @@ namespace ShipsBot
 
         private bool contains(Ship ship, List<Ship> list)
         {
+            Console.WriteLine("2a");
             foreach (Ship _ship in list)
             {
                 if(ship.intersects(_ship))return true;

@@ -60,6 +60,8 @@ namespace ShipsBot
 
         internal bool intersects(Ship _ship)
         {
+            Console.WriteLine("2b");
+
             Tuple<int, int> p2 = getEndPoint();
             if (checkIfExceedsBoundaries(p2))
                 return true;
