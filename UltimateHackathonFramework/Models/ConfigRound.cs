@@ -24,14 +24,6 @@ namespace UltimateHackathonFramework.Models
             set { _numberOfRound = value; }
         }
 
-        private bool _eachOfEach;
-
-        public bool EachOfEach
-        {
-            get { return _eachOfEach; }
-            set { _eachOfEach = value; }
-        }
-
         private int _minNumberBot;
 
         public int MinNumberBot
@@ -41,7 +33,7 @@ namespace UltimateHackathonFramework.Models
         }
 
 
-        public ConfigRound() { EachOfEach = true; NumberOfRound = 0; maxNumberBots = 2; MinNumberBot = 2; }
+        public ConfigRound() { NumberOfRound = 0; maxNumberBots = 2; MinNumberBot = 2; }
         
         
     }

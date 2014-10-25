@@ -37,7 +37,7 @@ namespace UltimateHackathonFramework.Games
         private readonly int CELLX = 3;
         private readonly int CELLY = 3;
 
-        protected override IResult DoRound(IList<IBot> bots)
+        protected override IResult DoRound(IEnumerable<IBot> enumerableBots)
         {
             Grid = new Cell[CELLX, CELLY];
             for (int x = 0; x < 3; x++)
@@ -47,7 +47,7 @@ namespace UltimateHackathonFramework.Games
                     Grid[x, y] = new Cell();
             }
             }
-
+            var bots = enumerableBots.ToList();
             bots[0].Communicate(new Dictionary<string, string>() { { "youAre", "X" } });
             bots[1].Communicate(new Dictionary<string, string>() { { "youAre", "O" } });
 
@@ -71,14 +71,14 @@ namespace UltimateHackathonFramework.Games
                     }
                     catch (Exception)
                     {
-                        bots[currentPlayer].CurrentState = Enums.State.Failed;
+                        bots[currentPlayer].CurrentState = State.Failed;
                         bots[currentPlayer].Communicate(new Dictionary<string, string>() { { "error", "TargetCellInfoCorrupted" } });
                         bots[(iterator + 1) % 2].AddPoints(2);
                         break;
                     }
                     if(targetCell>8)
                     {
-                        bots[currentPlayer].CurrentState = Enums.State.Failed;
+                        bots[currentPlayer].CurrentState = State.Failed;
                         bots[currentPlayer].Communicate(new Dictionary<string, string>() { { "error", "TargetCellOutOfRange" } });
                         bots[(iterator + 1) % 2].AddPoints(2);
                         break;
@@ -104,7 +104,7 @@ namespace UltimateHackathonFramework.Games
                     }
                     else
                     {
-                        bots[currentPlayer].CurrentState = Enums.State.Failed;
+                        bots[currentPlayer].CurrentState = State.Failed;
                         bots[currentPlayer].Communicate(new Dictionary<string, string>() { { "error", "TargetedCell is already taken!" } });
                         bots[(iterator + 1) % 2].AddPoints(2);
                         break;
@@ -167,7 +167,7 @@ namespace UltimateHackathonFramework.Games
                 }
                 else
                 {
-                    bots[iterator % 2].CurrentState = Enums.State.Failed;
+                    bots[iterator % 2].CurrentState = State.Failed;
                     bots[iterator % 2].Communicate(new Dictionary<string, string>() { { "error", "CorruptedMoveResponseException" } });
                     bots[(iterator + 1) % 2].AddPoints(2);
                     break;

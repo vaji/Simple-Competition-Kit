@@ -16,6 +16,8 @@ namespace UltimateHackathonFramework.Interfaces
         void StartAll();
         void Start(IList<IBot> bots);
 
+        Mode Mode { set; }
+
         UltimateHackathonFramework.Models.ConfigRound getConfig();
     }
 }
