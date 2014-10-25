@@ -23,5 +23,7 @@ namespace UltimateHackathonFramework.Interfaces
 
         void RunBot();
         void KillBot();
+
+        string Directory { get; }
     }
 }

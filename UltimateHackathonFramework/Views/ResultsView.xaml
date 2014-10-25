@@ -12,18 +12,25 @@
     </UserControl.Resources>
     <Grid>
         <DockPanel LastChildFill="True" Visibility="{Binding IsVisible}">
-            <TextBlock Text="Results" DockPanel.Dock="Top"/>
+            <Grid DockPanel.Dock="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Results" Grid.Column="0"/>
+                <Button x:Name="Save" Content="Save" Grid.Column="1"/>
+            </Grid>
             <ScrollViewer>
                 <StackPanel>
-                <TextBlock  Text="{Binding RoundResults.Results}" Margin="5" />
+                    <TextBlock  Text="{Binding RoundResults.Results}" Margin="5" Background="#FF211D1D"/>
                <TextBlock  Text="Logs:" Margin="5" />
-                    <TextBlock Text="{Binding RoundResults.Log}" FontFamily="Courier New" Margin="5" />
+                    <TextBlock Text="{Binding RoundResults.Log}" FontFamily="Courier New" Margin="5" Background="#FF211D1D"/>
                 </StackPanel>
                 
             </ScrollViewer>
         </DockPanel>
         <Controls:MetroProgressBar Minimum="0" Maximum="100" Value="{Binding ProgressPercent}" Margin="30" Height="60"
-                                   Visibility="{Binding IsBusy, Converter={StaticResource Bool2VisibilityConverter}}"/>
+                                   Visibility="{Binding IsBusy, Converter={StaticResource Bool2VisibilityConverter}}" Foreground="{StaticResource AccentColorBrush}"/>
     </Grid>
 
 </UserControl>

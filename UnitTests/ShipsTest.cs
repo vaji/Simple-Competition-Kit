@@ -24,7 +24,7 @@ namespace UnitTests
             communication.StartListening("127.0.0.1", 12345);
             IBot sampleBot1 = new Bot(communication, "testBot", System.IO.Directory.GetCurrentDirectory() + @"\..\..\..\Tests\ShipsBot.exe");
             sampleBot1.RunBot();
-            IBot sampleBot2 = new Bot(communication, "testBot", System.IO.Directory.GetCurrentDirectory() + @"\..\..\..\Tests\ShipsBot1.exe");
+            IBot sampleBot2 = new Bot(communication, "testBot", System.IO.Directory.GetCurrentDirectory() + @"\..\..\..\Tests\ShipsBot.exe");
             sampleBot2.RunBot();
             Game statki = new Ships();
             IList<IBot> list = new List<IBot>();
