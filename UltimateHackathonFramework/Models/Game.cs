@@ -11,6 +11,7 @@ namespace UltimateHackathonFramework.Models
     {
         private IRound _round;
         private IClientManager _clientManager;
+        private IList<List<IBot>> _botToGame = new List<List<IBot>>();
 
         public Game() { }
         public Game(IRound round)
@@ -29,8 +30,12 @@ namespace UltimateHackathonFramework.Models
         {
             if((_clientManager.Clients.Count>0) && (_round.Config.EachOfEach))
             {
+                /*
+                 * Narazie zostawmy to
+                 * 
                 IList<List<IBot>> botCouple = new List<List<IBot>>();
                 int moveIndex = 0;
+                
                 for (int i = moveIndex; i < _clientManager.Clients.Count-1; i++ )
                 {
                     for(int j=moveIndex+1; j< _clientManager.Clients.Count; j++)
@@ -40,13 +45,37 @@ namespace UltimateHackathonFramework.Models
                         botCouple[botCouple.Count - 1].Add(_clientManager.Clients[j]);
                     }
                     moveIndex++;
-                }
-                foreach(List<IBot> couple in botCouple)
+                }*/
+
+                Combination(new List<IBot>(), _clientManager.Clients, -1, _round.Config.maxNumberBots);
+                foreach(List<IBot> botToGo in _botToGame)
                 {
-                    IResult tempR = _round.Go(couple);
+                    IResult temp = _round.Go(botToGo);
                 }
              }
         }
+
+        void Combination(IList<IBot> tempBots, IList<IBot> bots, int lastValue, int digitsCount)
+        {
+            if (digitsCount > 0)
+            {
+                for (int it = ++lastValue; it != bots.Count; it++)
+                {
+                    tempBots.Add(bots[it]);
+                    Combination(tempBots, bots, it, digitsCount - 1);
+                    tempBots.RemoveAt(tempBots.Count - 1);
+                }
+            }
+            else
+            {
+                _botToGame.Add(new List<IBot>());
+                for (int i = 0; i < tempBots.Count; i++ )
+                {
+                    _botToGame[_botToGame.Count - 1].Add(tempBots[i]);
+                }
+            }
+        }
+        
 
         public virtual void Start(IList<IBot> bots)
         {
