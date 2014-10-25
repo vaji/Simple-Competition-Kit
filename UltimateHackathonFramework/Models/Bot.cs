@@ -35,7 +35,7 @@ namespace UltimateHackathonFramework.Models
             this._name = name;
             this._path = path;
             this._server = server;
-            
+            this._points = 0;
         }
         public string ID
         {
@@ -160,5 +160,18 @@ namespace UltimateHackathonFramework.Models
                 throw new NotImplementedException();
             }
         }
+
+        private double _points;
+
+        public double Points
+        {
+            get { return _points; }
+        }
+
+        public void addPoints(double points)
+        {
+            _points += points;
+        }
+        
     }
 }

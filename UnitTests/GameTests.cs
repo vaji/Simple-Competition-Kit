@@ -86,6 +86,17 @@ namespace UnitTests
                 throw new NotImplementedException();
             }
         }
+
+
+        public double Points
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public void addPoints(double points)
+        {
+            throw new NotImplementedException();
+        }
     }
     public class GameTests
     {
