@@ -13,6 +13,12 @@ namespace UltimateHackathonFramework
         public CommunicationViewModel(ICommunication communication)
         {
             _communication = communication;
+            _communication.StateChanged += () => 
+            { 
+                NotifyOfPropertyChange(() => Status);
+                NotifyOfPropertyChange(() => CanStartListening);
+                NotifyOfPropertyChange(() => CanStopListening); 
+            };
             Port ="8000";
             IP = "127.0.0.1";
            
@@ -25,8 +31,8 @@ namespace UltimateHackathonFramework
             get { return _ip; }
             set { _ip = value; NotifyOfPropertyChange(() => IP); }
         }
-        
 
+        public string Status { get { return _communication.ServerState.ToString(); } }
         public string Port
         {
             get { return _port; }
@@ -37,6 +43,11 @@ namespace UltimateHackathonFramework
         {
             _communication.StartListening(IP, Int32.Parse(Port));
         }
-        public bool CanStartListening { get { return !String.IsNullOrWhiteSpace(IP) && !String.IsNullOrWhiteSpace(Port); } }
-   }
+        public void StopListening()
+        {
+            _communication.StopListening();
+        }
+        public bool CanStartListening { get { return !String.IsNullOrWhiteSpace(IP) && !String.IsNullOrWhiteSpace(Port) && _communication.ServerState != Enums.ServerStateEnum.Listening; } }
+        public bool CanStopListening { get { return _communication.ServerState == Enums.ServerStateEnum.Listening; } }
+    }
 }
