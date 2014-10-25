@@ -25,6 +25,9 @@ namespace FakeBot
             }
             communication.ServerWriteEvent += communication_ServerWriteEvent;
             communication.ServerExceptionEvent += communication_ServerExceptionEvent;
+
+             //JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
+
             Console.ReadLine();
             communication.disconnect();
 
