@@ -42,8 +42,12 @@
     <Reference Include="Caliburn.Micro.Platform">
       <HintPath>..\packages\Caliburn.Micro.2.0.1\lib\net45\Caliburn.Micro.Platform.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>C:\c_sharp_components\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Caliburn.Micro.2.0.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -76,6 +80,7 @@
     <Compile Include="Models\Bot.cs" />
     <Compile Include="Models\ClientManager.cs" />
     <Compile Include="Models\Communication.cs" />
+    <Compile Include="Models\ConfigRound.cs" />
     <Compile Include="Models\Game.cs" />
     <Compile Include="Models\Result.cs" />
     <Compile Include="Models\Round.cs" />

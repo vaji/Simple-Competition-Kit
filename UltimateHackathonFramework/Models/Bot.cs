@@ -1,10 +1,14 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Script.Serialization;
+using System.Windows;
 using UltimateHackathonFramework.Interfaces;
 
 namespace UltimateHackathonFramework.Models
@@ -15,6 +19,8 @@ namespace UltimateHackathonFramework.Models
         private string _name;
         private string _path;
         private Process _process=null;
+        private TcpClient _CommunicationChannel = null;
+        
 
         public Bot() { }
         public Bot(string name, string path)
@@ -35,14 +41,59 @@ namespace UltimateHackathonFramework.Models
 
         public Dictionary<string, string> Communicate(Dictionary<string, string> data)
         {
-            throw new NotImplementedException();
+            string json = new JavaScriptSerializer().Serialize(data.ToDictionary(item => item.Key.ToString(), item => item.Value.ToString()));
+            SendString(json);
+            json = ReceiveString();
+            return JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
+
+        }
+
+        private string ReceiveString()
+        {
+            NetworkStream stream = _CommunicationChannel.GetStream();
+            byte[] buff = null;
+            int buffSize = 4096;
+            string result = "";
+
+            while (!stream.DataAvailable) { };
+
+            buff = new byte[buffSize];
+            int length = stream.Read(buff, 0, buff.Length);
+            if (length > 0 )
+            {
+                ASCIIEncoding asen = new ASCIIEncoding();
+                result = asen.GetString(buff);
+            }
+            return result;
+        }
+
+        public void SendString(string message)
+        {
+            message = message + Environment.NewLine;
+            if (_CommunicationChannel.Connected)
+            {
+                try
+                {
+                    ASCIIEncoding asen = new ASCIIEncoding();
+                    byte[] bytes = asen.GetBytes(message);
+                    NetworkStream stream = _CommunicationChannel.GetStream();
+                    stream.Write(bytes, 0, bytes.Length);
+                    stream.Flush();
+                }
+                catch (Exception e)
+                {
+
+                }
+            }
         }
 
         public void RunBot(ICommunication server)
         {
             if(File.Exists(_path))
             {
-                _process = Process.Start(_path, server.IP + " " + server.Port);
+            //    _process = Process.Start(_path, server.IP + " " + server.Port);
+                MessageBox.Show(server.IP + " " + server.Port);
+                _process = Process.Start(new ProcessStartInfo(_path, server.IP + " " + server.Port));
             }
             else
             {
@@ -60,11 +111,11 @@ namespace UltimateHackathonFramework.Models
         {
             get
             {
-                throw new NotImplementedException();
+                return _CommunicationChannel;
             }
             set
             {
-                throw new NotImplementedException();
+                _CommunicationChannel = value;
             }
         }
     }
