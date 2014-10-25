@@ -84,6 +84,7 @@ namespace ShipsBot
         {
             Dictionary<string, string> dict = new Dictionary<string, string>();
             int iterator = 1;
+            dict.Add("action", "ships");
             foreach (Ship ship in ships)
             {
                 dict.Add("x"+iterator, ship._X.ToString());
