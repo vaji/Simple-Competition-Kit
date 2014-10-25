@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using UltimateHackathonFramework.Interfaces;
 using UltimateHackathonFramework.Models;
+using System.Net.Sockets;
 
 namespace UnitTests
 {
@@ -14,9 +15,14 @@ namespace UnitTests
             ICommunication communication = new Communication();
             //communication
             communication.StartListening("127.0.0.1", 12345);
-
-            Assert.Fail();
-
+            IBot sampleBot = new Bot("dupa", @"d:\Misiek\c_sharp\UltimateHackathonFramework\FakeBot\bin\Debug\FakeBot.exe");
+            sampleBot.RunBot(communication);
+            sampleBot.CommunicationChannel = communication.GetConnectedClient();
+            string REQUEST = "gdzie jest groszek?";
+            string RESPONSE = "tutaj";
+            System.Collections.Generic.Dictionary<string, string> response= sampleBot.Communicate(new System.Collections.Generic.Dictionary<string,string>(){{REQUEST, RESPONSE}});
+            sampleBot.KillBot();
+            Assert.AreEqual(RESPONSE, response[REQUEST]); 
         }
     }
 }

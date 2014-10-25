@@ -8,6 +8,6 @@ namespace UltimateHackathonFramework.Interfaces
 {
     public interface IRound
     {
-        IRoundResult Go(IList<IBot> bots);
+        IResult Go(IList<IBot> bots);
     }
 }

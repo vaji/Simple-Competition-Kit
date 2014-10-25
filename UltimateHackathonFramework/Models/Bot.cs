@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,17 +9,28 @@ using UltimateHackathonFramework.Interfaces;
 
 namespace UltimateHackathonFramework.Models
 {
-    class Bot : IBot
+    public class Bot : IBot
     {
+        private string _id;
+        private string _name;
+        private string _path;
+        private Process _process=null;
 
+        public Bot() { }
+        public Bot(string name, string path)
+        {
+            this._id = name;
+            this._name = name;
+            this._path = path;
+        }
         public string ID
         {
-            get { throw new NotImplementedException(); }
+            get { return this._id; }
         }
 
         public string Name
         {
-            get { throw new NotImplementedException(); }
+            get { return this._name; }
         }
 
         public Dictionary<string, string> Communicate(Dictionary<string, string> data)
@@ -25,14 +38,34 @@ namespace UltimateHackathonFramework.Models
             throw new NotImplementedException();
         }
 
-        public void RunBot()
+        public void RunBot(ICommunication server)
         {
-            throw new NotImplementedException();
+            if(File.Exists(_path))
+            {
+                _process = Process.Start(_path, server.IP + " " + server.Port);
+            }
+            else
+            {
+                throw new FileNotFoundException(_path);
+            }
         }
 
         public void KillBot()
         {
-            throw new NotImplementedException();
+            _process.Kill();
+        }
+
+
+        public System.Net.Sockets.TcpClient CommunicationChannel
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }
