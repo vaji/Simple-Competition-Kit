@@ -28,14 +28,17 @@ namespace FakeBot
                bot = new TTTBot();
 
                 bot.Init();
-                
+          
+
 
             }
             else
             {
                 Console.WriteLine("Not connected");
             }
+            Console.WriteLine("dupa");
             communication.ServerWriteEvent += communication_ServerWriteEvent;
+            Console.WriteLine("po dupa");
             communication.ServerExceptionEvent += communication_ServerExceptionEvent;
             
 

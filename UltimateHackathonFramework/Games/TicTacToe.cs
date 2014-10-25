@@ -13,7 +13,6 @@ namespace UltimateHackathonFramework.Games
        public int numer;
        public bool taken;
        public string sign;
-   
     }
 
     class TicTacToe : Round
@@ -84,11 +83,12 @@ namespace UltimateHackathonFramework.Games
                     botMoveDict = bots[current_index].Communicate(giveMeMoveDict);
                     if (botMoveDict.ContainsKey("move"))
                     {
+
                         picked_field = int.Parse(botMoveDict["move"]);
                         pola[picked_field].taken = true;
                         pola[picked_field].sign = BotToSign[bots[current_index]];
                     }
-                 
+                    botOrderDict.Clear();
                     botOrderDict.Add(BotToSign[bots[current_index]],picked_field+"");
 
                     for (var i = 0; i < 2; i++)
