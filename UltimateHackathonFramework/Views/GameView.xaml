@@ -3,10 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Grid Background="White">
-        <TextBlock Text="Game"
+        <StackPanel>
+            <TextBlock Text="Game"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    FontSize="20" />
+            <Button x:Name="Start" Content="Start" />
+        </StackPanel>
     </Grid>
 
 </UserControl>

@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 
 namespace UltimateHackathonFramework.Interfaces
 {
-    public interface IGame
+    public static class States
     {
-        event Action ResultsAvailable;
-        IResult Result { get; }
-
-        void StartAll();
-        void Start(IList<IBot> bots);
+        public enum Stat { Ready, Standby, Failed, Lost, Victory }
     }
 }
