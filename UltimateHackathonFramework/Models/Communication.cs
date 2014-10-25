@@ -1,69 +1,50 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Script.Serialization;
 using UltimateHackathonFramework.Interfaces;
 
 namespace UltimateHackathonFramework.Models
 {
     public class Communication : ICommunication
     {
+        TcpListener listener=null;
 
-
-
-        public void Connect(string IpAddress, int PortNumber)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Disconnect()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool IsConnected
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public Dictionary<string, string> Send(Dictionary<string, string> message)
-        {
-            throw new NotImplementedException();
-        }
+        private string _IpAddress;
+        private int _PortNumber;
 
         public void StartListening(string IpAddress, int PortNumber)
         {
-            throw new NotImplementedException();
+            _IpAddress = IpAddress;
+            _PortNumber = PortNumber;
+            listener = new TcpListener(IPAddress.Parse(IpAddress), PortNumber);
+            listener.Start();
         }
 
         public void StopListening()
         {
-            throw new NotImplementedException();
+            listener.Stop();
         }
 
 
         public System.Net.Sockets.TcpClient GetConnectedClient()
         {
-            throw new NotImplementedException();
+            return listener.AcceptTcpClient();
         }
 
         public string IP
         {
             get
             {
-                throw new NotImplementedException();
+                return _IpAddress;
             }
             set
             {
-                throw new NotImplementedException();
+                _IpAddress = value;
             }
         }
 
@@ -71,11 +52,11 @@ namespace UltimateHackathonFramework.Models
         {
             get
             {
-                throw new NotImplementedException();
+                return _PortNumber.ToString();
             }
             set
             {
-                throw new NotImplementedException();
+                _PortNumber = Convert.ToInt32(value);
             }
         }
     }
