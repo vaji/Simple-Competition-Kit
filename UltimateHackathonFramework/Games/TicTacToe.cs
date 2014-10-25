@@ -128,9 +128,10 @@ namespace UltimateHackathonFramework.Games
                 else
                 {
                     throw new Exception("CorruptedResponseException");
+                    
                 }
             }
-            return new Result();
+            return _result;
         }
 
         private CellStateEnum verifyVictory(Cell[,] Grid)

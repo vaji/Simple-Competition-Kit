@@ -42,14 +42,16 @@ namespace UltimateHackathonFramework.Models
                 foreach (List<IBot> botToGo in _botToGame)
                 {
                     //_result.addResult(_round.Go(botToGo));
-                    foreach (var bot in bots) bot.RunBot();
-                    var result = _round.Go(bots);
+                    foreach (var bot in botToGo) bot.RunBot();
+                    var result = _round.Go(botToGo);
                     _result.addResult(result);
+                    foreach (var bot in botToGo) bot.KillBot();
                 }
                 foreach (IBot bot in _clientManager.Clients)
                 {
                     Console.WriteLine(bot.Name + ": " + bot.Points);
                 }
+                OnResultsAvailable();
             }
         }
 
@@ -87,13 +89,6 @@ namespace UltimateHackathonFramework.Models
             
         }
 
-        public void tempStart(IList<IBot> bots)
-        {
-            foreach (var bot in bots) bot.RunBot();
-            IResult result= _round.Go(bots);
-            
-            
-        }
 
         void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {

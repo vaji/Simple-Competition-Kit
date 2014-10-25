@@ -4,9 +4,7 @@
                     >
     
     
-    <DataTemplate DataType="{x:Type local:Result}">
-        <TextBlock Text="{Binding Results}"/>
-    </DataTemplate>
+
 
     <DataTemplate DataType="{x:Type local:Bot}">
         <TextBlock Text="{Binding Name}"  />
