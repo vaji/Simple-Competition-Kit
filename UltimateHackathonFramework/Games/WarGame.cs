@@ -130,5 +130,8 @@ namespace UltimateHackathonFramework.Games
         {
             throw new NotImplementedException();
         }
+
+
+        public event EventHandler<System.ComponentModel.ProgressChangedEventArgs> ProgressChanged;
     }
 }
