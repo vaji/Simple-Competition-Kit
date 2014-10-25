@@ -9,27 +9,24 @@ namespace UltimateHackathonFramework.Models
 {
     class RoundResult : IResult
     {
-        private string _message;
-        public string Results
-        {
-            get { return _message; }
-        }
-
+        private StringBuilder _message;
+        
         public RoundResult(string message)
         {
-            _message = message;
+            _message.AppendLine(message);
         }
 
         public string Log
         {
-            get { throw new NotImplementedException(); }
+            get { return _message.ToString(); }
+
         }
 
         public string getResultLog(int index)
         {
             throw new NotImplementedException();
         }
-
+        
         public void addResult(IResult result)
         {
             throw new NotImplementedException();
@@ -37,7 +34,16 @@ namespace UltimateHackathonFramework.Models
 
         public void addToLog(string log)
         {
-            throw new NotImplementedException();
+            _message.AppendLine(log);
+        }
+
+
+        public void addToLog(string action, Dictionary<string, string> dict)
+        {
+            foreach (KeyValuePair<string, string> kvp in dict)
+            {
+                addToLog(action + " " + kvp.Key + " " + kvp.Value);
+            }
         }
     }
 }
