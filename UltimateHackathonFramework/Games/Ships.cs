@@ -14,29 +14,55 @@ namespace UltimateHackathonFramework.Games
         public Ships() :base("Ships") { }
         class Ship
         {
-            public int i;
-            public int j;
+            public int x;
+            public int y;
             public int type;
             public int direct;
             public int shot=0;
             
             public Ship (){}
-            public Ship (int i, int j, int type, int direct)
+            public Ship (int x, int y, int type, int direct)
             {
-                this.i=i;
-                this.j=j;
+                this.x=x;
+                this.y=y;
                 this.type=type;
                 this.direct=direct;
             }
 
-            public bool isShotInShip(int i, int j)
+            public void sinkShip(Cell[,,] sea,int index)
             {
-                int endI,endJ;
+                switch (this.direct)
+                {
+                    case 0: for (int i = this.y; i > this.y - this.type; i--)
+                        {
+                            sea[index, i, this.x].CellState = CellStateEnum.Sink;
+                        }
+                        break;
+                    case 1: for (int i = this.x; i < this.x + this.type; i++)
+                        {
+                            sea[index, this.y, i].CellState = CellStateEnum.Sink;
+                        }
+                        break;
+                    case 2: for (int i = this.y; i < this.y + this.type; i++)
+                        {
+                            sea[index, i, this.x].CellState = CellStateEnum.Sink;
+                        }
+                        break;
+                    case 3: for (int i = this.x; i > this.x - this.type; i--)
+                        {
+                            sea[index, this.y, i].CellState = CellStateEnum.Sink;
+                        }
+                        break;
+                }
+            }
+            public bool isShotInShip(int x, int y)
+            {
+                int endX,endY;
                 switch(this.direct)
                 {
-                    case 0: endJ=this.j;
-                            endI=this.i+this.type;
-                            if((j==endJ)&&(this.i<=i)&&(i<=endI))
+                    case 0: endY=this.y;
+                            endX=this.x+this.type;
+                            if((y==endY)&&(this.x<=x)&&(x<=endX))
                             {
                                 return true;
                             }
@@ -44,9 +70,9 @@ namespace UltimateHackathonFramework.Games
                             {
                                 return false;
                             }
-                    case 1: endJ=this.j+this.type;
-                            endI=this.i;
-                            if((i==endI)&&(this.j<=j)&&(j<=endJ))
+                    case 1: endY=this.y+this.type;
+                            endX=this.x;
+                            if((x==endX)&&(this.y<=y)&&(y<=endY))
                             {
                                 return true;
                             }
@@ -54,9 +80,9 @@ namespace UltimateHackathonFramework.Games
                             {
                                 return false;
                             }
-                    case 2: endJ = this.j;
-                            endI = this.i - this.type;
-                            if((j==endJ)&&(this.i>=i)&&(i>=endI))
+                    case 2: endY = this.y;
+                            endX = this.x - this.type;
+                            if((y==endY)&&(this.x>=x)&&(x>=endX))
                             {
                                 return true;
                             }
@@ -64,9 +90,9 @@ namespace UltimateHackathonFramework.Games
                             {
                                 return false;
                             }
-                    case 3: endJ = this.j - this.type;
-                            endI = this.i;
-                            if((i==endI)&&(this.j>=j)&&(j>=endJ))
+                    case 3: endY = this.y - this.type;
+                            endX = this.x;
+                            if((x==endX)&&(this.y>=y)&&(y>=endY))
                             {
                                 return true;
                             }
@@ -76,6 +102,22 @@ namespace UltimateHackathonFramework.Games
                             }
                 }
                 return false;
+            }
+            public void attack()
+            {
+                this.shot++;
+            }
+
+            public bool isSink()
+            {
+                if(this.shot==this.type)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
 
@@ -100,48 +142,71 @@ namespace UltimateHackathonFramework.Games
 
             public bool checkAddShip(Ship ship, Cell[,,] sea, int index)
             {
-                int endI, endJ;
+                int endX, endY;
                 int iss=0, iee=0, jss=0, jee=0;
                 switch (ship.direct)
                 {
-                    case 0: endJ = ship.j;
-                            endI = ship.i + ship.type;
-                            if (ship.i-1 < 0) iss = 0; else iss = ship.i-1;
-                            if (endI+1 > 9) iee = 9; else iee = endI+1;
-                            if (endJ - 1 < 0) jss = 0; else jee = endJ - 1;
-                            if (endJ + 1 > 9) jee = 9; else jee = endJ + 1;
+                    case 0: endX = ship.x;
+                            endY = ship.y - ship.type;
+                            if (ship.y+1 > 9) jss = 0; else jss = ship.y+1;
+                            if (endY -1 < 0) jee = 0; else jee = endY-1;
+                            if (endX - 1 < 0) iss = 0; else iee = endX - 1;
+                            if (endX + 1 > 9) iee = 9; else iee = endX + 1;
                             break;
-                    case 1: endJ = ship.j + ship.type;
-                            endI = ship.i;
-                            if (ship.i-1 < 0) iss = 0; else iss = ship.i-1;
-                            if (endI+1 > 9) iee = 9; else iee = endI+1;
-                            if (ship.j - 1 < 0) jss = 0; else jee = ship.j - 1;
-                            if (endJ + 1 > 9) jee = 9; else jee = endJ + 1;
+                    case 1: endX = ship.x + ship.type;
+                            endY = ship.y;
+                            if (ship.x-1 < 0) iss = 0; else iss = ship.x-1;
+                            if (endX+1 > 9) iee = 9; else iee = endX+1;
+                            if (ship.y - 1 < 0) jss = 0; else jee = ship.y - 1;
+                            if (endY + 1 > 9) jee = 9; else jee = endY + 1;
                             break;
-                    case 2: endJ = ship.j;
-                            endI = ship.i - ship.type;
-                            if (ship.i - 1 > 0) iss = 0; else iss = ship.i - 1;
-                            if (endI + 1 < 0) iee = 0; else iee = endI - 1;
-                            if (endJ - 1 < 0) jss = 0; else jee = endJ - 1;
-                            if (endJ + 1 > 9) jee = 9; else jee = endJ + 1;
+                    case 2: endX = ship.x;
+                            endY = ship.y + ship.type;
+                            if (ship.x - 1 < 0) iss = 0; else iss = ship.x - 1;
+                            if (endX + 1 > 9) iee = 9; else iee = endX + 9;
+                            if (ship.y - 1 < 0) jss = 0; else jee = ship.y - 1;
+                            if (endY + 1 > 9) jee = 9; else jee = endY + 1;
                             break;
-                    case 3: endJ = ship.j - ship.type;
-                            endI = ship.i;
-                            if (endI-1 < 0) iss = 0; else iss = endI-1;
-                            if (ship.i + 1 > 9) iee = 9; else iee = ship.i + 1;
-                            if (ship.j + 1 > 9) jss = 9; else jee = ship.j + 1;
-                            if (endJ - 1 < 0) jee = 0; else jee = endJ - 1;
+                    case 3: endX = ship.x - ship.type;
+                            endY = ship.y;
+                            if (endX-1 < 0) iss = 0; else iss = endX-1;
+                            if (ship.x + 1 > 9) iee = 9; else iee = ship.x + 1;
+                            if (ship.y + 1 > 9) jss = 9; else jee = ship.y + 1;
+                            if (endY - 1 < 0) jee = 0; else jee = endY - 1;
                             break;
                 }
-                for (int i = iss; i <= iee;i++ )
+                for (int i = iss; i < iee;i++ )
                 {
-                    for(int j =jss; j<=jee;j++)
+                    for(int j =jss; j<jee;j++)
                     {
-                        if(sea[index,i,j].CellState==CellStateEnum.Ship)
+                        if(sea[index,j,i].CellState==CellStateEnum.Ship)
                         {
                             return false;
                         }
                     }
+                }
+                switch (ship.direct)
+                {
+                    case 0: for (int i = ship.y; i > ship.y-ship.type; i--)
+                            {
+                                sea[index, i, ship.x].CellState = CellStateEnum.Ship;    
+                            }
+                            break;
+                    case 1: for (int i = ship.x; i < ship.x + ship.type; i++)
+                            {
+                                sea[index, ship.y, i].CellState = CellStateEnum.Ship;
+                            } 
+                            break;
+                    case 2: for (int i = ship.y; i < ship.y + ship.type; i++)
+                            {
+                                sea[index, i, ship.x].CellState = CellStateEnum.Ship;
+                            } 
+                            break;
+                    case 3: for (int i = ship.x; i > ship.x - ship.type; i--)
+                            {
+                                sea[index, ship.y, i].CellState = CellStateEnum.Ship;
+                            }
+                            break;
                 }
                 addShip(ship);
                 return true; ;
@@ -185,20 +250,53 @@ namespace UltimateHackathonFramework.Games
                 //wywalic exception
             }
 
-
-            Dictionary<string, string> XOMapper = new Dictionary<string, string>();
             int botNow=0;
+            int enemy=1;
+            bool yourTurn = true;
             while(!isEnd())
             {
-                Dictionary<string, string> response = botsList[botNow].Communicate(new Dictionary<string, string>() { { "shot", "" } });
-                if (response.ContainsKey("action") && response["action"] =="shot")
+                if (yourTurn)
                 {
-                    
+                    yourTurn = false;
+                    Dictionary<string, string> response = botsList[botNow].Communicate(new Dictionary<string, string>() { { "action", "aim" } });
+                    if (response.ContainsKey("action") && response["action"] == "shot")
+                    {
+                        Ship target = _shipManager[enemy].isShotInShip(Int32.Parse(response["x"]), Int32.Parse(response["y"]));
+                        if (target != null)
+                        {
+                            if ((_botSea[enemy, Int32.Parse(response["y"]), Int32.Parse(response["x"])].CellState != CellStateEnum.ShottedShip) && (_botSea[enemy, Int32.Parse(response["y"]), Int32.Parse(response["x"])].CellState != CellStateEnum.Sink))
+                            {
+                                yourTurn = true;
+                                target.attack();
+                                _ships[enemy]--;
+                                if (target.isSink())
+                                {
+                                    response = botsList[botNow].Communicate(new Dictionary<string, string>() { { "action", "hittedAndSinked" } });
+                                }
+                                else
+                                {
+                                    response = botsList[botNow].Communicate(new Dictionary<string, string>() { { "action", "hitted" } });
+                                }
+                            }
+                        }
+                        else
+                        {
+                            response = botsList[botNow].Communicate(new Dictionary<string, string>() { { "action", "miss" } });
+                        }
+                    }
+                    else
+                    {
+                        //wywalic bota
+                    }
                 }
-                else
+                if(!yourTurn)
                 {
-                    //wywalic bota
+                    yourTurn = true;
+                    int temp = botNow;
+                    botNow = enemy;
+                    enemy = temp;
                 }
+
             }
             IResult result=new Result();
             return result;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using UltimateHackathonFramework.Interfaces;
@@ -14,6 +15,7 @@ namespace UltimateHackathonFramework {
                   _results = value; 
                   NotifyOfPropertyChange(() => RoundResults);
                   NotifyOfPropertyChange(() => IsVisible);
+                  NotifyOfPropertyChange(() => CanSave);
             }
         }
 
@@ -49,8 +51,26 @@ namespace UltimateHackathonFramework {
                 _isBusy = value; 
                 NotifyOfPropertyChange(() => IsBusy);
                 NotifyOfPropertyChange(() => IsVisible);
+                NotifyOfPropertyChange(() => CanSave);
             }
         }
+
+        public void Save()
+        {
+            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+            dlg.FileName = "Results"; 
+            dlg.DefaultExt = ".txt"; 
+            dlg.Filter = "Text documents (.txt)|*.txt"; 
+
+            Nullable<bool> result = dlg.ShowDialog();
+
+            if (result == true)
+            {
+                string filename = dlg.FileName;
+                System.IO.File.WriteAllText(filename, RoundResults.Log + Environment.NewLine + RoundResults.Results);
+            }
+        }
+        public bool CanSave { get { return !IsBusy && RoundResults != null; } }
     
     }
 }

@@ -25,7 +25,12 @@ namespace UltimateHackathonFramework
                 };
 
             _game = game;
-            _game.ResultsAvailable += () => _resultsViewModel.RoundResults = _game.Result;
+            _game.ResultsAvailable += () =>
+                {
+                    _resultsViewModel.RoundResults = _game.Result;
+                    _clientsViewModel.Bots.Refresh();
+                    _clientsViewModel.SelectedBots.Refresh();
+                };
             _game.ProgressChanged += (obj, args) => _resultsViewModel.ProgressPercent = args.ProgressPercentage;
 
             _communicationViewModel = communicationViewModel;
@@ -85,6 +90,7 @@ namespace UltimateHackathonFramework
         {
             foreach (var bot in _clientsViewModel.Bots)
                 bot.ClearPoints();
+            _clientsViewModel.SelectedBots.Refresh();
         }
         public bool CanResetPoints
         { get { return !IsBusy && _clientsViewModel.Bots != null && _clientsViewModel.Bots.Count > 0; } }

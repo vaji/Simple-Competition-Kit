@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,6 +46,22 @@ namespace UltimateHackathonFramework.Models
         public string Results
         {
             get { return _results.ToString(); }
+        }
+
+
+        public void Save(string path)
+        {
+            using (StreamWriter sw = new StreamWriter(path, true))
+            {
+                sw.Write(this.ToString());
+            }
+
+
+        }
+        public override string ToString()
+        {
+            return DateTime.Now.ToString() + Environment.NewLine + Results + Environment.NewLine + Log;
+
         }
     }
 }
