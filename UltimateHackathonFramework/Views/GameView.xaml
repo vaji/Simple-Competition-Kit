@@ -2,14 +2,19 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <Grid Background="White">
-        <StackPanel>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0">
             <TextBlock Text="Game"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    FontSize="20" />
             <Button x:Name="Start" Content="Start" />
         </StackPanel>
+        <ContentControl Grid.Column="1" x:Name="CommunicationViewModel" />
     </Grid>
 
 </UserControl>

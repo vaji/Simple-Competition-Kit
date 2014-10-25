@@ -10,7 +10,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid Background="White">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="10*"/>
@@ -24,12 +24,18 @@
                    FontSize="20" />
         <ListBox Grid.Row="1"
                 SelectedItem="{Binding SelectedBotFromListOfAll, Mode=TwoWay}" ItemsSource="{Binding Bots, Mode=TwoWay}" />
-        <DockPanel Grid.Row="2" >
-                <Button x:Name="ScanForClients" Content="Scan" DockPanel.Dock="Left" />
-                <WrapPanel Orientation="Horizontal" DockPanel.Dock="Right">
-                <Button x:Name="AddBot" Content="v" />
-                <Button x:Name="RemoveBot" Content="^" />
-                </WrapPanel>
+        <DockPanel Grid.Row="2" VerticalAlignment="Center" >
+                
+                <Grid DockPanel.Dock="Right">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button  Grid.Column="0" x:Name="ScanForClients" Content="Scan" DockPanel.Dock="Left" Padding="5" />
+                <Button  Grid.Column="1" x:Name="AddBot" Content="v" />
+                <Button Grid.Column="2" x:Name="RemoveBot" Content="^" />
+                </Grid>
             </DockPanel>
         <TextBlock Text="Selected" Grid.Row="3"
                    VerticalAlignment="Center"

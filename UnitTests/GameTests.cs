@@ -73,6 +73,19 @@ namespace UnitTests
         {
             throw new NotImplementedException();
         }
+
+
+        public string CurrentStatus
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
     }
     public class GameTests
     {

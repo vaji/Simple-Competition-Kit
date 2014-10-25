@@ -10,8 +10,11 @@ namespace UltimateHackathonFramework.Models
     class Round : IRound
     {
         protected ConfigRound _config;
-   
 
+        public Round()
+        {
+            Config = new ConfigRound() { maxNumberBots = 2, MinNumberBot = 2 };
+        }
         public ConfigRound Config
         {
             get { return _config; }
