@@ -42,7 +42,8 @@ namespace ShipsBot
                 ships[i]._X = r.Next(10);
                 ships[i]._Y = r.Next(10);
 
-                }while(contains(ships[i], ships.GetRange(0, i-1)));
+
+                }while(i!=0 && contains(ships[i], ships.GetRange(0, i-1)));
                 Console.WriteLine("03");
             }
             Console.WriteLine("04");
@@ -83,6 +84,7 @@ namespace ShipsBot
         {
             Dictionary<string, string> dict = new Dictionary<string, string>();
             int iterator = 1;
+            dict.Add("action", "ships");
             foreach (Ship ship in ships)
             {
                 dict.Add("x"+iterator, ship._X.ToString());
