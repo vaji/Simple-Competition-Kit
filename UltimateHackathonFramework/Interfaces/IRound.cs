@@ -8,6 +8,13 @@ namespace UltimateHackathonFramework.Interfaces
 {
     public interface IRound
     {
+        UltimateHackathonFramework.Models.ConfigRound Config
+        {
+            get;
+            set;
+        }
+
+
         IResult Go(IList<IBot> bots);
     }
 }

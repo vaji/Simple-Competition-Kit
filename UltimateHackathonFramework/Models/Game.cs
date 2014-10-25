@@ -9,7 +9,8 @@ namespace UltimateHackathonFramework.Models
 {
     class Game : IGame
     {
-
+        
+        
         public IResult Result
         {
             get { throw new NotImplementedException(); }

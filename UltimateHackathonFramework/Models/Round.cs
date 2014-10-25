@@ -9,7 +9,15 @@ namespace UltimateHackathonFramework.Models
 {
     class Round : IRound
     {
+        protected ConfigRound _config;
+   
 
+        public ConfigRound Config
+        {
+            get { return _config; }
+            set { _config = value; }
+        }
+        
         public IResult Go(IList<IBot> bots)
         {
             throw new NotImplementedException();
