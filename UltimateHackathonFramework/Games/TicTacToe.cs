@@ -16,7 +16,7 @@ namespace UltimateHackathonFramework.Games
         public CellStateEnum CellState = CellStateEnum.clFree;
     }
 
-    class TicTacToe:Round
+    class TicTacToe:Game
     {
         Cell[,] Grid;
 

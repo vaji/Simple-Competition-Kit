@@ -87,9 +87,9 @@
     <Compile Include="Models\ClientManager.cs" />
     <Compile Include="Models\Communication.cs" />
     <Compile Include="Models\ConfigRound.cs" />
-    <Compile Include="Models\Game.cs" />
+    <Compile Include="Models\GameManager.cs" />
     <Compile Include="Models\Result.cs" />
-    <Compile Include="Models\Round.cs" />
+    <Compile Include="Models\Game.cs" />
     <Compile Include="Models\RoundResult.cs" />
     <Compile Include="ViewModels\CommunicationViewModel.cs" />
     <Compile Include="ViewModels\ResultsViewModel.cs" />
