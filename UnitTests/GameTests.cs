@@ -93,7 +93,7 @@ namespace UnitTests
             get { throw new NotImplementedException(); }
         }
 
-        public void addPoints(double points)
+        public void AddPoints(double points)
         {
             throw new NotImplementedException();
         }

@@ -14,6 +14,8 @@
                    FontSize="20" />
             <Button x:Name="Start" Content="Start single game" />
             <Button x:Name="StartAll" Content="Play all" />
+            <Button x:Name="ResetPoints" Content="Reset points" />
+            <ComboBox x:Name="Modes" SelectedItem="{Binding SelectedMode}"/>
         </StackPanel>
         <ContentControl Grid.Column="1" x:Name="CommunicationViewModel" />
     </Grid>

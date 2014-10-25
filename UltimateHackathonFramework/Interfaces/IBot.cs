@@ -13,7 +13,8 @@ namespace UltimateHackathonFramework.Interfaces
         string Name { get; }
 
         double Points { get; }
-        void addPoints(double points);
+        void AddPoints(double points);
+        void ClearPoints();
         TcpClient CommunicationChannel { get; set; }
 
         Enums.State CurrentState { get; set; } 

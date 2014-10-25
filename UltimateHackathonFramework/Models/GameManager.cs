@@ -33,25 +33,49 @@ namespace UltimateHackathonFramework.Models
 
         public virtual void StartAll()
         {
-            var bots = _clientManager.Clients;
+            RunAsynchronously(RunAll);
+        }
+
+        private void RunAsynchronously(DoWorkEventHandler backgroundWorker_DoWork, object data = null)
+        {
             _botToGame.Clear();
+            var backgroundWorker = new BackgroundWorker();
+            backgroundWorker.DoWork += backgroundWorker_DoWork;
+            backgroundWorker.RunWorkerCompleted += (obj, args) => OnResultsAvailable();
+            backgroundWorker.ProgressChanged += (obj, args) => OnProgressChanged(args.ProgressPercentage);
+            backgroundWorker.WorkerReportsProgress = true;
+            if (data == null)
+                backgroundWorker.RunWorkerAsync();
+            else
+                backgroundWorker.RunWorkerAsync(data);
+        }
+
+        void RunAll(object sender, DoWorkEventArgs e)
+        {
+            var bots = _clientManager.Clients;
             _result = new Result();
-            if ((_clientManager.Clients.Count > 0) && (_round.Config.EachOfEach))
+            var worker = sender as BackgroundWorker;
+            if ((bots.Count > 0) && (_round.Config.EachOfEach))
             {
-                Combination(new List<IBot>(), _clientManager.Clients, -1, _round.Config.maxNumberBots);
-                foreach (List<IBot> botToGo in _botToGame)
+                Combination(new List<IBot>(), bots, -1, _round.Config.maxNumberBots);
+
+                int totalBots = _botToGame.Count();
+                int progress = 0;
+
+                foreach (var botToGo in _botToGame)
                 {
-                    //_result.addResult(_round.Go(botToGo));
+                    progress++;
                     foreach (var bot in botToGo) bot.RunBot();
                     var result = _round.Go(botToGo);
-                    _result.addResult(result);
+                    _result.addToLog(result.Results);
                     foreach (var bot in botToGo) bot.KillBot();
+                    worker.ReportProgress(progress * 100 / totalBots);
                 }
-                foreach (IBot bot in _clientManager.Clients)
+                foreach (IBot bot in _clientManager.Clients.OrderByDescending(x => x.Points))
                 {
                     Console.WriteLine(bot.Name + ": " + bot.Points);
+                    _result.addFinalResult(bot.Name + ": " + bot.Points);
                 }
-                OnResultsAvailable();
             }
         }
 
@@ -79,14 +103,33 @@ namespace UltimateHackathonFramework.Models
 
         public virtual void Start(IList<IBot> bots)
         {
-            /*
-            foreach (var bot in bots) bot.RunBot();
-            var backgroundWorker = new BackgroundWorker();
-            backgroundWorker.DoWork += (obj, args) => _round.Go(bots);
-            backgroundWorker.RunWorkerCompleted += backgroundWorker_RunWorkerCompleted;
-            backgroundWorker.RunWorkerAsync();
-            */
+            RunAsynchronously(RunSelected, bots);
             
+        }
+
+        private void RunSelected(object sender, DoWorkEventArgs e)
+        {
+            var bots = e.Argument as IList<IBot>;
+            if (bots == null) throw new ArgumentException("Tried to launch game with something that is not a list of bots");
+            _result = new Result();
+            var worker = sender as BackgroundWorker;
+            if (bots.Count <=  _round.Config.maxNumberBots && bots.Count >= _round.Config.MinNumberBot)
+            {
+                    worker.ReportProgress(10);
+                    foreach (var bot in bots) bot.RunBot();
+                    var result = _round.Go(bots);
+                    _result.addToLog(result.Log);
+                    _result.addFinalResult(result.Results);
+                    foreach (var bot in bots) bot.KillBot();
+                    worker.ReportProgress(90);
+                
+                foreach (IBot bot in _clientManager.Clients.OrderByDescending(x => x.Points))
+                {
+                    Console.WriteLine(bot.Name + ": " + bot.Points);
+                    _result.addFinalResult(bot.Name + ": " + bot.Points + Environment.NewLine);
+                    
+                }
+            }
         }
 
 
@@ -101,6 +144,15 @@ namespace UltimateHackathonFramework.Models
         }
 
         public event Action ResultsAvailable;
+
+        public event EventHandler<ProgressChangedEventArgs> ProgressChanged;
+
+        private void OnProgressChanged(int percent)
+        {
+            var args = new ProgressChangedEventArgs(percent, null);
+            if (ProgressChanged != null)
+                ProgressChanged(this, args);
+        }
 
         public ConfigRound getConfig()
         {

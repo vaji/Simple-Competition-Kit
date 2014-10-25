@@ -1,18 +1,29 @@
 <UserControl x:Class="UltimateHackathonFramework.ResultsView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro">
     <UserControl.Resources>
         <ResourceDictionary>
+            <BooleanToVisibilityConverter x:Key="Bool2VisibilityConverter" />
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="./DataTemplates.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <DockPanel>
-            <TextBlock Text="Results"/>
-            <TextBlock Text="{Binding RoundResults.Results}"/>
+        <DockPanel LastChildFill="True" Visibility="{Binding IsVisible}">
+            <TextBlock Text="Results" DockPanel.Dock="Top"/>
+            <ScrollViewer>
+                <StackPanel>
+                <TextBlock  Text="{Binding RoundResults.Results}" Margin="5" />
+               <TextBlock  Text="Logs:" Margin="5" />
+                    <TextBlock Text="{Binding RoundResults.Log}" FontFamily="Courier New" Margin="5" />
+                </StackPanel>
+                
+            </ScrollViewer>
         </DockPanel>
+        <Controls:MetroProgressBar Minimum="0" Maximum="100" Value="{Binding ProgressPercent}" Margin="30" Height="60"
+                                   Visibility="{Binding IsBusy, Converter={StaticResource Bool2VisibilityConverter}}"/>
     </Grid>
 
 </UserControl>

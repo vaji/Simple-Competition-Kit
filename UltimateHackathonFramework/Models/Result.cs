@@ -9,7 +9,7 @@ namespace UltimateHackathonFramework.Models
 {
     class Result : IResult
     {
-        private List<IResult> _results;
+        private StringBuilder _results = new StringBuilder();
         private StringBuilder _log = new StringBuilder();
         public string Log
         {
@@ -17,13 +17,9 @@ namespace UltimateHackathonFramework.Models
         }
 
 
-        public void addResult(IResult result)
+        public void addFinalResult(string result)
         {
-            if(_results==null)
-            {
-                _results=new List<IResult>();
-            }
-            _results.Add(result);
+            _results.AppendLine(result);
         }
 
 
@@ -35,17 +31,6 @@ namespace UltimateHackathonFramework.Models
         public Result() { }
 
 
-        public string getResultLog(int index)
-        {
-            if((_results!=null)&&(index<_results.Count))
-            {
-                return _results[index].Log;
-            }
-            else
-            {
-                return null;
-            }
-        }
 
 
         public void addToLog(string action, Dictionary<string, string> dict)
@@ -59,9 +44,7 @@ namespace UltimateHackathonFramework.Models
 
         public string Results
         {
-            get { var sb = new StringBuilder();
-                  _results.ForEach(x=> sb.AppendLine(x.Results));
-                return sb.ToString();}
+            get { return _results.ToString(); }
         }
     }
 }

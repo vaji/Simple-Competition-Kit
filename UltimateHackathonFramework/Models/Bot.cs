@@ -117,7 +117,8 @@ namespace UltimateHackathonFramework.Models
         {
             if(File.Exists(_path))
             {
-                _process = Process.Start(_path, _server.IP + " " + _server.Port);
+                var processInfo = new ProcessStartInfo(_path, _server.IP + " " + _server.Port) { WindowStyle = ProcessWindowStyle.Minimized };
+                _process = Process.Start(processInfo);
             }
             else
             {
@@ -158,9 +159,10 @@ namespace UltimateHackathonFramework.Models
         public double Points
         {
             get { return _points; }
+            private set { _points = value; }
         }
 
-        public void addPoints(double points)
+        public void AddPoints(double points)
         {
             _points += points;
         }
@@ -177,6 +179,12 @@ namespace UltimateHackathonFramework.Models
             {
                 throw new NotImplementedException();
             }
+        }
+
+
+        public void ClearPoints()
+        {
+            Points = 0;
         }
     }
 }
