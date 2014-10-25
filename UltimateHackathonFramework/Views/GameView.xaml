@@ -12,7 +12,8 @@
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    FontSize="20" />
-            <Button x:Name="Start" Content="Start" />
+            <Button x:Name="Start" Content="Start single game" />
+            <Button x:Name="StartAll" Content="Play all" />
         </StackPanel>
         <ContentControl Grid.Column="1" x:Name="CommunicationViewModel" />
     </Grid>

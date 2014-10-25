@@ -44,13 +44,19 @@ namespace UltimateHackathonFramework
         }
 
 
-        public void AddBot() { SelectedBots.Add(SelectedBotFromListOfAll);
-                               NotifyOfPropertyChange(() => CanAddBot);
+        public void AddBot() {
+            if (CanAddBot)
+            {
+                SelectedBots.Add(SelectedBotFromListOfAll);
+                NotifyOfPropertyChange(() => CanAddBot);
+            }
         }
         public bool CanAddBot { get { return SelectedBotFromListOfAll != null && !SelectedBots.Contains(SelectedBotFromListOfAll) ; } }
 
-        public void RemoveBot() { SelectedBots.Remove(SelectedBotFromSelectedList); }
-        public bool CanRemoveBot { get { return SelectedBotFromSelectedList != null; } }
+        public void ClickAddBot() { AddBot(); }
+        public void RemoveBot() { if(CanRemoveBot) SelectedBots.Remove(SelectedBotFromSelectedList); }
+        public void ClickRemoveBot() { RemoveBot(); NotifyOfPropertyChange(() => CanRemoveBot); }
+        public bool CanRemoveBot { get { return SelectedBotFromSelectedList != null;  } }
 
 
         public void ScanForClients()
@@ -59,7 +65,7 @@ namespace UltimateHackathonFramework
             Bots.Clear();
             Bots.AddRange(_clientManager.Clients);
             SelectedBots.Clear();
-
+            NotifyOfPropertyChange();
         }
     }
 }

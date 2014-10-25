@@ -55,5 +55,13 @@ namespace UltimateHackathonFramework.Models
                 addToLog(action + " " + kvp.Key + " " + kvp.Value);
             }
         }
+
+
+        public string Results
+        {
+            get { var sb = new StringBuilder();
+                  _results.ForEach(x=> sb.AppendLine(x.Results));
+                return sb.ToString();}
+        }
     }
 }

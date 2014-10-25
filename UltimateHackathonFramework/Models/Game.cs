@@ -33,34 +33,24 @@ namespace UltimateHackathonFramework.Models
 
         public virtual void StartAll()
         {
+            var bots = _clientManager.Clients;
             _botToGame.Clear();
-            _result=new Result();
-            if((_clientManager.Clients.Count>0) && (_round.Config.EachOfEach))
+            _result = new Result();
+            if ((_clientManager.Clients.Count > 0) && (_round.Config.EachOfEach))
             {
-                /*
-                 * Narazie zostawmy to
-                 * 
-                IList<List<IBot>> botCouple = new List<List<IBot>>();
-                int moveIndex = 0;
-                
-                for (int i = moveIndex; i < _clientManager.Clients.Count-1; i++ )
-                {
-                    for(int j=moveIndex+1; j< _clientManager.Clients.Count; j++)
-                    {
-                        botCouple.Add(new List<IBot>());
-                        botCouple[botCouple.Count - 1].Add(_clientManager.Clients[i]);
-                        botCouple[botCouple.Count - 1].Add(_clientManager.Clients[j]);
-                    }
-                    moveIndex++;
-                }*/
-
                 Combination(new List<IBot>(), _clientManager.Clients, -1, _round.Config.maxNumberBots);
-                foreach(List<IBot> botToGo in _botToGame)
+                foreach (List<IBot> botToGo in _botToGame)
                 {
-                     //_result.addResult(_round.Go(botToGo));
-                    Start(botToGo);
+                    //_result.addResult(_round.Go(botToGo));
+                    foreach (var bot in bots) bot.RunBot();
+                    var result = _round.Go(bots);
+                    _result.addResult(result);
                 }
-             }
+                foreach (IBot bot in _clientManager.Clients)
+                {
+                    Console.WriteLine(bot.Name + ": " + bot.Points);
+                }
+            }
         }
 
         void Combination(IList<IBot> tempBots, IList<IBot> bots, int lastValue, int digitsCount)
@@ -94,29 +84,7 @@ namespace UltimateHackathonFramework.Models
             backgroundWorker.RunWorkerCompleted += backgroundWorker_RunWorkerCompleted;
             backgroundWorker.RunWorkerAsync();
             */
-            _botToGame.Clear();
-            _result=new Result();
-            if((_clientManager.Clients.Count>0) && (_round.Config.EachOfEach))
-            {
-                Combination(new List<IBot>(), _clientManager.Clients, -1, _round.Config.maxNumberBots);
-                foreach (List<IBot> botToGo in _botToGame)
-                {
-                    //_result.addResult(_round.Go(botToGo));
-                    tempStart(botToGo);
-                }
-                foreach (IBot bot in _clientManager.Clients)
-                {
-                    Console.WriteLine(bot.Name + ": " + bot.Points);
-                }
-            }
-        }
 
-        public void tempStart(IList<IBot> bots)
-        {
-            foreach (var bot in bots) bot.RunBot();
-            IResult result= _round.Go(bots);
-            
-            
         }
 
         void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
