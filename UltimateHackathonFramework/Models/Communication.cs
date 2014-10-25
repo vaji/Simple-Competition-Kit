@@ -16,12 +16,15 @@ namespace UltimateHackathonFramework.Models
     {
         TcpListener listener=null;
 
-        Enums.ServerStateEnum _ServerState = Enums.ServerStateEnum.NotListening;
+        Enums.ServerStateEnum _ServerState;
 
         private string _IpAddress;
         private int _PortNumber;
 
-
+        public Communication()
+        {
+           ServerState = Enums.ServerStateEnum.NotListening;
+        }
         public void StartListening(string IpAddress, int PortNumber)
         {
             _IpAddress = IpAddress;
@@ -30,7 +33,7 @@ namespace UltimateHackathonFramework.Models
             {
                 listener = new TcpListener(IPAddress.Parse(IpAddress), PortNumber);
                 listener.Start();
-                _ServerState = Enums.ServerStateEnum.Listening;
+                ServerState = Enums.ServerStateEnum.Listening;
             }
             catch (Exception)
             {
@@ -42,7 +45,7 @@ namespace UltimateHackathonFramework.Models
         public void StopListening()
         {
             listener.Stop();
-            _ServerState = Enums.ServerStateEnum.NotListening;
+            ServerState = Enums.ServerStateEnum.NotListening;
         }
 
 
@@ -80,12 +83,23 @@ namespace UltimateHackathonFramework.Models
         {
             get
             {
-                throw new NotImplementedException();
+                return _ServerState;
             }
             set
             {
-                throw new NotImplementedException();
+                if (_ServerState == value) return;
+                _ServerState = value;
+                OnServerStateChanged();
             }
         }
+
+        private void OnServerStateChanged()
+        {
+            if (StateChanged != null)
+                StateChanged();
+        }
+
+
+        public event Action StateChanged;
     }
 }

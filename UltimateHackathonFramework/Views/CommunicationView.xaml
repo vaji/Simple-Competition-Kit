@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         >
 
-    <Grid Background="White">
+    <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="3*"/>
             <RowDefinition Height="3*"/>
@@ -15,6 +15,20 @@
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    FontSize="20" />
+        <TextBlock x:Name="Status" >
+            <TextBlock.Style>
+                <Style BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="{x:Type TextBlock}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Status}" Value="Listening">
+                            <Setter Property="Background" Value="Green" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Status}" Value="NotListening">
+                            <Setter Property="Background" Value="Black" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
         <TextBox Grid.Row="1" Text="{Binding IP}"/>
         <TextBox Grid.Row="2" Text="{Binding Port}" />
         <Button Grid.Row="3" x:Name="StartListening" Content="Start"/>

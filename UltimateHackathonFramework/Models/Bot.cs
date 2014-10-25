@@ -52,7 +52,16 @@ namespace UltimateHackathonFramework.Models
             string json = new JavaScriptSerializer().Serialize(data.ToDictionary(item => item.Key.ToString(), item => item.Value.ToString()));
             SendString(json);
             json = ReceiveString();
-            return JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
+            try
+            {
+                return JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
+            }
+            catch (Exception)
+            {
+                
+                
+            }
+            return new Dictionary<string, string>();
 
         }
 

@@ -17,5 +17,7 @@ namespace UltimateHackathonFramework.Interfaces
         string IP { get; set; }
 
         string Port { get; set; }
+
+        event Action StateChanged;
     }
 }
