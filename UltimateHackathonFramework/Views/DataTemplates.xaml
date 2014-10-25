@@ -1,9 +1,14 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:UltimateHackathonFramework.Models">
+                    xmlns:local="clr-namespace:UltimateHackathonFramework.Models"
+                    >
     
     
     <DataTemplate DataType="{x:Type local:Result}">
         <TextBlock Text="{Binding Results}"/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type local:Bot}">
+        <TextBlock Text="{Binding Name}"  />
     </DataTemplate>
 </ResourceDictionary>
