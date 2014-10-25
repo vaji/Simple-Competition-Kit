@@ -93,9 +93,36 @@ namespace ShipsBot
 
         private Dictionary<string, string> hittedAndSinked()
         {
-            table[target.Item1, target.Item2] = 5;
-
+            markSinkedFloodFill(target.Item1, target.Item2);
+            
             return new Dictionary<string, string>();
+        }
+
+        private void markSinkedFloodFill(int x, int y)
+        {
+            table[x, y] = 5;
+
+            for (int ix = -1; ix < 2; ix++)
+            {
+                for (int iy = -1; iy < 2; iy++)
+                {
+                    int xx = x + ix;
+                    int yy = y + iy;
+
+                    if(xx>=0 && xx<=9 && yy>=0 && yy<=9)
+                    {
+                        if (table[xx, yy] == 0)
+                            table[xx, yy] = -1;
+                    }
+                }
+            }
+
+            if (x > 0 && table[x - 1, y] == 1) markSinkedFloodFill(x - 1, y);
+            if (x < 9 && table[x + 1, y] == 1) markSinkedFloodFill(x + 1, y);
+            if (y > 0 && table[x, y - 1] == 1) markSinkedFloodFill(x, y - 1);
+            if (y < 9 && table[x, y + 1] == 1) markSinkedFloodFill(x, y + 1);
+
+
         }
 
         private Dictionary<string, string> hitted()
@@ -122,7 +149,13 @@ namespace ShipsBot
                 {
                     if(table[x, y]==0)
                     {
-                        candidates.Add(new Tuple<int, int, int>(x, y, 1));
+
+                        int priority = 1;
+                        if (x > 0 && table[x - 1, y] == 1) priority = 2;
+                        if (x < 9 && table[x + 1, y] == 1) priority = 2;
+                        if (y > 0 && table[x, y - 1] == 1) priority = 2;
+                        if (y < 9 && table[x, y + 1] == 1) priority = 2;
+                        candidates.Add(new Tuple<int, int, int>(x, y, priority));
                     }
                 }
             }
