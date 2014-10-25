@@ -50,21 +50,26 @@ namespace UltimateHackathonFramework.Games
                         targetCell = Int32.Parse(response["move"]);
                     }
                     catch (Exception)
-            {
+                    {
 
                         throw new Exception("TargetCellInfoCorrupted: " + response["move"]);
                     }
                     int x = targetCell % 3;
                     int y = targetCell / 3;
                     if(Grid[x, y].CellState==CellStateEnum.clFree)
-                {
+                    {
                         if (XOMapper[bots[iterator % 2].ID] == "X")
-                    {
+                        {
                             Grid[x, y].CellState = CellStateEnum.clTakenX;
-                    }
+                        }
                         if (XOMapper[bots[iterator % 2].ID] == "O")
-                    {
+                        {
                             Grid[x, y].CellState = CellStateEnum.clTakenO;
+                        }
+
+                        foreach (Bot bot in bots)
+                        {
+                            bot.Communicate(response);
                         }
                     }
                     else
