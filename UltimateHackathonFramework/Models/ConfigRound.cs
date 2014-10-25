@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UltimateHackathonFramework.Models
 {
-    class ConfigRound
+    public class ConfigRound
     {
         private int _maxNumberBots;
 
