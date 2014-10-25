@@ -23,7 +23,6 @@ namespace UnitTests
             string REQUEST = "gdzie jest groszek?";
             string RESPONSE = "tutaj";
             System.Collections.Generic.Dictionary<string, string> response= sampleBot.Communicate(new System.Collections.Generic.Dictionary<string,string>(){{REQUEST, RESPONSE}});
-            System.Collections.Generic.Dictionary<string, string>
             sampleBot.KillBot();
             Assert.AreEqual(RESPONSE, response[REQUEST]); 
         }

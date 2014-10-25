@@ -15,7 +15,6 @@ namespace UltimateHackathonFramework.Models
         
         private IResult _result;
         private IList<List<IBot>> _botToGame = new List<List<IBot>>();
-        private IResult _result=new Result();
 
         public IResult Result
         {
@@ -30,10 +29,6 @@ namespace UltimateHackathonFramework.Models
             _clientManager = clientManager;
             _clientManager.ScanForClients();
 
-        }
-        public IResult Result
-        {
-            get { return _result; }
         }
 
         public virtual void StartAll()
