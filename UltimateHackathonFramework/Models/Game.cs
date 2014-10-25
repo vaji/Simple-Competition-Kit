@@ -15,14 +15,27 @@ namespace UltimateHackathonFramework.Models
             get { throw new NotImplementedException(); }
         }
 
-        public void StartAll()
+        public virtual void StartAll()
         {
             throw new NotImplementedException();
         }
 
-        public void Start(IList<IBot> bots)
+        public virtual void Start(IList<IBot> bots)
         {
             throw new NotImplementedException();
         }
+
+
+        public int MinimumBots
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public int MaximumBots
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public event Action ResultsAvailable;
     }
 }

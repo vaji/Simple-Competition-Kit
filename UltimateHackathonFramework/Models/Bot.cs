@@ -11,26 +11,26 @@ namespace UltimateHackathonFramework.Models
 {
     public class Bot : IBot
     {
-        private string id;
-        private string name;
-        private string path;
-        private Process process=null;
+        private string _id;
+        private string _name;
+        private string _path;
+        private Process _process=null;
 
         public Bot() { }
         public Bot(string name, string path)
         {
-            this.id = name;
-            this.name = name;
-            this.path = path;
+            this._id = name;
+            this._name = name;
+            this._path = path;
         }
         public string ID
         {
-            get { return this.id; }
+            get { return this._id; }
         }
 
         public string Name
         {
-            get { return this.name; }
+            get { return this._name; }
         }
 
         public Dictionary<string, string> Communicate(Dictionary<string, string> data)
@@ -40,19 +40,19 @@ namespace UltimateHackathonFramework.Models
 
         public void RunBot(ICommunication server)
         {
-            if(File.Exists(path))
+            if(File.Exists(_path))
             {
-                process = Process.Start(path, server.IP + " " + server.Port);
+                _process = Process.Start(_path, server.IP + " " + server.Port);
             }
             else
             {
-                throw new FileNotFoundException(path);
+                throw new FileNotFoundException(_path);
             }
         }
 
         public void KillBot()
         {
-            throw new NotImplementedException();
+            _process.Kill();
         }
 
 

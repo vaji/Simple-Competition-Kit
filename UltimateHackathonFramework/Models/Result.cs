@@ -10,5 +10,9 @@ namespace UltimateHackathonFramework.Models
     class Result : IResult
     {
 
+        public string Results
+        {
+            get { throw new NotImplementedException(); }
+        }
     }
 }

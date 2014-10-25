@@ -98,5 +98,18 @@ namespace UltimateHackathonFramework.Games
             }
             else return false;
         }
+
+
+        public int MinimumBots
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public int MaximumBots
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public event Action ResultsAvailable;
     }
 }

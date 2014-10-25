@@ -70,7 +70,6 @@
     <Compile Include="Interfaces\IBot.cs" />
     <Compile Include="Interfaces\IResult.cs" />
     <Compile Include="Interfaces\IRound.cs" />
-    <Compile Include="Interfaces\IRoundResult.cs" />
     <Compile Include="Interfaces\IClientManager.cs" />
     <Compile Include="Interfaces\ICommunication.cs" />
     <Compile Include="IShell.cs" />
@@ -81,6 +80,7 @@
     <Compile Include="Models\Result.cs" />
     <Compile Include="Models\Round.cs" />
     <Compile Include="Models\RoundResult.cs" />
+    <Compile Include="ViewModels\ResultsViewModel.cs" />
     <Compile Include="ViewModels\GameViewModel.cs" />
     <Compile Include="ViewModels\ClientsViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
@@ -89,6 +89,22 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Conventions.cs" />
+    <Page Include="Views\DataTemplates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ResultsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\GameView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ClientsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\ShellView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -9,12 +9,12 @@ namespace UltimateHackathonFramework.Models
 {
     public class ClientManager : IClientManager
     {
-        private IList<IBot> clients=new List<IBot>();
+        private IList<IBot> _clients=new List<IBot>();
 
         public IList<IBot> Clients
         {
-            get { return clients; }
-            set { clients = value; }
+            get { return _clients; }
+            set { _clients = value; }
         }
 
         public void ScanForClients()
