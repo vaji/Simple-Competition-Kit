@@ -49,7 +49,7 @@ namespace UltimateHackathonFramework.Models
 
         public string Results
         {
-            get { return _message; }
+            get { return _message.ToString(); }
         }
     }
 }

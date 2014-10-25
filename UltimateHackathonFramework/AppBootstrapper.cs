@@ -28,7 +28,7 @@ namespace UltimateHackathonFramework
             container.Singleton<GameViewModel>();
             container.Singleton<ResultsViewModel>();
             container.Singleton<ClientsViewModel>();
-            container.Singleton<IGame, Game>();
+            container.Singleton<IGame, GameManager>();
             container.Singleton<ICommunication, Communication>();
             container.Singleton<IRound, TicTacToe>();
             container.Singleton<CommunicationViewModel>();

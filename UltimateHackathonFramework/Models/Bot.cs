@@ -19,10 +19,11 @@ namespace UltimateHackathonFramework.Models
         private string _name;
         private string _path;
         private Process _process=null;
-        private string _currentStatus;
+        private Enums.State _currentStatus;
         private TcpClient _CommunicationChannel = null;
         private ICommunication _server;
-        public string CurrentSatus
+        private long _timeout = 1000;
+        public Enums.State CurrentSatus
         {
             get { return _currentStatus; }
             set { _currentStatus = value; }
@@ -59,11 +60,8 @@ namespace UltimateHackathonFramework.Models
             }
             catch (Exception)
             {
-                
-                
+                return new Dictionary<string,string>(){{"error", "timeout"}};
             }
-            return new Dictionary<string, string>();
-
         }
 
         private string ReceiveString()
@@ -72,8 +70,10 @@ namespace UltimateHackathonFramework.Models
             byte[] buff = null;
             int buffSize = 4096;
             string result = "";
-
-            while (!stream.DataAvailable) { };
+            System.Diagnostics.Stopwatch timer=new System.Diagnostics.Stopwatch();
+            timer.Start();
+            while ((!stream.DataAvailable)&&(timer.ElapsedMilliseconds<=_timeout)) { };
+            timer.Stop();
 
             buff = new byte[buffSize];
             int length = stream.Read(buff, 0, buff.Length);
@@ -81,6 +81,10 @@ namespace UltimateHackathonFramework.Models
             {
                 ASCIIEncoding asen = new ASCIIEncoding();
                 result = asen.GetString(buff);
+            }
+            else
+            {
+                return null; 
             }
             return result;
         }
@@ -100,7 +104,7 @@ namespace UltimateHackathonFramework.Models
                 }
                 catch (Exception e)
                 {
-
+                    throw e;
                 }
             }
             else
@@ -149,19 +153,6 @@ namespace UltimateHackathonFramework.Models
             }
         }
 
-
-        public string CurrentStatus
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
         private double _points;
 
         public double Points
@@ -173,6 +164,19 @@ namespace UltimateHackathonFramework.Models
         {
             _points += points;
         }
-        
+
+
+
+        public Enums.State CurrentState
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
     }
 }

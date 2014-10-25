@@ -16,7 +16,7 @@ namespace UltimateHackathonFramework.Games
         public CellStateEnum CellState = CellStateEnum.clFree;
     }
 
-    class TicTacToe:Round
+    class TicTacToe:Game
     {
         Cell[,] Grid;
 
@@ -51,6 +51,8 @@ namespace UltimateHackathonFramework.Games
                     }
                     catch (Exception)
                     {
+                        bots[iterator % 2].CurrentState = Enums.State.Failed;
+
 
                         throw new Exception("TargetCellInfoCorrupted: " + response["move"]);
                     }
@@ -132,7 +134,7 @@ namespace UltimateHackathonFramework.Games
         }
 
         private CellStateEnum verifyVictory(Cell[,] Grid)
-            {
+        {
             for (int i = 0; i < 3; i++)
                 {
                 if (Grid[0, i].CellState == Grid[1, i].CellState && Grid[0, i].CellState == Grid[2, i].CellState && Grid[0, i].CellState != CellStateEnum.clFree) return Grid[0, i].CellState;
