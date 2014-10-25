@@ -1,6 +1,6 @@
 
 using UltimateHackathonFramework.Interfaces;
-using UltimateHackathonFramework.ViewModels;
+using UltimateHackathonFramework;
 
 namespace UltimateHackathonFramework
 {
@@ -29,7 +29,8 @@ namespace UltimateHackathonFramework
             get
             {
                 var botCount = _clientsViewModel.SelectedBots.Count;
-                return botCount >= _game.MinimumBots && botCount <= _game.MaximumBots;
+                var config = _game.getConfig();
+                return botCount >= config.MinNumberBot  && botCount <= config.MinNumberBot;
             }
         }
     }

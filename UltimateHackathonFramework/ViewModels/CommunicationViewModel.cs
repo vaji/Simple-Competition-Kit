@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using UltimateHackathonFramework.Interfaces;
 
-namespace UltimateHackathonFramework.ViewModels
+namespace UltimateHackathonFramework
 {
     public class CommunicationViewModel : PropertyChangedBase
     {

@@ -9,6 +9,7 @@
             <RowDefinition Height="3*"/>
             <RowDefinition Height="3*"/>
             <RowDefinition Height="3*"/>
+            <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
             <TextBlock Text="Server" Grid.Row="0"
                    VerticalAlignment="Center"

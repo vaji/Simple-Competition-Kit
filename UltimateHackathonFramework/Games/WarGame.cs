@@ -124,5 +124,11 @@ namespace UltimateHackathonFramework.Games
         }
 
         public event Action ResultsAvailable;
+
+
+        public Models.ConfigRound getConfig()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
