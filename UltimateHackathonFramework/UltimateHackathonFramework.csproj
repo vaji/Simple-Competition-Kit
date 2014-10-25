@@ -86,6 +86,7 @@
     <Compile Include="Models\Result.cs" />
     <Compile Include="Models\Round.cs" />
     <Compile Include="Models\RoundResult.cs" />
+    <Compile Include="ViewModels\CommunicationViewModel.cs" />
     <Compile Include="ViewModels\ResultsViewModel.cs" />
     <Compile Include="ViewModels\GameViewModel.cs" />
     <Compile Include="ViewModels\ClientsViewModel.cs" />
@@ -95,6 +96,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Conventions.cs" />
+    <Page Include="Views\CommunicationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\DataTemplates.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
