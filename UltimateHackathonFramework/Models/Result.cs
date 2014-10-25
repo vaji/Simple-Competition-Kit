@@ -46,5 +46,14 @@ namespace UltimateHackathonFramework.Models
                 return null;
             }
         }
+
+
+        public void addToLog(string action, Dictionary<string, string> dict)
+        {
+            foreach (KeyValuePair<string, string> kvp in dict)
+            {
+                addToLog(action + " " + kvp.Key + " " + kvp.Value);
+            }
+        }
     }
 }
