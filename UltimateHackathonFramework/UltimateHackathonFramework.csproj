@@ -72,6 +72,7 @@
     <Compile Include="Interfaces\IRound.cs" />
     <Compile Include="Interfaces\IClientManager.cs" />
     <Compile Include="Interfaces\ICommunication.cs" />
+    <Compile Include="Interfaces\States.cs" />
     <Compile Include="IShell.cs" />
     <Compile Include="Models\Bot.cs" />
     <Compile Include="Models\ClientManager.cs" />

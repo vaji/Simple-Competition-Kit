@@ -11,7 +11,9 @@ namespace UltimateHackathonFramework.Interfaces
     {
         string ID { get; }
         string Name { get; }
-        TcpClient CommunicationChannel { get; set; } 
+        TcpClient CommunicationChannel { get; set; }
+
+        string CurrentStatus { get; set; } 
 
         Dictionary<string,string> Communicate(Dictionary<string, string> data);
 

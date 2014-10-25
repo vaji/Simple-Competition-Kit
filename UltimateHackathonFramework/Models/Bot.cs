@@ -15,6 +15,14 @@ namespace UltimateHackathonFramework.Models
         private string _name;
         private string _path;
         private Process _process=null;
+        private string _currentStatus;
+
+        public string MyProperty
+        {
+            get { return _currentStatus; }
+            set { _currentStatus = value; }
+        }
+        
 
         public Bot() { }
         public Bot(string name, string path)
