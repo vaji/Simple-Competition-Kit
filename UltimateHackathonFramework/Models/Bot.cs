@@ -22,6 +22,7 @@ namespace UltimateHackathonFramework.Models
         private Enums.State _currentStatus;
         private TcpClient _CommunicationChannel = null;
         private ICommunication _server;
+        private long _timeout = 1000;
         public Enums.State CurrentSatus
         {
             get { return _currentStatus; }
@@ -59,11 +60,8 @@ namespace UltimateHackathonFramework.Models
             }
             catch (Exception)
             {
-                
-                
+                return new Dictionary<string,string>(){{"error", "timeout"}};
             }
-            return new Dictionary<string, string>();
-
         }
 
         private string ReceiveString()
@@ -72,8 +70,10 @@ namespace UltimateHackathonFramework.Models
             byte[] buff = null;
             int buffSize = 4096;
             string result = "";
-
-            while (!stream.DataAvailable) { };
+            System.Diagnostics.Stopwatch timer=new System.Diagnostics.Stopwatch();
+            timer.Start();
+            while ((!stream.DataAvailable)&&(timer.ElapsedMilliseconds<=_timeout)) { };
+            timer.Stop();
 
             buff = new byte[buffSize];
             int length = stream.Read(buff, 0, buff.Length);
@@ -81,6 +81,10 @@ namespace UltimateHackathonFramework.Models
             {
                 ASCIIEncoding asen = new ASCIIEncoding();
                 result = asen.GetString(buff);
+            }
+            else
+            {
+                return null; 
             }
             return result;
         }
@@ -100,7 +104,7 @@ namespace UltimateHackathonFramework.Models
                 }
                 catch (Exception e)
                 {
-                    throw
+                    throw e;
                 }
             }
             else
