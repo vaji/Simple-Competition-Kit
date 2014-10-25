@@ -28,8 +28,6 @@ namespace UltimateHackathonFramework.Models
             set { _currentStatus = value; }
         }
         
-
-
         public Bot() { }
         public Bot(ICommunication server, string name, string path)
         {

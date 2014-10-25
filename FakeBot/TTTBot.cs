@@ -18,11 +18,11 @@ namespace FakeBot
         field[] pola;
         public bool game_finished = false;
         public string my_sign = "";
+        public Communication comm;
         public void Init()
         {
             pola = new field[9];
           
-
             for (var i = 0; i < 9; i++)
             {
                 pola[i].taken = false;
@@ -45,11 +45,13 @@ namespace FakeBot
                 {
                     bool picked_field = false;
                     int field_picked = -1;
-                    Random rnd = new Random();
                     while (!picked_field)
                     {
-                        int p = rnd.Next(0, 9);
-                        if (!pola[p].taken) { field_picked = p; break; }
+                        int p = RandomGenerator.random.Next(0, 9);
+                        if (!pola[p].taken) 
+                        { 
+                            field_picked = p; break; 
+                        }
                     }
                     data["move"] = field_picked + "";
                     return data;
@@ -71,7 +73,6 @@ namespace FakeBot
             {
                 return data;
             }
-
             return data;
         }
 

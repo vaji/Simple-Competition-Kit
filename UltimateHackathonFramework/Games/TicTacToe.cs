@@ -109,7 +109,7 @@ namespace UltimateHackathonFramework.Games
 
                 Dictionary<string, string> winInfoDict = new Dictionary<string, string>();
                 winInfoDict.Add("win", victory_sign);
-
+                 
                 for (var i = 0; i < 2; i++)
                 {
                     bots[i].Communicate(winInfoDict);

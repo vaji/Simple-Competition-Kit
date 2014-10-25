@@ -39,7 +39,6 @@ namespace FakeBot
                 stream = client.GetStream();
                 isWorking = true;
                 connected = true;
-
                 thread = new Thread(new ThreadStart(recieveLoop));
                 thread.Start();
             }
