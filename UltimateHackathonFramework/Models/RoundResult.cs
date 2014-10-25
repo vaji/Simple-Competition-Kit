@@ -19,5 +19,25 @@ namespace UltimateHackathonFramework.Models
         {
             _message = message;
         }
+
+        public string Log
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public string getResultLog(int index)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void addResult(IResult result)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void addToLog(string log)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

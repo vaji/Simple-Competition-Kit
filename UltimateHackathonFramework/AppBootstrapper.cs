@@ -7,6 +7,7 @@ namespace UltimateHackathonFramework
     using UltimateHackathonFramework.Interfaces;
     using UltimateHackathonFramework.Models;
     using UltimateHackathonFramework;
+    using UltimateHackathonFramework.Games;
     public class AppBootstrapper : BootstrapperBase
     {
         SimpleContainer container;
@@ -29,7 +30,7 @@ namespace UltimateHackathonFramework
             container.Singleton<ClientsViewModel>();
             container.Singleton<IGame, Game>();
             container.Singleton<ICommunication, Communication>();
-            container.Singleton<IRound, Round>();
+            container.Singleton<IRound, TicTacToe>();
             container.Singleton<CommunicationViewModel>();
         }
 
