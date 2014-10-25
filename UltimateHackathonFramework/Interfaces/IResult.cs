@@ -9,6 +9,7 @@ namespace UltimateHackathonFramework.Interfaces
     {
         string Log { get;  }
 
+        string Results { get; }
         string getResultLog(int index);
 
         void addResult(IResult result);

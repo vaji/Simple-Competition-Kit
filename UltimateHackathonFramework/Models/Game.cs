@@ -11,7 +11,7 @@ namespace UltimateHackathonFramework.Models
     {
         protected ConfigRound _config;
         protected IResult _result=new Result();
-
+        
         public Game()
         {
             Config = new ConfigRound() { maxNumberBots = 2, MinNumberBot = 2 };
@@ -28,16 +28,31 @@ namespace UltimateHackathonFramework.Models
             IResult resut =  DoRound(bots);
 
             foreach (Bot bot in bots)
-	        {
+                {
                 bot.KillBot();		 
-	        }
-            return resut;
         }
-
+            return resut;
+                }
+        
 
         public IResult Result
         {
             get { return _result; }
+        }
+
+
+
+
+        private void OnResultsAvailable()
+        {
+            if (ResultsAvailable != null) ResultsAvailable();
+        }
+
+        public event Action ResultsAvailable;
+
+        public ConfigRound getConfig()
+        {
+            return Config;
         }
     }
 }
