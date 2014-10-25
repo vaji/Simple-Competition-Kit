@@ -73,8 +73,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppBootstrapper.cs" />
+    <Compile Include="Games\Ships.cs" />
     <Compile Include="Games\TicTacToe.cs" />
-    <Compile Include="Games\WarGame.cs" />
     <Compile Include="Interfaces\IGame.cs" />
     <Compile Include="Interfaces\IBot.cs" />
     <Compile Include="Interfaces\IResult.cs" />
@@ -91,7 +91,6 @@
     <Compile Include="Models\Result.cs" />
     <Compile Include="Models\Game.cs" />
     <Compile Include="ViewModels\CommunicationViewModel.cs" />
-    <Compile Include="Interfaces\IMode.cs" />
     <Compile Include="ViewModels\ResultsViewModel.cs" />
     <Compile Include="ViewModels\GameViewModel.cs" />
     <Compile Include="ViewModels\ClientsViewModel.cs" />

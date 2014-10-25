@@ -1,7 +1,6 @@
 
 using UltimateHackathonFramework.Interfaces;
 using UltimateHackathonFramework;
-using UltimateHackathonFramework.ViewModels;
 using System.Collections.Generic;
 
 namespace UltimateHackathonFramework
@@ -88,12 +87,18 @@ namespace UltimateHackathonFramework
         public bool CanResetPoint
         { get { return !IsBusy; } }
 
-        public List<IMode> Modes
+        public List<Mode> Modes
         {
             get
             {
-                return new List<IMode>() { };
+                return new List<Mode>() { Mode.AllCombinations, Mode.NoRepeats};
             }
+        }
+        private Mode _selectedMode;
+        public Mode SelectedMode
+        {
+            get { return _selectedMode; }
+            set { _selectedMode = value; _game.Mode = value; NotifyOfPropertyChange(() => SelectedMode); }
         }
     }
 }

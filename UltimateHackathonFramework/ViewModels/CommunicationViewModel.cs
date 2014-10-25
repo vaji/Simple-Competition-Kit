@@ -47,7 +47,7 @@ namespace UltimateHackathonFramework
         {
             _communication.StopListening();
         }
-        public bool CanStartListening { get { return !String.IsNullOrWhiteSpace(IP) && !String.IsNullOrWhiteSpace(Port) && _communication.ServerState != Enums.ServerStateEnum.Listening; } }
-        public bool CanStopListening { get { return _communication.ServerState == Enums.ServerStateEnum.Listening; } }
+        public bool CanStartListening { get { return !String.IsNullOrWhiteSpace(IP) && !String.IsNullOrWhiteSpace(Port) && _communication.ServerState != ServerStateEnum.Listening; } }
+        public bool CanStopListening { get { return _communication.ServerState == ServerStateEnum.Listening; } }
     }
 }

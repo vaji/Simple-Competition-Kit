@@ -12,9 +12,10 @@ namespace UltimateHackathonFramework.Models
     {
         private IRound _round;
         private IClientManager _clientManager;
-        
         private IResult _result;
-        private IList<List<IBot>> _botToGame = new List<List<IBot>>();
+        private IList<List<IBot>> _alternativelyCalculatedBots = new List<List<IBot>>();
+        private IEnumerable<IEnumerable<IBot>> _calculatedBots;
+        protected Mode _mode;
 
         public IResult Result
         {
@@ -38,7 +39,7 @@ namespace UltimateHackathonFramework.Models
 
         private void RunAsynchronously(DoWorkEventHandler backgroundWorker_DoWork, object data = null)
         {
-            _botToGame.Clear();
+            _alternativelyCalculatedBots.Clear();
             var backgroundWorker = new BackgroundWorker();
             backgroundWorker.DoWork += backgroundWorker_DoWork;
             backgroundWorker.RunWorkerCompleted += (obj, args) => OnResultsAvailable();
@@ -55,14 +56,23 @@ namespace UltimateHackathonFramework.Models
             var bots = _clientManager.Clients;
             _result = new Result();
             var worker = sender as BackgroundWorker;
-            if ((bots.Count > 0) && (_round.Config.EachOfEach))
+            if ((bots.Count > 0))
             {
-                Combination(new List<IBot>(), bots, -1, _round.Config.maxNumberBots);
+                switch(_mode){
+                    case Interfaces.Mode.NoRepeats:
+                                CombinationUnique(new List<IBot>(), bots, -1, _round.Config.maxNumberBots);
+                                _calculatedBots = _alternativelyCalculatedBots as IEnumerable<IEnumerable<IBot>>;
+                                break;
+                    case Interfaces.Mode.AllCombinations:
+                                CombinationNonUnique(bots);
+                                break;
+                                
+                }
 
-                int totalBots = _botToGame.Count();
+                int totalBots = _calculatedBots.Count();
                 int progress = 0;
 
-                foreach (var botToGo in _botToGame)
+                foreach (var botToGo in _calculatedBots)
                 {
                     progress++;
                     foreach (var bot in botToGo) bot.RunBot();
@@ -79,28 +89,41 @@ namespace UltimateHackathonFramework.Models
             }
         }
 
-        void Combination(IList<IBot> tempBots, IList<IBot> bots, int lastValue, int digitsCount)
+        void CombinationUnique(IList<IBot> tempBots, IList<IBot> bots, int lastValue, int digitsCount)
         {
+            
             if (digitsCount > 0)
             {
                 for (int it = ++lastValue; it != bots.Count; it++)
                 {
                     tempBots.Add(bots[it]);
-                    Combination(tempBots, bots, it, digitsCount - 1);
+                    CombinationUnique(tempBots, bots, it, digitsCount - 1);
                     tempBots.RemoveAt(tempBots.Count - 1);
                 }
             }
             else
             {
-                _botToGame.Add(new List<IBot>());
+                _alternativelyCalculatedBots.Add(new List<IBot>());
                 for (int i = 0; i < tempBots.Count; i++ )
                 {
-                    _botToGame[_botToGame.Count - 1].Add(tempBots[i]);
+                    _alternativelyCalculatedBots[_alternativelyCalculatedBots.Count - 1].Add(tempBots[i]);
                 }
             }
         }
-        
 
+        void CombinationNonUnique(IList<IBot> bots)
+        {
+            _calculatedBots = GetPermutations<IBot>(bots, bots.Count);
+        }
+        static IEnumerable<IEnumerable<T>>
+           GetPermutations<T>(IEnumerable<T> list, int length)
+        {
+            if (length == 1) return list.Select(t => new T[] { t });
+
+            return GetPermutations(list, length - 1)
+                .SelectMany(t => list.Where(e => !t.Contains(e)),
+                    (t1, t2) => t1.Concat(new T[] { t2 }));
+        }
         public virtual void Start(IList<IBot> bots)
         {
             RunAsynchronously(RunSelected, bots);
@@ -157,6 +180,12 @@ namespace UltimateHackathonFramework.Models
         public ConfigRound getConfig()
         {
             return _round.Config;
+        }
+
+
+        public Mode Mode
+        {
+            set { _mode = value ; }
         }
     }
 }
