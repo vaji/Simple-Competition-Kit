@@ -85,6 +85,7 @@ namespace UltimateHackathonFramework.Games
                     _result.addToLog("Receive", botMoveDict);
                     if (botMoveDict.ContainsKey("move"))
                     {
+
                         picked_field = int.Parse(botMoveDict["move"]);
                         pola[picked_field].taken = true;
                         pola[picked_field].sign = BotToSign[bots[current_index]];
