@@ -52,9 +52,17 @@ namespace UltimateHackathonFramework.Games
                     catch (Exception)
                     {
                         bots[iterator % 2].CurrentState = Enums.State.Failed;
+                        bots[iterator % 2].Communicate(new Dictionary<string, string>() { { "error", "TargetCellInfoCorrupted" } });
+                        bots[(iterator + 1) % 2].addPoints(2);
+                        break;
+                    }
+                    if(targetCell>8)
+                    {
+                        bots[iterator % 2].CurrentState = Enums.State.Failed;
+                        bots[iterator % 2].Communicate(new Dictionary<string, string>() { { "error", "TargetCellOutOfRange" } });
+                        bots[(iterator + 1) % 2].addPoints(2);
+                        break;
 
-
-                        throw new Exception("TargetCellInfoCorrupted: " + response["move"]);
                     }
                     int x = targetCell % 3;
                     int y = targetCell / 3;
@@ -76,7 +84,10 @@ namespace UltimateHackathonFramework.Games
                     }
                     else
                     {
-                        throw new Exception("TargetedCell is already taken!");
+                        bots[iterator % 2].CurrentState = Enums.State.Failed;
+                        bots[iterator % 2].Communicate(new Dictionary<string, string>() { { "error", "TargetedCell is already taken!" } });
+                        bots[(iterator + 1) % 2].addPoints(2);
+                        break;
                     }
                     CellStateEnum result = verifyVictory(Grid);
                     if(result!=CellStateEnum.clFree)
@@ -127,10 +138,13 @@ namespace UltimateHackathonFramework.Games
                 }
                 else
                 {
-                    throw new Exception("CorruptedResponseException");
+                    bots[iterator % 2].CurrentState = Enums.State.Failed;
+                    bots[iterator % 2].Communicate(new Dictionary<string, string>() { { "error", "CorruptedMoveResponseException" } });
+                    bots[(iterator + 1) % 2].addPoints(2);
+                    break;
                 }
             }
-            return new Result();
+            return Result;
         }
 
         private CellStateEnum verifyVictory(Cell[,] Grid)

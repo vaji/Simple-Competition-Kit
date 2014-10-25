@@ -100,7 +100,7 @@ namespace UltimateHackathonFramework.Models
                 }
                 catch (Exception e)
                 {
-                    throw
+                    throw e;
                 }
             }
             else
