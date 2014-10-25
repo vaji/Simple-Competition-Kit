@@ -7,7 +7,7 @@ using UltimateHackathonFramework.Interfaces;
 
 namespace UltimateHackathonFramework.Models
 {
-    class Game : IRound
+    public class Game : IRound
     {
         protected ConfigRound _config;
         protected IResult _result=new Result();

@@ -8,10 +8,10 @@ using UltimateHackathonFramework.Interfaces;
 
 namespace UltimateHackathonFramework.Games
 {
-    class Ships:Game
+    public class Ships:Game
     {
         enum CellStateEnum { Miss, Ship, Sink, Shotted,ShottedShip};
-
+        public Ships() { }
         class Ship
         {
             public int i;
@@ -152,7 +152,7 @@ namespace UltimateHackathonFramework.Games
             public CellStateEnum CellState = CellStateEnum.Miss;
         }
         private Cell[,,] _botSea;
-        private int[] _ships;
+        private int[] _ships=new int[2];
         private IList<ShipManager> _shipManager=new List<ShipManager>();
         protected override IResult DoRound(IList<IBot> bots)
         {
