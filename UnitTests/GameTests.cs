@@ -25,7 +25,7 @@ namespace UnitTests
 
         public System.Collections.Generic.Dictionary<string,string> Communicate(System.Collections.Generic.Dictionary<string,string> data)
         {
-            Dictionary<string,string> resultDictionary = null;
+            Dictionary<string, string> resultDictionary = new Dictionary<string, string>();
            
             if(data.ContainsKey("hello"))
             {
@@ -53,8 +53,27 @@ namespace UnitTests
 	    {
             ID = id;
             Name = id;
+       
 	    }
-}
+
+
+        public System.Net.Sockets.TcpClient CommunicationChannel
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public void RunBot(ICommunication server)
+        {
+            throw new NotImplementedException();
+        }
+    }
     public class GameTests
     {
         [Test]
@@ -67,7 +86,7 @@ namespace UnitTests
         [Test]
         public void TestWarGame()
         { 
-            List<IBot> testBots = null;
+            List<IBot> testBots = new List<IBot>();
             WarGame testGame = new WarGame();
 
             for (var i = 0; i < 5; i++)
@@ -76,6 +95,7 @@ namespace UnitTests
             }
 
             testGame.Start(testBots);
+
             if (testGame.jest_ok && testGame.wygrany_index != -1)
             {
                 Assert.Pass();
