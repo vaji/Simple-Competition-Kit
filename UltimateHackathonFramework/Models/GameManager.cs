@@ -22,13 +22,13 @@ namespace UltimateHackathonFramework.Models
         {
             get { return _result; }
         }
-
+        
 
         public GameManager() { }
         public GameManager(IClientManager clientManager)
         {
             _clientManager = clientManager;
-            
+
             _availableGames = new List<IGame>() { new TicTacToe(), new Ships() };
             _round = _availableGames[0];
 
@@ -64,32 +64,32 @@ namespace UltimateHackathonFramework.Models
                 CombinationUnique(new List<IBot>(), bots, -1, _round.Config.maxNumberBots);
             switch (_mode)
             {
-                case Interfaces.Mode.NoRepeats:
-                    _calculatedBots = _alternativelyCalculatedBots as IEnumerable<IEnumerable<IBot>>;
-                    break;
-                case Interfaces.Mode.AllCombinations:
+                    case Interfaces.Mode.NoRepeats:
+                                _calculatedBots = _alternativelyCalculatedBots as IEnumerable<IEnumerable<IBot>>;
+                                break;
+                    case Interfaces.Mode.AllCombinations:
                     _calculatedBots = CombinationNonUnique(_alternativelyCalculatedBots);
-                    break;
+                                break;
+                                
+                }
 
-            }
+                int totalBots = _calculatedBots.Count();
+                int progress = 0;
 
-            int totalBots = _calculatedBots.Count();
-            int progress = 0;
-
-            foreach (var botToGo in _calculatedBots)
-            {
-                progress++;
-                foreach (var bot in botToGo) bot.RunBot();
-                var result = _round.Go(botToGo);
-                _result.addToLog(result.Results);
-                foreach (var bot in botToGo) bot.KillBot();
-                worker.ReportProgress(progress * 100 / totalBots);
-            }
-            foreach (IBot bot in _clientManager.Clients.OrderByDescending(x => x.Points))
-            {
-                Console.WriteLine(bot.Name + ": " + bot.Points);
-                _result.addFinalResult(bot.Name + ": " + bot.Points);
-            }
+                foreach (var botToGo in _calculatedBots)
+                {
+                    progress++;
+                    foreach (var bot in botToGo) bot.RunBot();
+                    var result = _round.Go(botToGo);
+                    _result.addToLog(result.Results);
+                    foreach (var bot in botToGo) bot.KillBot();
+                    worker.ReportProgress(progress * 100 / totalBots);
+                }
+                foreach (IBot bot in _clientManager.Clients.OrderByDescending(x => x.Points))
+                {
+                    Console.WriteLine(bot.Name + ": " + bot.Points);
+                    _result.addFinalResult(bot.Name + ": " + bot.Points);
+                }
         }
 
         private IEnumerable<IEnumerable<IBot>> CombinationNonUnique(IList<List<IBot>> _alternativelyCalculatedBots)
@@ -101,7 +101,7 @@ namespace UltimateHackathonFramework.Models
                     bots.Add(permutation.ToList());
             }
             return bots as IEnumerable<IEnumerable<IBot>>;
-        }
+            }
         static IEnumerable<IEnumerable<T>>
           GetPermutations<T>(IEnumerable<T> list, int length)
         {
@@ -115,7 +115,7 @@ namespace UltimateHackathonFramework.Models
 
         void CombinationUnique(IList<IBot> tempBots, IList<IBot> bots, int lastValue, int digitsCount)
         {
-
+            
             if (digitsCount > 0)
             {
                 for (int it = ++lastValue; it != bots.Count; it++)
@@ -139,7 +139,7 @@ namespace UltimateHackathonFramework.Models
         public virtual void Start(IList<IBot> bots)
         {
             RunAsynchronously(RunSelected, bots);
-
+            
         }
 
         private void RunSelected(object sender, DoWorkEventArgs e)
@@ -150,19 +150,19 @@ namespace UltimateHackathonFramework.Models
             var worker = sender as BackgroundWorker;
             if (bots.Count <= _round.Config.maxNumberBots && bots.Count >= _round.Config.MinNumberBot)
             {
-                worker.ReportProgress(10);
-                foreach (var bot in bots) bot.RunBot();
-                var result = _round.Go(bots);
-                _result.addToLog(result.Log);
-                _result.addFinalResult(result.Results);
-                foreach (var bot in bots) bot.KillBot();
-                worker.ReportProgress(90);
-
+                    worker.ReportProgress(10);
+                    foreach (var bot in bots) bot.RunBot();
+                    var result = _round.Go(bots);
+                    _result.addToLog(result.Log);
+                    _result.addFinalResult(result.Results);
+                    foreach (var bot in bots) bot.KillBot();
+                    worker.ReportProgress(90);
+                
                 foreach (IBot bot in _clientManager.Clients.OrderByDescending(x => x.Points))
                 {
                     Console.WriteLine(bot.Name + ": " + bot.Points);
                     _result.addFinalResult(bot.Name + ": " + bot.Points + Environment.NewLine);
-
+                    
                 }
             }
         }
