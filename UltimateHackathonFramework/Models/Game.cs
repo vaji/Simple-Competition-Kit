@@ -29,26 +29,23 @@ namespace UltimateHackathonFramework.Models
         {
             if((_clientManager.Clients.Count>0) && (_round.Config.EachOfEach))
             {
-                IList<List<IBot>> gameCouple = new List<List<IBot>>();
-                for (int i = 0; i < _clientManager.Clients.Count; i++ )
+                IList<List<IBot>> botCouple = new List<List<IBot>>();
+                int moveIndex = 0;
+                for (int i = moveIndex; i < _clientManager.Clients.Count-1; i++ )
                 {
-
-                }
-                IList<IBot> tempBots = new List<IBot>();
-                int moveIndeks = 0;
-                for(int i=0; i<_clientManager.Clients.Count-1; i++)
-                {
-                    tempBots.Add(_clientManager.Clients[i]);
-                    for(int j=moveIndeks; j<_clientManager.Clients.Count;j++)
+                    for(int j=moveIndex+1; j< _clientManager.Clients.Count; j++)
                     {
-                        if((i!=j))
-                        {
-                            tempBots.Add(_clientManager.Clients[j]);
-                            
-                        }
+                        botCouple.Add(new List<IBot>());
+                        botCouple[botCouple.Count - 1].Add(_clientManager.Clients[i]);
+                        botCouple[botCouple.Count - 1].Add(_clientManager.Clients[j]);
                     }
+                    moveIndex++;
                 }
-            }
+                foreach(List<IBot> couple in botCouple)
+                {
+                    IResult tempR = _round.Go(couple);
+                }
+             }
         }
 
         public virtual void Start(IList<IBot> bots)
