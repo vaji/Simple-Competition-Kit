@@ -1,12 +1,19 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:UltimateHackathonFramework.Models"
+                    xmlns:games="clr-namespace:UltimateHackathonFramework.Games"
                     >
     
     
 
 
     <DataTemplate DataType="{x:Type local:Bot}">
+        <TextBlock Text="{Binding Name}"  />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type local:Game}">
+        <TextBlock Text="{Binding Name}"  />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type games:TicTacToe}">
         <TextBlock Text="{Binding Name}"  />
     </DataTemplate>
 </ResourceDictionary>

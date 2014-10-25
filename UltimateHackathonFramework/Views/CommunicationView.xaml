@@ -5,14 +5,14 @@
 
     <Grid >
         <Grid.RowDefinitions>
-            <RowDefinition />
+            <RowDefinition SharedSizeGroup="GroupTitle" />
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
             <TextBlock Text="Server" Grid.Row="0"
                    VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
+                   HorizontalAlignment="Center" Height="25"
                    FontSize="20" />
         <TextBlock x:Name="Status" Grid.Row="3">
             <TextBlock.Style>

@@ -21,7 +21,7 @@ namespace UltimateHackathonFramework.Models
         {
             _server = server;
         }
-        public void ScanForClients()
+        public void ScanForClients(string name)
         {
             _clients.Clear();
             string currentDirName = System.IO.Directory.GetCurrentDirectory();
@@ -32,7 +32,7 @@ namespace UltimateHackathonFramework.Models
                 {
                     string [] partPath = subFolder.Split('\\');
                     string botName = partPath[partPath.Length - 1];
-                    string path=subFolder+@"\Main.exe";
+                    string path=subFolder+@"\" + name + ".exe";
                     if(System.IO.File.Exists(path))
                     {
                         this.Clients.Add(new Bot(_server, botName, path));
