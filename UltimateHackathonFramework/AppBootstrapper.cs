@@ -6,6 +6,7 @@ namespace UltimateHackathonFramework
     using Caliburn.Micro;
     using UltimateHackathonFramework.Interfaces;
     using UltimateHackathonFramework.Models;
+    using UltimateHackathonFramework;
     public class AppBootstrapper : BootstrapperBase
     {
         SimpleContainer container;
@@ -27,6 +28,9 @@ namespace UltimateHackathonFramework
             container.Singleton<ResultsViewModel>();
             container.Singleton<ClientsViewModel>();
             container.Singleton<IGame, Game>();
+            container.Singleton<ICommunication, Communication>();
+            container.Singleton<IRound, Round>();
+            container.Singleton<CommunicationViewModel>();
         }
 
         protected override object GetInstance(Type service, string key)

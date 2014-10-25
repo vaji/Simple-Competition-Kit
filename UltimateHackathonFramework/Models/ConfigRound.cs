@@ -20,8 +20,8 @@ namespace UltimateHackathonFramework.Models
 
         public int NumberOfRound
         {
-            get { return NumberOfRound; }
-            set { NumberOfRound = value; }
+            get { return _numberOfRound; }
+            set { _numberOfRound = value; }
         }
 
         private bool _eachOfEach;

@@ -8,8 +8,8 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
             <ContentControl Grid.Column="0" Grid.Row="0" x:Name="ClientsViewModel"/>
         <ContentControl Grid.Column="1" Grid.Row="0" x:Name="ResultsViewModel"/>

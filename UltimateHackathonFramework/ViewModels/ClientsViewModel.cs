@@ -44,9 +44,10 @@ namespace UltimateHackathonFramework
         }
 
 
-        public void AddBot() { SelectedBots.Add(SelectedBotFromListOfAll); }
-        public bool CanAddBot { get { return SelectedBotFromListOfAll != null && !SelectedBots.Contains(SelectedBotFromListOfAll); } }
-
+        public void AddBot() { SelectedBots.Add(SelectedBotFromListOfAll);
+                               NotifyOfPropertyChange(() => CanAddBot);
+        }
+        public bool CanAddBot { get { return SelectedBotFromListOfAll != null && !SelectedBots.Contains(SelectedBotFromListOfAll) ; } }
 
         public void RemoveBot() { SelectedBots.Remove(SelectedBotFromSelectedList); }
         public bool CanRemoveBot { get { return SelectedBotFromSelectedList != null; } }
