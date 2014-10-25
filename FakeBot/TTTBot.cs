@@ -34,9 +34,9 @@ namespace FakeBot
 
         public Dictionary<string,string> Play(Dictionary<string,string> data)
         {
-            if (data.ContainsKey("hello"))
+            if (data.ContainsKey("youAre"))
             {
-                my_sign = data["hello"];
+                my_sign = data["youAre"];
                 return data;
             }
             else if (data.ContainsKey("move"))
@@ -49,12 +49,30 @@ namespace FakeBot
                     {
                         int p = RandomGenerator.random.Next(0, 9);
                         if (!pola[p].taken) 
-                        { 
+                        {
+                            Console.Write(p);
                             field_picked = p; break; 
                         }
                     }
                     data["move"] = field_picked + "";
                     return data;
+                }
+                else 
+                {
+                    if (pola[int.Parse(data["move"])].taken!=true)
+                    {
+                        pola[int.Parse(data["move"])].taken = true;
+                        if(my_sign=="X")
+                        {
+                            pola[int.Parse(data["move"])].sign = "O";
+                        }
+                        else
+                        {
+                            pola[int.Parse(data["move"])].sign = "X";
+                        }
+
+                    }
+                    
                 }
             }
             else if (data.ContainsKey("X"))
