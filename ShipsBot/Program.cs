@@ -2,29 +2,25 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
-using System.Windows;
-using System.Diagnostics;
 
-namespace FakeBot
+namespace ShipsBot
 {
-   
-   public  class Program
+    class Program
     {
         static Communication communication = null;
-        static TTTBot bot;
+        static ShipBoat bot;
         static void Main(string[] args)
         {
             Console.WriteLine(args[0] + "  " + args[1]);
             communication = new Communication();
             communication.Connect(args[0], Convert.ToInt32(args[1]));
-            if(communication.connected)
+            if (communication.connected)
             {
                 Console.WriteLine("connected");
-                bot = new TTTBot();
+                bot = new ShipBoat();
                 bot.comm = communication;
                 bot.Init();
             }
@@ -32,36 +28,31 @@ namespace FakeBot
             {
                 Console.WriteLine("Not connected");
             }
+
             communication.ServerWriteEvent += communication_ServerWriteEvent;
             communication.ServerExceptionEvent += communication_ServerExceptionEvent;
         }
 
-        static void communication_ServerExceptionEvent(Exception exception)
+        private static void communication_ServerExceptionEvent(Exception exception)
         {
-
+            //throw new NotImplementedException();
         }
 
-
-        public static Dictionary<string, string> Communicate(string data)
+        private static void communication_ServerWriteEvent(string message)
         {
-            string json = data;
+            Console.WriteLine("Server said: " + message);
+            Dictionary<string, string> dict = null;
             try
             {
-                return JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
+                dict = JsonConvert.DeserializeObject<Dictionary<string, string>>(message);
             }
             catch (Exception)
             {
-
-
+                return;
             }
-            return null;
-        }
+            Dictionary<string, string> response = bot.consume(dict);
 
-       public static void communication_ServerWriteEvent(string message)
-        {
-            Console.WriteLine("Server said: " + message);
-            Dictionary<string, string> BotRespond = bot.Play(Communicate(message));
-            string json = new JavaScriptSerializer().Serialize(BotRespond.ToDictionary(item => item.Key.ToString(), item => item.Value.ToString()));
+            string json = new JavaScriptSerializer().Serialize(response.ToDictionary(item => item.Key.ToString(), item => item.Value.ToString()));
             communication.SendString(json);
         }
     }
