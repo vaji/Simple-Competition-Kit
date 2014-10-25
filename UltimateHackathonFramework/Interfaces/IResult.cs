@@ -13,6 +13,7 @@ namespace UltimateHackathonFramework.Interfaces
 
         void addResult(IResult result);
         void addToLog(string log);
+        void addToLog(string action, Dictionary<string, string> dict);
 
     }
 }

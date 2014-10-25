@@ -82,6 +82,8 @@ namespace UltimateHackathonFramework.Games
                 while (!game_finished)
                 {
                     botMoveDict = bots[current_index].Communicate(giveMeMoveDict);
+                    _result.addToLog("Send", giveMeMoveDict);
+                    _result.addToLog("Receive", botMoveDict);
                     if (botMoveDict.ContainsKey("move"))
                     {
                         picked_field = int.Parse(botMoveDict["move"]);
@@ -94,6 +96,8 @@ namespace UltimateHackathonFramework.Games
                     for (var i = 0; i < 2; i++)
                     {
                         bots[i].Communicate(botOrderDict);
+                        _result.addToLog("Receive", botOrderDict);
+
                     }
                     if (CheckConditions()) break;
                     else

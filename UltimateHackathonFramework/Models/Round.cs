@@ -10,6 +10,7 @@ namespace UltimateHackathonFramework.Models
     class Round : IRound
     {
         protected ConfigRound _config;
+        protected IResult _result;
 
         public Round()
         {
