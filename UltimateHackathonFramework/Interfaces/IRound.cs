@@ -21,6 +21,6 @@ namespace UltimateHackathonFramework.Interfaces
         }
 
 
-        IResult Go(IList<IBot> bots);
+        IResult Go(IEnumerable<IBot> bots);
     }
 }

@@ -19,11 +19,11 @@ namespace UltimateHackathonFramework.Models
         private string _name;
         private string _path;
         private Process _process=null;
-        private Enums.State _currentStatus;
+        private State _currentStatus;
         private TcpClient _CommunicationChannel = null;
         private ICommunication _server;
         private long _timeout = 1000;
-        public Enums.State CurrentSatus
+        public State CurrentSatus
         {
             get { return _currentStatus; }
             set { _currentStatus = value; }
@@ -169,7 +169,7 @@ namespace UltimateHackathonFramework.Models
 
 
 
-        public Enums.State CurrentState
+        public State CurrentState
         {
             get
             {

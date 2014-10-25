@@ -17,7 +17,7 @@ namespace UltimateHackathonFramework.Interfaces
         void ClearPoints();
         TcpClient CommunicationChannel { get; set; }
 
-        Enums.State CurrentState { get; set; } 
+        State CurrentState { get; set; } 
 
         Dictionary<string,string> Communicate(Dictionary<string, string> data);
 
