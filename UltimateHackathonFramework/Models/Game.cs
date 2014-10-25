@@ -57,7 +57,8 @@ namespace UltimateHackathonFramework.Models
                 Combination(new List<IBot>(), _clientManager.Clients, -1, _round.Config.maxNumberBots);
                 foreach(List<IBot> botToGo in _botToGame)
                 {
-                     _result.addResult(_round.Go(botToGo));
+                     //_result.addResult(_round.Go(botToGo));
+                    Start(botToGo);
                 }
              }
         }
@@ -86,12 +87,36 @@ namespace UltimateHackathonFramework.Models
 
         public virtual void Start(IList<IBot> bots)
         {
+            /*
             foreach (var bot in bots) bot.RunBot();
             var backgroundWorker = new BackgroundWorker();
             backgroundWorker.DoWork += (obj, args) => _round.Go(bots);
             backgroundWorker.RunWorkerCompleted += backgroundWorker_RunWorkerCompleted;
             backgroundWorker.RunWorkerAsync();
+            */
+            _botToGame.Clear();
+            _result=new Result();
+            if((_clientManager.Clients.Count>0) && (_round.Config.EachOfEach))
+            {
+                Combination(new List<IBot>(), _clientManager.Clients, -1, _round.Config.maxNumberBots);
+                foreach (List<IBot> botToGo in _botToGame)
+                {
+                    //_result.addResult(_round.Go(botToGo));
+                    tempStart(botToGo);
+                }
+                foreach (IBot bot in _clientManager.Clients)
+                {
+                    Console.WriteLine(bot.Name + ": " + bot.Points);
+                }
+            }
+        }
 
+        public void tempStart(IList<IBot> bots)
+        {
+            foreach (var bot in bots) bot.RunBot();
+            IResult result= _round.Go(bots);
+            
+            
         }
 
         void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
