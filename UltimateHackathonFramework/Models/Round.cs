@@ -20,10 +20,11 @@ namespace UltimateHackathonFramework.Models
             get { return _config; }
             set { _config = value; }
         }
-        
+
+        protected virtual IResult DoRound(IList<IBot> bots){ return null;}
         public IResult Go(IList<IBot> bots)
         {
-            throw new NotImplementedException();
+            return DoRound(bots);
         }
     }
 }

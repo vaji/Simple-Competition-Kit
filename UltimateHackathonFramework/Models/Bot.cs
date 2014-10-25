@@ -21,7 +21,7 @@ namespace UltimateHackathonFramework.Models
         private Process _process=null;
         private string _currentStatus;
         private TcpClient _CommunicationChannel = null;
-
+        private ICommunication _server;
         public string CurrentSatus
         {
             get { return _currentStatus; }
@@ -31,11 +31,13 @@ namespace UltimateHackathonFramework.Models
 
 
         public Bot() { }
-        public Bot(string name, string path)
+        public Bot(ICommunication server, string name, string path)
         {
             this._id = name;
             this._name = name;
             this._path = path;
+            this._server = server;
+            
         }
         public string ID
         {
@@ -108,11 +110,11 @@ namespace UltimateHackathonFramework.Models
             }
         }
 
-        public void RunBot(ICommunication server)
+        public void RunBot()
         {
             if(File.Exists(_path))
             {
-                _process = Process.Start(_path, server.IP + " " + server.Port);
+                _process = Process.Start(_path, _server.IP + " " + _server.Port);
             }
             else
             {

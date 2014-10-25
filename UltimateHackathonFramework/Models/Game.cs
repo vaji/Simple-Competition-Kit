@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,19 +12,21 @@ namespace UltimateHackathonFramework.Models
     {
         private IRound _round;
         private IClientManager _clientManager;
+        
+        private IResult _result;
         private IList<List<IBot>> _botToGame = new List<List<IBot>>();
 
         public Game() { }
-        public Game(IRound round)
+        public Game(IRound round, IClientManager clientManager)
         {
             _round = round;
-            _clientManager=new ClientManager();
+            _clientManager = clientManager;
             _clientManager.ScanForClients();
 
         }
         public IResult Result
         {
-            get { throw new NotImplementedException(); }
+            get { return _result; }
         }
 
         public virtual void StartAll()
@@ -79,7 +82,22 @@ namespace UltimateHackathonFramework.Models
 
         public virtual void Start(IList<IBot> bots)
         {
-            throw new NotImplementedException();
+            foreach (var bot in bots) bot.RunBot();
+            var backgroundWorker = new BackgroundWorker();
+            backgroundWorker.DoWork += (obj, args) => _round.Go(bots);
+            backgroundWorker.RunWorkerCompleted += backgroundWorker_RunWorkerCompleted;
+            backgroundWorker.RunWorkerAsync();
+
+        }
+
+        void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            _result = e.Result as IResult;
+        }
+
+        private void OnResultsAvailable()
+        {
+            if (ResultsAvailable != null) ResultsAvailable();
         }
 
         public event Action ResultsAvailable;

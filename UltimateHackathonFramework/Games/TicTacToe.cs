@@ -23,18 +23,12 @@ namespace UltimateHackathonFramework.Games
         string victory_sign = "";
         field[] pola;
         int[,] win_lanes;
-        Bot victory_bot;
+        IBot victory_bot;
         Dictionary<IBot, string> BotToSign = new Dictionary<IBot, string>();
 
 
-        public ConfigRound Config
-        {
-            get { return _config; }
-            set { _config = value; }
-        }
 
-
-        public void Go(IList<IBot> bots)
+        protected override IResult DoRound(IList<IBot> bots)
         {
             pola = new field[9];
             win_lanes = new int[8,3];
@@ -117,10 +111,10 @@ namespace UltimateHackathonFramework.Games
                     bots[i].Communicate(winInfoDict);
                 }
 
-                RoundResult result = new RoundResult(victory_bot.Name);
-            
+                
             }
-
+            RoundResult result = new RoundResult(victory_bot.Name);
+            return result;
         }
 
         private bool DoYouCopy(IBot bot)
@@ -161,7 +155,10 @@ namespace UltimateHackathonFramework.Games
                         if (s == 2 && condition_ok == true) break;
                     }
                 }
-                if (condition_ok) victory_sign = temp_znak;
+                if (condition_ok)
+                { victory_sign = temp_znak;
+                victory_bot = BotToSign.Where(x => x.Value == temp_znak).First().Key;
+                }
                 return condition_ok;
 
         }

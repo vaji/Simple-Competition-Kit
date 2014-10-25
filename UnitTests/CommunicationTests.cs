@@ -15,8 +15,8 @@ namespace UnitTests
             ICommunication communication = new Communication();
             //communication
             communication.StartListening("127.0.0.1", 12345);
-            IBot sampleBot = new Bot("dupa", @"d:\Misiek\c_sharp\UltimateHackathonFramework\FakeBot\bin\Debug\FakeBot.exe");
-            sampleBot.RunBot(communication);
+            IBot sampleBot = new Bot(communication, "testBot", @"d:\Misiek\c_sharp\UltimateHackathonFramework\FakeBot\bin\Debug\FakeBot.exe");
+            sampleBot.RunBot();
             sampleBot.CommunicationChannel = communication.GetConnectedClient();
             string REQUEST = "gdzie jest groszek?";
             string RESPONSE = "tutaj";
