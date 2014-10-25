@@ -27,5 +27,11 @@ namespace UltimateHackathonFramework.Models
         {
             return DoRound(bots);
         }
+
+
+        public IResult Result
+        {
+            get { return _result; }
+        }
     }
 }
