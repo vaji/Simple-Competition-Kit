@@ -70,7 +70,6 @@ namespace FakeBot
                         {
                             pola[int.Parse(data["move"])].sign = "X";
                         }
-
                     }
                     
                 }
@@ -88,6 +87,10 @@ namespace FakeBot
                 return data;
             }
             else if (data.ContainsKey("win"))
+            {
+                return data;
+            }
+            else if(data.ContainsKey("tie"))
             {
                 return data;
             }
