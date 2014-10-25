@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +29,8 @@ namespace UltimateHackathonFramework.Models
         {
             _result = new Result();
              var result =  DoRound(bots);
+             foreach (var bot in bots)
+                 result.Save(Path.Combine(bot.Directory, "Log.txt"));
              return result;
             	 
         }

@@ -23,6 +23,7 @@ namespace UltimateHackathonFramework.Models
         private TcpClient _CommunicationChannel = null;
         private ICommunication _server;
         private long _timeout = 1000;
+        private string _directory;
         public State CurrentSatus
         {
             get { return _currentStatus; }
@@ -37,6 +38,7 @@ namespace UltimateHackathonFramework.Models
             this._path = path;
             this._server = server;
             this._points = 0;
+            this._directory = Path.GetDirectoryName(path);
         }
         public string ID
         {
@@ -117,7 +119,7 @@ namespace UltimateHackathonFramework.Models
         {
             if(File.Exists(_path))
             {
-                var processInfo = new ProcessStartInfo(_path, _server.IP + " " + _server.Port);// { WindowStyle = ProcessWindowStyle.Minimized };
+                var processInfo = new ProcessStartInfo(_path, _server.IP + " " + _server.Port) { WindowStyle = ProcessWindowStyle.Minimized };
                 _process = Process.Start(processInfo);
             }
             else
@@ -185,6 +187,12 @@ namespace UltimateHackathonFramework.Models
         public void ClearPoints()
         {
             Points = 0;
+        }
+
+
+        public string Directory
+        {
+            get { return _directory; }
         }
     }
 }

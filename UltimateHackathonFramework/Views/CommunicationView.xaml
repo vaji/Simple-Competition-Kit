@@ -29,7 +29,10 @@
             </TextBlock.Style>
         </TextBlock>
         <TextBox Grid.Row="1" Text="{Binding IP}"/>
-        <TextBox Grid.Row="2" Text="{Binding Port}" />
+        <DockPanel Grid.Row="2">
+            <TextBlock Text="Port: " HorizontalAlignment="Center" Padding="2" Width="60"/>
+            <TextBox  Text="{Binding Port}" />
+        </DockPanel>
         <!--<Button Grid.Row="3" x:Name="StartListening" Content="Start"/>
         <Button Grid.Row="4" x:Name="StopListening" Content="Stop" />-->
 

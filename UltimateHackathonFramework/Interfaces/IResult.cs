@@ -15,5 +15,7 @@ namespace UltimateHackathonFramework.Interfaces
         void addToLog(string log);
         void addToLog(string action, Dictionary<string, string> dict);
 
+
+        void Save(string p);
     }
 }
