@@ -32,15 +32,20 @@ namespace ShipsBot
                 if (i > 5) ship._length = 1;
                 ships.Add(ship);
             }
+            Console.WriteLine("01");
             for (int i = 0; i < 10; i++)
             {
+                Console.WriteLine("02");
+
                 do{
                 ships[i]._orientation = r.Next(4);
                 ships[i]._X = r.Next(10);
                 ships[i]._Y = r.Next(10);
 
                 }while(contains(ships[i], ships.GetRange(0, i-1)));
+                Console.WriteLine("03");
             }
+            Console.WriteLine("04");
         }
 
         private bool contains(Ship ship, List<Ship> list)
