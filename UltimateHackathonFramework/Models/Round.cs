@@ -25,7 +25,13 @@ namespace UltimateHackathonFramework.Models
         protected virtual IResult DoRound(IList<IBot> bots){ return null;}
         public IResult Go(IList<IBot> bots)
         {
-            return DoRound(bots);
+            IResult resut =  DoRound(bots);
+
+            foreach (Bot bot in bots)
+	        {
+                bot.KillBot();		 
+	        }
+            return resut;
         }
 
 

@@ -100,14 +100,34 @@ namespace UltimateHackathonFramework.Games
                         }
                         break;
                     }
+                    else 
+                    {
+                        int count = 0;
+                        for (int ix = 0; ix < 3; ix++)
+                        {
+                            for (int iy = 0; iy < 3; iy++)
+                            {
+                                if (Grid[ix, iy].CellState == CellStateEnum.clFree)
+                                    count++;
+                            }
+                        }
+                        if(count==0)
+                        {
+                            foreach (Bot bot in bots)
+                            {
+                                bot.Communicate(new Dictionary<string, string>() { { "tie", "" } });
+                                bot.addPoints(1);
+
+                            }
+                            break;
+                        }
+                    }
                 }
                 else
                 {
                     throw new Exception("CorruptedResponseException");
+                }
             }
-        }
-
-
             return new Result();
         }
 
