@@ -19,7 +19,7 @@ namespace UltimateHackathonFramework.Games
     class TicTacToe:Round
     {
         Cell[,] Grid;
-        
+
 
         protected override IResult DoRound(IList<IBot> bots)
         {
@@ -29,11 +29,11 @@ namespace UltimateHackathonFramework.Games
                 for (int y = 0; y < 3; y++)
                 {
                     Grid[x, y] = new Cell();
-                }
+            }
             }
 
             bots[0].Communicate(new Dictionary<string, string>() { { "youAre", "X" } });
-            bots[1].Communicate(new Dictionary<string, string>() { { "youAre", "0" } });
+            bots[1].Communicate(new Dictionary<string, string>() { { "youAre", "O" } });
 
             Dictionary<string, string> XOMapper = new Dictionary<string, string>();
             XOMapper.Add(bots[0].ID, "X");
@@ -50,20 +50,20 @@ namespace UltimateHackathonFramework.Games
                         targetCell = Int32.Parse(response["move"]);
                     }
                     catch (Exception)
-                    {
+            {
 
                         throw new Exception("TargetCellInfoCorrupted: " + response["move"]);
                     }
                     int x = targetCell % 3;
                     int y = targetCell / 3;
                     if(Grid[x, y].CellState==CellStateEnum.clFree)
-                    {
+                {
                         if (XOMapper[bots[iterator % 2].ID] == "X")
-                        {
+                    {
                             Grid[x, y].CellState = CellStateEnum.clTakenX;
-                        }
+                    }
                         if (XOMapper[bots[iterator % 2].ID] == "O")
-                        {
+                    {
                             Grid[x, y].CellState = CellStateEnum.clTakenO;
                         }
                     }
@@ -79,6 +79,8 @@ namespace UltimateHackathonFramework.Games
                             foreach (Bot bot in bots)
                             {
                                 bot.Communicate(new Dictionary<string,string>(){{"win", "O"}});
+                                if (XOMapper[bot.ID] == "O")
+                                    bot.addPoints(3);
                             }
                         }
                         if (result == CellStateEnum.clTakenX)
@@ -86,36 +88,37 @@ namespace UltimateHackathonFramework.Games
                             foreach (Bot bot in bots)
                             {
                                 bot.Communicate(new Dictionary<string, string>() { { "win", "X" } });
+                                if (XOMapper[bot.ID] == "X")
+                                    bot.addPoints(3);
+
                             }
-
                         }
-
                         break;
                     }
                 }
                 else
                 {
                     throw new Exception("CorruptedResponseException");
-                }
             }
+        }
 
 
             return new Result();
         }
 
         private CellStateEnum verifyVictory(Cell[,] Grid)
-        {
-            for (int i = 0; i < 3; i++)
             {
+            for (int i = 0; i < 3; i++)
+                {
                 if (Grid[0, i].CellState == Grid[1, i].CellState && Grid[0, i].CellState == Grid[2, i].CellState && Grid[0, i].CellState != CellStateEnum.clFree) return Grid[0, i].CellState;
                 if (Grid[i, 0].CellState == Grid[i, 1].CellState && Grid[i, 0].CellState == Grid[i, 2].CellState && Grid[i, 0].CellState != CellStateEnum.clFree) return Grid[i, 0].CellState; 
-            }
+                }
             if (Grid[0, 0].CellState == Grid[1, 1].CellState && Grid[0, 0].CellState == Grid[2, 2].CellState && Grid[0, 0].CellState != CellStateEnum.clFree) return Grid[0, 0].CellState;
             if (Grid[0, 2].CellState == Grid[1, 1].CellState && Grid[0, 2].CellState == Grid[2, 0].CellState && Grid[0, 2].CellState != CellStateEnum.clFree) return Grid[0, 2].CellState;
 
             return CellStateEnum.clFree;
+            }
         }
-    }
 
     //struct field
     //{

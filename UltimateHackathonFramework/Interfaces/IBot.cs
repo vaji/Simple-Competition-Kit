@@ -11,6 +11,9 @@ namespace UltimateHackathonFramework.Interfaces
     {
         string ID { get; }
         string Name { get; }
+
+        double Points { get; }
+        void addPoints(double points);
         TcpClient CommunicationChannel { get; set; }
 
         string CurrentStatus { get; set; } 
