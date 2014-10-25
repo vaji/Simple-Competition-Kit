@@ -76,6 +76,7 @@
     <Compile Include="Models\Bot.cs" />
     <Compile Include="Models\ClientManager.cs" />
     <Compile Include="Models\Communication.cs" />
+    <Compile Include="Models\ConfigRound.cs" />
     <Compile Include="Models\Game.cs" />
     <Compile Include="Models\Result.cs" />
     <Compile Include="Models\Round.cs" />
