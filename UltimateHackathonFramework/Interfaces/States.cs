@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace UltimateHackathonFramework.Interfaces
 {
-    public static class States
+    public static class Enums
     {
-        public enum Stat { Ready, Standby, Failed, Lost, Victory }
+        public enum State { Ready, Standby, Failed, Lost, Victory }
+        public enum ServerStateEnum { Listening, NotListening }
     }
 }
