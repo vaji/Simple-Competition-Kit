@@ -15,6 +15,13 @@ namespace UltimateHackathonFramework.Models
         
         private IResult _result;
         private IList<List<IBot>> _botToGame = new List<List<IBot>>();
+        private IResult _result=new Result();
+
+        public IResult Result
+        {
+            get { return _result; }
+        }
+        
 
         public Game() { }
         public Game(IRound round, IClientManager clientManager)
@@ -31,6 +38,8 @@ namespace UltimateHackathonFramework.Models
 
         public virtual void StartAll()
         {
+            _botToGame.Clear();
+            _result=new Result();
             if((_clientManager.Clients.Count>0) && (_round.Config.EachOfEach))
             {
                 /*
@@ -53,7 +62,7 @@ namespace UltimateHackathonFramework.Models
                 Combination(new List<IBot>(), _clientManager.Clients, -1, _round.Config.maxNumberBots);
                 foreach(List<IBot> botToGo in _botToGame)
                 {
-                    IResult temp = _round.Go(botToGo);
+                     _result.addResult(_round.Go(botToGo));
                 }
              }
         }

@@ -100,5 +100,10 @@ namespace UltimateHackathonFramework.Models
 
 
         public event Action StateChanged;
+
+        public void Dispose()
+        {
+            listener.Stop();
+        }
     }
 }
