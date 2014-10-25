@@ -10,13 +10,17 @@ namespace UltimateHackathonFramework.Models
     public class ClientManager : IClientManager
     {
         private IList<IBot> _clients=new List<IBot>();
-
+        private ICommunication _server;
         public IList<IBot> Clients
         {
             get { return _clients; }
             set { _clients = value; }
         }
 
+        public ClientManager(ICommunication server)
+        {
+            _server = server;
+        }
         public void ScanForClients()
         {
             _clients.Clear();
@@ -31,7 +35,7 @@ namespace UltimateHackathonFramework.Models
                     string path=subFolder+@"\Main.exe";
                     if(System.IO.File.Exists(path))
                     {
-                        this.Clients.Add(new Bot(botName, path));
+                        this.Clients.Add(new Bot(_server, botName, path));
                     }
                 }
             }

@@ -33,7 +33,7 @@ namespace FakeBot
 
                    
                     
-                }
+            }
                
 
 
@@ -42,10 +42,13 @@ namespace FakeBot
             {
                 Console.WriteLine("Not connected");
             }
+            communication.ServerWriteEvent += communication_ServerWriteEvent;
+            communication.ServerExceptionEvent += communication_ServerExceptionEvent;
             
+
         }
 
-         static void communication_ServerExceptionEvent(Exception exception)
+        static void communication_ServerExceptionEvent(Exception exception)
         {
 
         }
@@ -58,7 +61,7 @@ namespace FakeBot
             try
             {
                 return JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
-            }
+        }
             catch (Exception)
             {
 
