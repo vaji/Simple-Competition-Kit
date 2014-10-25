@@ -1,4 +1,4 @@
-﻿using FirebirdSql.Data.FirebirdClient;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -101,5 +101,10 @@ namespace UltimateHackathonFramework.Models
 
 
         public event Action StateChanged;
+
+        public void Dispose()
+        {
+            listener.Stop();
+        }
     }
 }

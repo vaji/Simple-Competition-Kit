@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UltimateHackathonFramework.Interfaces
 {
-    public interface ICommunication
+    public interface ICommunication: IDisposable
     {
         void StartListening(string IpAddress, int PortNumber);
         System.Net.Sockets.TcpClient GetConnectedClient();
