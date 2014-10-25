@@ -23,9 +23,10 @@
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    FontSize="20" />
-        <ListBox Grid.Row="1"
+        <ListBox Grid.Row="1" 
                 SelectedItem="{Binding SelectedBotFromListOfAll, Mode=TwoWay}" ItemsSource="{Binding Bots, Mode=TwoWay}"
-                 cal:Message.Attach="[Event MouseDoubleClick] = [Action ClickAddBot()]"/>
+                 cal:Message.Attach="[Event MouseDoubleClick] = [Action ClickAddBot()]" Padding="5" Margin="5" Background="#FF211D1D"/>
+           
         <DockPanel Grid.Row="2" VerticalAlignment="Center" >
                 
                 <Grid DockPanel.Dock="Right">
@@ -39,12 +40,12 @@
                 <Button Grid.Column="2" x:Name="RemoveBot" Content="^" />
                 </Grid>
             </DockPanel>
-        <TextBlock Text="Selected" Grid.Row="3"
+        <TextBlock Text="Selected" Grid.Row="3" 
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    FontSize="20" />
-        <ListBox Grid.Row="4" cal:Message.Attach="[Event MouseDoubleClick] = [Action ClickRemoveBot()]"
-                SelectedItem="{Binding SelectedBotFromSelectedList }" ItemsSource="{Binding SelectedBots}"/>
+        <ListBox Grid.Row="4" cal:Message.Attach="[Event MouseDoubleClick] = [Action ClickRemoveBot()]" Background="#FF211D1D"
+                SelectedItem="{Binding SelectedBotFromSelectedList }" ItemsSource="{Binding SelectedBots}" Padding="5" Margin="5"/>
         
     </Grid>
 
