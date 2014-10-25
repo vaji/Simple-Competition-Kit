@@ -54,5 +54,18 @@ namespace UltimateHackathonFramework.Models
         {
             throw new NotImplementedException();
         }
+
+
+        public System.Net.Sockets.TcpClient CommunicationChannel
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
     }
 }

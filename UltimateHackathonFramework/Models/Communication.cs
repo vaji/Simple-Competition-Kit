@@ -48,5 +48,35 @@ namespace UltimateHackathonFramework.Models
         {
             throw new NotImplementedException();
         }
+
+
+        public System.Net.Sockets.TcpClient GetConnectedClient()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string IP
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public string Port
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
     }
 }
