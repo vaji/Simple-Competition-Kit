@@ -44,8 +44,8 @@ namespace ShipsBot
                 ships[i]._X = r.Next(10);
                 ships[i]._Y = r.Next(10);
                 Console.WriteLine(i + " " + ships.Count);
-
-                }while(i!=0 && contains(ships[i], ships.GetRange(0, i-1)));
+                Console.WriteLine(i.ToString() + ":   x: " + ships[i]._X.ToString() + "   y: " + ships[i]._Y.ToString() + "   dir: " + ships[i]._orientation.ToString());
+                } while ((ships[i].checkIfExceedsBoundaries(ships[i].getEndPoint())) || (i != 0 && contains(ships[i], ships.GetRange(0, i - 1))));
                 Console.WriteLine("03");
             }
             Console.WriteLine("04");
@@ -86,6 +86,11 @@ namespace ShipsBot
             if (dict.ContainsKey("action") && dict["action"] == "hittedAndSinked")
             {
                 return hittedAndSinked();
+            }
+
+            if(dict.ContainsKey("winner"))
+            {
+                return new Dictionary<string, string>();
             }
 
             return new Dictionary<string, string>();
@@ -168,7 +173,7 @@ namespace ShipsBot
                 return new Dictionary<string, string>() { { "action", "shoot" }, { "x", target.Item1.ToString() }, { "y", target.Item2.ToString() } };
             }
 
-            return new Dictionary<string, string>();
+            return new Dictionary<string, string>() { {"action", "noTarget"}};
         }
 
         private Dictionary<string, string> buildShipsDictionary()

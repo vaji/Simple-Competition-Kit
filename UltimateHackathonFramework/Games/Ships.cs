@@ -8,25 +8,48 @@ using UltimateHackathonFramework.Interfaces;
 
 namespace UltimateHackathonFramework.Games
 {
-    public class Ships:Game
+    public class Ships : Game
     {
-        enum CellStateEnum { Miss, Ship, Sink, Shotted,ShottedShip};
-        public Ships() :base("Ships") { }
+        enum CellStateEnum { Miss, Ship, Sink, Shotted, ShottedShip };
+        public Ships() : base("Ships") { }
         class Ship
         {
             public int x;
             public int y;
             public int type;
             public int direct;
-            public int shot=0;
-            
-            public Ship (){}
-            public Ship (int x, int y, int type, int direct)
+            public int shot = 0;
+            List<Tuple<int, int, CellStateEnum>> wspolrzedne = new List<Tuple<int, int, CellStateEnum>>();
+
+            public Ship() { }
+            public Ship(int x, int y, int type, int direct)
             {
-                this.x=x;
-                this.y=y;
-                this.type=type;
-                this.direct=direct;
+                this.x = x;
+                this.y = y;
+                this.type = type;
+                this.direct = direct;
+                switch (direct)
+                {
+                    case 0: for (int i = 0; i < type; i++)
+                        {
+                            wspolrzedne.Add(new Tuple<int, int, CellStateEnum>(x, y - i, CellStateEnum.Ship));
+                        }
+                        break;
+                    case 1: for (int i = 0; i < type; i++)
+                        {
+                            wspolrzedne.Add(new Tuple<int, int, CellStateEnum>(x + i, y, CellStateEnum.Ship));
+                        } break;
+                    case 2: for (int i = 0; i < type; i++)
+                        {
+                            wspolrzedne.Add(new Tuple<int, int, CellStateEnum>(x, y + i, CellStateEnum.Ship));
+                        }
+                        break;
+                    case 3: for (int i = 0; i < type; i++)
+                        {
+                            wspolrzedne.Add(new Tuple<int, int, CellStateEnum>(x - i, y, CellStateEnum.Ship));
+                        }
+                        break;
+                }
             }
 
             public bool contains(Ship ship, List<Ship> list)
@@ -129,7 +152,7 @@ namespace UltimateHackathonFramework.Games
                 return new Tuple<int, int>(x2, y2);
             }
 
-            public void sinkShip(Cell[,,] sea,int index)
+            public void sinkShip(Cell[, ,] sea, int index)
             {
                 switch (this.direct)
                 {
@@ -157,51 +180,60 @@ namespace UltimateHackathonFramework.Games
             }
             public bool isShotInShip(int x, int y)
             {
+                //foreach(Tuple<int,int,CellStateEnum> t in wspolrzedne)
+                //{
+                // if(t.Item1==x && t.Item2==y)
+                // {
+                // return true;
+                // }
+                //}
+                return false;
+                /*
                 int endX,endY;
                 switch(this.direct)
                 {
-                    case 0: endY=this.y;
-                            endX=this.x+this.type;
-                            if((y==endY)&&(this.x<=x)&&(x<=endX))
-                            {
-                                return true;
-                            }
-                            else
-                            {
-                                return false;
-                            }
-                    case 1: endY=this.y+this.type;
-                            endX=this.x;
-                            if((x==endX)&&(this.y<=y)&&(y<=endY))
-                            {
-                                return true;
-                            }
-                            else
-                            {
-                                return false;
-                            }
-                    case 2: endY = this.y;
-                            endX = this.x - this.type;
-                            if((y==endY)&&(this.x>=x)&&(x>=endX))
-                            {
-                                return true;
-                            }
-                            else
-                            {
-                                return false;
-                            }
-                    case 3: endY = this.y - this.type;
-                            endX = this.x;
-                            if((x==endX)&&(this.y>=y)&&(y>=endY))
-                            {
-                                return true;
-                            }
-                            else
-                            {
-                                return false;
-                            }
+                case 0: endX = this.x;
+                endY=this.y-this.type;
+                if((x==endX)&&(this.y<=y)&&(y<=endY))
+                {
+                return true;
                 }
+                else
+                {
                 return false;
+                }
+                case 1: endX=this.x+this.type;
+                endY=this.y;
+                if((y==endY)&&(this.x<=x)&&(x<=endX))
+                {
+                return true;
+                }
+                else
+                {
+                return false;
+                }
+                case 2: endX = this.x;
+                endY = this.y + this.type;
+                if((x==endX)&&(this.y<=y)&&(y<=endY))
+                {
+                return true;
+                }
+                else
+                {
+                return false;
+                }
+                case 3: endX = this.x - this.type;
+                endY = this.y;
+                if((y==endY)&&(this.x>=x)&&(x>=endX))
+                {
+                return true;
+                }
+                else
+                {
+                return false;
+                }
+                }
+                return false;*/
             }
             public void attack()
             {
@@ -210,7 +242,7 @@ namespace UltimateHackathonFramework.Games
 
             public bool isSink()
             {
-                if(this.shot==this.type)
+                if (this.shot == this.type)
                 {
                     return true;
                 }
@@ -223,11 +255,11 @@ namespace UltimateHackathonFramework.Games
             internal void markShip(int index, Cell[, ,] _botSea)
             {
                 Tuple<int, int> ends = this.getEndPoint();
-                if(ends.Item1==this.x)
+                if (ends.Item1 == this.x)
                 {
-                    if(this.y>=ends.Item2)
+                    if (this.y >= ends.Item2)
                     {
-                        for(int i=ends.Item2; i<=this.y;i++)
+                        for (int i = ends.Item2; i <= this.y; i++)
                         {
                             _botSea[index, i, this.x].CellState = CellStateEnum.Ship;
                         }
@@ -240,13 +272,13 @@ namespace UltimateHackathonFramework.Games
                         }
                     }
                 }
-                else if(this.y==ends.Item2)
+                else if (this.y == ends.Item2)
                 {
                     if (this.x >= ends.Item1)
                     {
                         for (int i = ends.Item1; i <= this.x; i++)
                         {
-                            _botSea[index, this.y,i].CellState = CellStateEnum.Ship;
+                            _botSea[index, this.y, i].CellState = CellStateEnum.Ship;
                         }
                     }
                     else
@@ -262,17 +294,17 @@ namespace UltimateHackathonFramework.Games
 
         class ShipManager
         {
-            private IList<Ship> _shipCollection=new List<Ship>();
-            public void addShip(Ship ship )
+            private IList<Ship> _shipCollection = new List<Ship>();
+            public void addShip(Ship ship)
             {
                 _shipCollection.Add(ship);
             }
 
             public Ship isShotInShip(int x, int y)
             {
-                foreach(Ship s in _shipCollection)
+                foreach (Ship s in _shipCollection)
                 {
-                    if(s.isShotInShip(x,y))  
+                    if (s.isShotInShip(x, y))
                     {
                         return s;
                     }
@@ -282,17 +314,17 @@ namespace UltimateHackathonFramework.Games
 
             public bool checkAddShip()
             {
-                
-                for(int i=0; i<_shipCollection.Count;i++)
+
+                for (int i = 0; i < _shipCollection.Count; i++)
                 {
-                    List<Ship> temp=new List<Ship>();
-                    for(int j=0; j<_shipCollection.Count;j++)
+                    List<Ship> temp = new List<Ship>();
+                    for (int j = 0; j < _shipCollection.Count; j++)
                     {
-                        if(i!=j)
+                        if (i != j)
                         {
                             temp.Add(_shipCollection[j]);
                         }
-                        if(_shipCollection[i].contains(_shipCollection[i],temp))
+                        if (_shipCollection[i].contains(_shipCollection[i], temp))
                         {
                             return false;
                         }
@@ -304,7 +336,7 @@ namespace UltimateHackathonFramework.Games
 
             internal void marks(int i, Cell[, ,] _botSea)
             {
-                foreach(Ship s in _shipCollection)
+                foreach (Ship s in _shipCollection)
                 {
                     s.markShip(i, _botSea);
                 }
@@ -314,30 +346,31 @@ namespace UltimateHackathonFramework.Games
         {
             public CellStateEnum CellState = CellStateEnum.Miss;
         }
-        private Cell[,,] _botSea;
-        private int[] _ships=new int[2];
-        private IList<ShipManager> _shipManager=new List<ShipManager>();
+        private Cell[, ,] _botSea;
+        private int[] _ships = new int[2];
+        private IList<ShipManager> _shipManager = new List<ShipManager>();
         protected override IResult DoRound(IEnumerable<IBot> bots)
         {
-            IList<IBot> botsList=bots.ToList();
-            _botSea = new Cell[2,10, 10]; 
+            IList<IBot> botsList = bots.ToList();
+            _botSea = new Cell[2, 10, 10];
             _shipManager.Clear();
             _shipManager.Add(new ShipManager());
             _shipManager.Add(new ShipManager());
-            for( int i=0; i<2; i++)
+            for (int i = 0; i < 2; i++)
             {
                 for (int x = 0; x < 10; x++)
                 {
                     for (int y = 0; y < 10; y++)
                     {
-                        _botSea[i,x,y]=new Cell();
+                        _botSea[i, x, y] = new Cell();
                     }
                 }
-                _ships[i]=20;
+                _ships[i] = 20;
             }
-            
-            for(int i=0; i<2; i++)
+
+            for (int i = 0; i < 2; i++)
             {
+                Result.addToLog("Send", new Dictionary<string, string>() { { "getShips", "" } });
                 if (!initShips(botsList[i].Communicate(new Dictionary<string, string>() { { "getShips", "" } }), i))
                 {
                     botsList[i].CurrentState = State.Failed;
@@ -348,51 +381,47 @@ namespace UltimateHackathonFramework.Games
                 //wywalic exception
             }
 
-            for(int i=0; i<2; i++)
+            for (int i = 0; i < 2; i++)
             {
                 _shipManager[i].marks(i, _botSea);
-            }
-
-            int botNow=0;
-            int enemy=1;
+            } 
+            Dictionary<string, string> response;
+            int botNow = 0;
+            int enemy = 1;
             bool yourTurn = true;
-            while(!isEnd())
+            while (!isEnd())
             {
                 if (yourTurn)
                 {
                     yourTurn = false;
-                    Dictionary<string, string> response = botsList[botNow].Communicate(new Dictionary<string, string>() { { "action", "aim" } });
-                    if (response.ContainsKey("action") && response["action"] == "shot")
+                    Result.addToLog("Send", new Dictionary<string, string>() { { "action", "aim" } });
+                    response = botsList[botNow].Communicate(new Dictionary<string, string>() { { "action", "aim" } });
+                    if (response.ContainsKey("action") && response["action"] == "noTarget")
                     {
-                        Ship target = _shipManager[enemy].isShotInShip(Int32.Parse(response["x"]), Int32.Parse(response["y"]));
-                        if (target != null)
-                        {
-                            if ((_botSea[enemy, Int32.Parse(response["y"]), Int32.Parse(response["x"])].CellState != CellStateEnum.ShottedShip) && (_botSea[enemy, Int32.Parse(response["y"]), Int32.Parse(response["x"])].CellState != CellStateEnum.Sink))
+                        Result.addToLog("Receive", response);
+                    }
+                    if (response.ContainsKey("action") && response["action"] == "shoot")
+                    {
+                            Result.addToLog("Receive", response);
+                            if ((_botSea[enemy, Int32.Parse(response["y"]), Int32.Parse(response["x"])].CellState == CellStateEnum.Ship))
                             {
                                 yourTurn = true;
-                                target.attack();
                                 _ships[enemy]--;
-                                if (target.isSink())
-                                {
-                                    response = botsList[botNow].Communicate(new Dictionary<string, string>() { { "action", "hittedAndSinked" } });
-                                }
-                                else
-                                {
-                                    response = botsList[botNow].Communicate(new Dictionary<string, string>() { { "action", "hitted" } });
-                                }
+                                response = botsList[botNow].Communicate(new Dictionary<string, string>() { { "action", "hitted" } });
+                                Result.addToLog("Send", response);
                             }
-                        }
-                        else
-                        {
-                            response = botsList[botNow].Communicate(new Dictionary<string, string>() { { "action", "miss" } });
-                        }
+                            else
+                            {
+                                response = botsList[botNow].Communicate(new Dictionary<string, string>() { { "action", "missed" } });
+                                Result.addToLog("Send", response);
+                            }
                     }
                     else
                     {
-                        //wywalic bota
+                        botsList[botNow].CurrentState = State.Failed;
                     }
                 }
-                if(!yourTurn)
+                if (!yourTurn)
                 {
                     yourTurn = true;
                     int temp = botNow;
@@ -401,7 +430,24 @@ namespace UltimateHackathonFramework.Games
                 }
 
             }
-            IResult result=new Result();
+            string winner = "";
+            if (_ships[0] == 0)
+            {
+                botsList[1].AddPoints(3);
+                winner = botsList[1].Name;
+                Result.addFinalResult(botsList[1].ID + " won");
+            }
+            else if (_ships[1] == 0)
+            {
+                botsList[0].AddPoints(3);
+                winner = botsList[0].Name;
+                Result.addFinalResult(botsList[0].ID + " won");
+            }
+            foreach(IBot bot in botsList)
+            {
+                response = bot.Communicate(new Dictionary<string, string>() { { "winner", winner } });
+            }
+            IResult result = new Result();
             return result;
         }
 
@@ -410,24 +456,35 @@ namespace UltimateHackathonFramework.Games
             return false;
         }
 
-        
+        private void finalResualt(IList<IBot> bots)
+        {
+            if(_ships[0]==0)
+            {
+                bots[1].AddPoints(3);
+            }
+            else if(_ships[1]==0)
+            {
+                bots[0].AddPoints(3);
+            }
+        }
 
         private bool initShips(Dictionary<string, string> dict, int index)
         {
-            if(dict.ContainsKey("action") && dict["action"] =="ships")
+            if (dict.ContainsKey("action") && dict["action"] == "ships")
             {
-                _shipManager[index].addShip(new Ship( Int32.Parse(dict["x1"]) , Int32.Parse(dict["y1"]) , Int32.Parse(dict["length1"]) , Int32.Parse(dict["direction1"])));
-                _shipManager[index].addShip(new Ship(Int32.Parse(dict["x2"]), Int32.Parse(dict["y2"]), Int32.Parse(dict["length2"]), Int32.Parse(dict["direction10"])));
-                _shipManager[index].addShip(new Ship(Int32.Parse(dict["x3"]), Int32.Parse(dict["y3"]), Int32.Parse(dict["length3"]), Int32.Parse(dict["direction10"])));
-                _shipManager[index].addShip(new Ship(Int32.Parse(dict["x4"]), Int32.Parse(dict["y4"]), Int32.Parse(dict["length4"]), Int32.Parse(dict["direction10"]))); 
-                _shipManager[index].addShip(new Ship(Int32.Parse(dict["x5"]), Int32.Parse(dict["y5"]), Int32.Parse(dict["length5"]), Int32.Parse(dict["direction10"])));
-                _shipManager[index].addShip(new Ship(Int32.Parse(dict["x6"]), Int32.Parse(dict["y6"]), Int32.Parse(dict["length6"]), Int32.Parse(dict["direction10"]))); 
-                _shipManager[index].addShip(new Ship(Int32.Parse(dict["x7"]), Int32.Parse(dict["y7"]), Int32.Parse(dict["length7"]), Int32.Parse(dict["direction10"]))); 
-                _shipManager[index].addShip(new Ship(Int32.Parse(dict["x8"]), Int32.Parse(dict["y8"]), Int32.Parse(dict["length8"]), Int32.Parse(dict["direction10"])));
-                _shipManager[index].addShip(new Ship(Int32.Parse(dict["x9"]), Int32.Parse(dict["y9"]), Int32.Parse(dict["length9"]), Int32.Parse(dict["direction10"])));
+                Result.addToLog("Receive",dict);
+                _shipManager[index].addShip(new Ship(Int32.Parse(dict["x1"]), Int32.Parse(dict["y1"]), Int32.Parse(dict["length1"]), Int32.Parse(dict["direction1"])));
+                _shipManager[index].addShip(new Ship(Int32.Parse(dict["x2"]), Int32.Parse(dict["y2"]), Int32.Parse(dict["length2"]), Int32.Parse(dict["direction2"])));
+                _shipManager[index].addShip(new Ship(Int32.Parse(dict["x3"]), Int32.Parse(dict["y3"]), Int32.Parse(dict["length3"]), Int32.Parse(dict["direction3"])));
+                _shipManager[index].addShip(new Ship(Int32.Parse(dict["x4"]), Int32.Parse(dict["y4"]), Int32.Parse(dict["length4"]), Int32.Parse(dict["direction4"])));
+                _shipManager[index].addShip(new Ship(Int32.Parse(dict["x5"]), Int32.Parse(dict["y5"]), Int32.Parse(dict["length5"]), Int32.Parse(dict["direction5"])));
+                _shipManager[index].addShip(new Ship(Int32.Parse(dict["x6"]), Int32.Parse(dict["y6"]), Int32.Parse(dict["length6"]), Int32.Parse(dict["direction6"])));
+                _shipManager[index].addShip(new Ship(Int32.Parse(dict["x7"]), Int32.Parse(dict["y7"]), Int32.Parse(dict["length7"]), Int32.Parse(dict["direction7"])));
+                _shipManager[index].addShip(new Ship(Int32.Parse(dict["x8"]), Int32.Parse(dict["y8"]), Int32.Parse(dict["length8"]), Int32.Parse(dict["direction8"])));
+                _shipManager[index].addShip(new Ship(Int32.Parse(dict["x9"]), Int32.Parse(dict["y9"]), Int32.Parse(dict["length9"]), Int32.Parse(dict["direction9"])));
                 _shipManager[index].addShip(new Ship(Int32.Parse(dict["x10"]), Int32.Parse(dict["y10"]), Int32.Parse(dict["length10"]), Int32.Parse(dict["direction10"])));
 
-                if(_shipManager[index].checkAddShip())
+                if (_shipManager[index].checkAddShip())
                 {
                     return true;
                 }
@@ -444,7 +501,7 @@ namespace UltimateHackathonFramework.Games
 
         private bool isEnd()
         {
-            if((_ships[0]==0)||(_ships[1]==0))
+            if ((_ships[0] == 0) || (_ships[1] == 0))
             {
                 return true;
             }
