@@ -168,7 +168,7 @@ namespace ShipsBot
                 return new Dictionary<string, string>() { { "action", "shoot" }, { "x", target.Item1.ToString() }, { "y", target.Item2.ToString() } };
             }
 
-            return new Dictionary<string, string>();
+            return new Dictionary<string, string>() { {"action", "noTarget"}};
         }
 
         private Dictionary<string, string> buildShipsDictionary()
