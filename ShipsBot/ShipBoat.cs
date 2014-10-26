@@ -88,6 +88,11 @@ namespace ShipsBot
                 return hittedAndSinked();
             }
 
+            if(dict.ContainsKey("winner"))
+            {
+                return new Dictionary<string, string>();
+            }
+
             return new Dictionary<string, string>();
         }
 
