@@ -41,7 +41,7 @@ namespace UltimateHackathonFramework.Games
         private readonly int CELLX = 3;
         private readonly int CELLY = 3;
 
-        protected override IResult DoRound(IEnumerable<IBot> enumerableBots)
+        protected override IResult DoRound(IEnumerable<IBot> bots)
         {
             Grid = new Cell[CELLX, CELLY];
             for (int x = 0; x < 3; x++)
@@ -51,21 +51,21 @@ namespace UltimateHackathonFramework.Games
                     Grid[x, y] = new Cell();
             }
             }
-            var bots = enumerableBots.ToList();
-            bots[0].Communicate(new Dictionary<string, string>() { { "youAre", "X" } });
-            bots[1].Communicate(new Dictionary<string, string>() { { "youAre", "O" } });
+            var botsList = bots.ToList();
+            botsList[0].Communicate(new Dictionary<string, string>() { { "youAre", "X" } });
+            botsList[1].Communicate(new Dictionary<string, string>() { { "youAre", "O" } });
 
             Dictionary<string, string> XOMapper = new Dictionary<string, string>();
-            XOMapper.Add(bots[0].ID, "X");
-            XOMapper.Add(bots[1].ID, "O");
+            XOMapper.Add(botsList[0].ID, "X");
+            XOMapper.Add(botsList[1].ID, "O");
             Result.addFinalResult("***********************");
-            Result.addFinalResult(bots[0].ID + " - X");
-            Result.addFinalResult(bots[1].ID + " - O");
+            Result.addFinalResult(botsList[0].ID + " - X");
+            Result.addFinalResult(botsList[1].ID + " - O");
             for (int iterator = 0; iterator < 9; iterator++)
             {
                 int currentPlayer = iterator % 2;
-                Dictionary<string, string> response = bots[currentPlayer].Communicate(new Dictionary<string, string>() { { "move", "" } });
-                _result.addToLog(bots[currentPlayer].ID, response);
+                Dictionary<string, string> response = botsList[currentPlayer].Communicate(new Dictionary<string, string>() { { "move", "" } });
+                _result.addToLog(botsList[currentPlayer].ID, response);
                 if(response.ContainsKey("move") && response["move"]!="")
                 {
                     int targetCell = -1;
@@ -75,16 +75,16 @@ namespace UltimateHackathonFramework.Games
                     }
                     catch (Exception)
                     {
-                        bots[currentPlayer].CurrentState = State.Failed;
-                        bots[currentPlayer].Communicate(new Dictionary<string, string>() { { "error", "TargetCellInfoCorrupted" } });
-                        bots[(iterator + 1) % 2].AddPoints(2);
+                        botsList[currentPlayer].CurrentState = State.Failed;
+                        botsList[currentPlayer].Communicate(new Dictionary<string, string>() { { "error", "TargetCellInfoCorrupted" } });
+                        botsList[(iterator + 1) % 2].AddPoints(2);
                         break;
                     }
                     if(targetCell>8)
                     {
-                        bots[currentPlayer].CurrentState = State.Failed;
-                        bots[currentPlayer].Communicate(new Dictionary<string, string>() { { "error", "TargetCellOutOfRange" } });
-                        bots[(iterator + 1) % 2].AddPoints(2);
+                        botsList[currentPlayer].CurrentState = State.Failed;
+                        botsList[currentPlayer].Communicate(new Dictionary<string, string>() { { "error", "TargetCellOutOfRange" } });
+                        botsList[(iterator + 1) % 2].AddPoints(2);
                         break;
 
                     }
@@ -92,25 +92,25 @@ namespace UltimateHackathonFramework.Games
                     int y = targetCell / 3;
                     if(Grid[x, y].CellState==CellStateEnum.Free)
                     {
-                        if (XOMapper[bots[iterator % 2].ID] == "X")
+                        if (XOMapper[botsList[iterator % 2].ID] == "X")
                         {
                             Grid[x, y].CellState = CellStateEnum.X;
                         }
-                        if (XOMapper[bots[iterator % 2].ID] == "O")
+                        if (XOMapper[botsList[iterator % 2].ID] == "O")
                         {
                             Grid[x, y].CellState = CellStateEnum.O;
                         }
 
-                        foreach (Bot bot in bots)
+                        foreach (Bot bot in botsList)
                         {
                             bot.Communicate(response);
                         }
                     }
                     else
                     {
-                        bots[currentPlayer].CurrentState = State.Failed;
-                        bots[currentPlayer].Communicate(new Dictionary<string, string>() { { "error", "TargetedCell is already taken!" } });
-                        bots[(iterator + 1) % 2].AddPoints(2);
+                        botsList[currentPlayer].CurrentState = State.Failed;
+                        botsList[currentPlayer].Communicate(new Dictionary<string, string>() { { "error", "TargetedCell is already taken!" } });
+                        botsList[(iterator + 1) % 2].AddPoints(2);
                         break;
                     }
                     CellStateEnum status = verifyVictory(Grid);
@@ -119,7 +119,7 @@ namespace UltimateHackathonFramework.Games
                         Result.addFinalResult(PrintGrid(Grid));
                         if(status==CellStateEnum.O)
                         {
-                            foreach (Bot bot in bots)
+                            foreach (Bot bot in botsList)
                             {
                                 bot.Communicate(new Dictionary<string,string>(){{"win", "O"}});
                                 if (XOMapper[bot.ID] == "O")
@@ -131,7 +131,7 @@ namespace UltimateHackathonFramework.Games
                         }
                         if (status == CellStateEnum.X)
                         {
-                            foreach (Bot bot in bots)
+                            foreach (Bot bot in botsList)
                             {
                                 bot.Communicate(new Dictionary<string, string>() { { "win", "X" } });
                                 if (XOMapper[bot.ID] == "X")
@@ -157,7 +157,7 @@ namespace UltimateHackathonFramework.Games
                         }
                         if(count==0)
                         {
-                            foreach (Bot bot in bots)
+                            foreach (Bot bot in botsList)
                             {
                                 bot.Communicate(new Dictionary<string, string>() { { "tie", "" } });
                                 bot.AddPoints(1);
@@ -171,9 +171,9 @@ namespace UltimateHackathonFramework.Games
                 }
                 else
                 {
-                    bots[iterator % 2].CurrentState = State.Failed;
-                    bots[iterator % 2].Communicate(new Dictionary<string, string>() { { "error", "CorruptedMoveResponseException" } });
-                    bots[(iterator + 1) % 2].AddPoints(2);
+                    botsList[iterator % 2].CurrentState = State.Failed;
+                    botsList[iterator % 2].Communicate(new Dictionary<string, string>() { { "error", "CorruptedMoveResponseException" } });
+                    botsList[(iterator + 1) % 2].AddPoints(2);
                     break;
                 }
             }
